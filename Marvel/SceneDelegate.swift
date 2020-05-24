@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let homeNavigationVC = UINavigationController(rootViewController: homeVC)
 
     let rootVC = UITabBarController()
-    rootVC.tabBar.tintColor = UIColor(named: "MarvelBackground")
+    rootVC.tabBar.tintColor = AppConstants.marvelColor
     rootVC.tabBar.barTintColor = .white
     var viewControllers = [UIViewController]()
     viewControllers.append(homeNavigationVC)

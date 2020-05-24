@@ -41,7 +41,6 @@ class ComicHomeViewController: UIViewController {
         self.selectedComicFilterHandle = nil
         return
       }
-      print(newFilterAsEnum)
       switch newFilterAsEnum {
       case .new:
         self.api.fetchComics(completion: { comicsResult in

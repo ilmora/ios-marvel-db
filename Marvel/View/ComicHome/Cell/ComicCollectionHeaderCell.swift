@@ -42,6 +42,11 @@ class ComicCollectionHeaderCell: MagazineLayoutCollectionReusableView {
   }
 
   private func layoutComponents() {
+    comicFilterView.backgroundColor = AppConstants.marvelColor
+    comicFilterView.selectedSegmentTintColor = .white
+    comicFilterView.setTitleTextAttributes([NSAttributedString.Key.font: AppConstants.comicBodyFont, NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+    comicFilterView.setTitleTextAttributes([NSAttributedString.Key.font: AppConstants.comicBodyFont, NSAttributedString.Key.foregroundColor: AppConstants.marvelColor], for: .selected)
+
     comicFilterView.addTarget(self, action: #selector(self.comicFilterChanged), for: .valueChanged)
     comicFilterView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(comicFilterView)

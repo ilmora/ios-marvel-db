@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 struct AppConstants {
+  static let marvelColor = UIColor(named: "Marvel")!
   static let comicBackgroundColor = UIColor.systemGray6
-  static let comicTitleFont = UIFont(name: "Roboto-Bold", size: 14)
-  static let comicLargeTitleFont = UIFont(name: "Roboto-black", size: 25)
+  static let comicTitleFont = UIFont(name: "Roboto-Bold", size: 14)!
+  static let comicLargeTitleFont = UIFont(name: "Roboto-black", size: 25)!
+  static let comicBodyFont = UIFont(name: "Roboto-Light", size: 14)!
 }
