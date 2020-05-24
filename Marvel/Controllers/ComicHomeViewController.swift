@@ -56,9 +56,7 @@ class ComicHomeViewController: UIViewController {
         self.viewModel.comics.removeAll()
       }
     })
-
     self.viewModel.comicsFilter = self.comicFilters.map { $0.rawValue }
-    //self.viewModel.selectedComicFilter = comicFilters.first!.rawValue
   }
 
   init() {
