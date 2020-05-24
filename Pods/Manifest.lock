@@ -1,0 +1,22 @@
+PODS:
+  - Kingfisher (5.14.0):
+    - Kingfisher/Core (= 5.14.0)
+  - Kingfisher/Core (5.14.0)
+  - MagazineLayout (1.6.0)
+
+DEPENDENCIES:
+  - Kingfisher
+  - MagazineLayout
+
+SPEC REPOS:
+  trunk:
+    - Kingfisher
+    - MagazineLayout
+
+SPEC CHECKSUMS:
+  Kingfisher: 7b64389a43139c903ec434788344c288217c792d
+  MagazineLayout: 3f6e9268fbdf6fe7519c630e53be5a05aede5957
+
+PODFILE CHECKSUM: 69d194c6a7ef1934b7b82c7bf11650a01227c28f
+
+COCOAPODS: 1.9.1
