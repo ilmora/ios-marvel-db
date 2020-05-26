@@ -15,15 +15,25 @@ class ComicHomeView: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
 
   private let viewModel: ComicHomeViewModel
   private let collectionView: UICollectionView
-  private var comicPubHandle: AnyCancellable?
-  private var comicFilterHandle: AnyCancellable?
+  private var comicPublisherHandle: AnyCancellable?
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    viewModel.selectedComic = viewModel.comics[indexPath.row]
+    viewModel.selectedComic = viewModel.newComics[indexPath.row]
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    viewModel.comics.count
+    switch section {
+    case 0:
+      return viewModel.newComics.count
+    case 1:
+      return viewModel.nextComics.count
+    default:
+      fatalError()
+    }
+  }
+
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    2
   }
 
   func collectionView(
@@ -34,8 +44,13 @@ class ComicHomeView: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
       guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: MagazineLayout.SupplementaryViewKind.sectionHeader, withReuseIdentifier: ComicCollectionHeaderCell.reusableIdentifier, for: indexPath) as? ComicCollectionHeaderCell else {
         fatalError()
       }
-      if cell.viewModel == nil {
-        cell.viewModel = viewModel
+      switch indexPath.section {
+      case 0:
+        cell.setSectionTitle("Nouveau")
+      case 1:
+        cell.setSectionTitle("Prochainement")
+      default:
+        fatalError()
       }
       return cell
   }
@@ -45,8 +60,13 @@ class ComicHomeView: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
       as? ComicCollectionCell else {
         fatalError("Cell ComicCell was not registered")
     }
-    if indexPath.row < viewModel.comics.count {
-      cell.configureCell(with: viewModel.comics[indexPath.row])
+    switch indexPath.section {
+    case 0:
+      cell.configureCell(with: viewModel.newComics[indexPath.row])
+    case 1:
+      cell.configureCell(with: viewModel.nextComics[indexPath.row])
+    default:
+      fatalError()
     }
     return cell
   }
@@ -61,9 +81,12 @@ class ComicHomeView: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
     collectionView.dataSource = self
     collectionView.showsVerticalScrollIndicator = false
 
-    comicPubHandle = viewModel.$comics.sink(receiveCompletion: { _ in
-      self.comicPubHandle = nil
-    }, receiveValue: { _ in
+    comicPublisherHandle = viewModel.$newComics
+      .merge(with: viewModel.$nextComics)
+      .sink(receiveCompletion: { _ in
+      self.comicPublisherHandle = nil
+    }, receiveValue: { comics in
+      guard comics.first != nil else { return }
       DispatchQueue.main.async {
         self.collectionView.reloadData()
       }

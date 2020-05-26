@@ -11,16 +11,14 @@ import Combine
 
 final class ComicHomeViewModel {
   // C -> V
-  @Published var comics: [Comic]
-  @Published var comicsFilter: [String]
+  @Published var newComics: [Comic]
+  @Published var nextComics: [Comic]
 
   // V -> C
   @Published var selectedComic: Comic?
-  @Published var selectedComicFilter: String
 
   init() {
-    comics = [Comic]()
-    comicsFilter = [String]()
-    selectedComicFilter = ""
+    newComics = [Comic]()
+    nextComics = [Comic]()
   }
 }

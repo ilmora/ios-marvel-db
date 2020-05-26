@@ -31,7 +31,6 @@
 		D5B734E9247428F5004F9CA6 /* ComicHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B734E8247428F5004F9CA6 /* ComicHomeView.swift */; };
 		D5C50D1724419E4400644413 /* ComicCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C50D1624419E4400644413 /* ComicCollectionCell.swift */; };
 		D5D66E5D24791530003FD75A /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D66E5C24791530003FD75A /* AppConstants.swift */; };
-		D5D66E5F24791A37003FD75A /* ComicCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D66E5E24791A37003FD75A /* ComicCreator.swift */; };
 		D5F0B9FB2478050D003F7110 /* ComeHomeViewMagazineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0B9FA2478050D003F7110 /* ComeHomeViewMagazineLayout.swift */; };
 		D5F0B9FD24781250003F7110 /* ComicCollectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0B9FC24781250003F7110 /* ComicCollectionHeaderCell.swift */; };
 /* End PBXBuildFile section */
@@ -64,7 +63,6 @@
 		D5B734E8247428F5004F9CA6 /* ComicHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicHomeView.swift; sourceTree = "<group>"; };
 		D5C50D1624419E4400644413 /* ComicCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCollectionCell.swift; sourceTree = "<group>"; };
 		D5D66E5C24791530003FD75A /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
-		D5D66E5E24791A37003FD75A /* ComicCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCreator.swift; sourceTree = "<group>"; };
 		D5F0B9FA2478050D003F7110 /* ComeHomeViewMagazineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeHomeViewMagazineLayout.swift; sourceTree = "<group>"; };
 		D5F0B9FC24781250003F7110 /* ComicCollectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCollectionHeaderCell.swift; sourceTree = "<group>"; };
 		F9F8D26C812548D0F8F46E83 /* Pods-Marvel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marvel.debug.xcconfig"; path = "Target Support Files/Pods-Marvel/Pods-Marvel.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 			children = (
 				D52A43DA2476D2E600CE0141 /* Common */,
 				D58A90B12474036B00E4C453 /* Comic */,
-				D5D66E5E24791A37003FD75A /* ComicCreator.swift */,
 				D5A6DEAE2479876400CCC05E /* ComicFilter.swift */,
 			);
 			path = Model;
@@ -361,7 +358,6 @@
 				D52A43D92476CE9A00CE0141 /* ComicHomeViewModel.swift in Sources */,
 				D5B734E9247428F5004F9CA6 /* ComicHomeView.swift in Sources */,
 				D503480C2440DAC300925C08 /* ComicHomeViewController.swift in Sources */,
-				D5D66E5F24791A37003FD75A /* ComicCreator.swift in Sources */,
 				D5034821244108CA00925C08 /* Comic.swift in Sources */,
 				D503481E2440EBA400925C08 /* MD5.swift in Sources */,
 				D50348082440DAC300925C08 /* AppDelegate.swift in Sources */,

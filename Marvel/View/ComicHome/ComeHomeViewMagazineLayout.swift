@@ -18,7 +18,7 @@ extension ComicHomeView: UICollectionViewDelegateMagazineLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, visibilityModeForHeaderInSectionAtIndex index: Int) -> MagazineLayoutHeaderVisibilityMode {
-    .visible(heightMode: .dynamic, pinToVisibleBounds: false)
+    .visible(heightMode: .dynamic, pinToVisibleBounds: true)
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, visibilityModeForFooterInSectionAtIndex index: Int) -> MagazineLayoutFooterVisibilityMode {
@@ -38,7 +38,7 @@ extension ComicHomeView: UICollectionViewDelegateMagazineLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetsForSectionAtIndex index: Int) -> UIEdgeInsets {
-    UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetsForItemsInSectionAtIndex index: Int) -> UIEdgeInsets {

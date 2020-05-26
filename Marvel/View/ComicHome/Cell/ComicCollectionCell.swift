@@ -22,7 +22,7 @@ class ComicCollectionCell: MagazineLayoutCollectionViewCell {
     self.comic = comic
     titleLabel.text = comic.title
     if let comicImage = comic.thumbnail {
-      let imageURL = URL(string: "\(comicImage.path!.replacingOccurrences(of: "http", with: "https")).\(comicImage.extension!)")!
+      let imageURL = URL(string: "\(comicImage.path!).\(comicImage.extension!)")!
       coverImage.kf.setImage(with: imageURL)
     }
   }
@@ -39,7 +39,7 @@ class ComicCollectionCell: MagazineLayoutCollectionViewCell {
     contentView.backgroundColor = AppConstants.comicBackgroundColor
     titleLabel.numberOfLines = 0
     titleLabel.textAlignment = .natural
-    titleLabel.font = AppConstants.comicTitleFont
+    titleLabel.font = AppConstants.comicTitle
 
     container.addArrangedSubview(coverImage)
     container.addArrangedSubview(titleLabel)

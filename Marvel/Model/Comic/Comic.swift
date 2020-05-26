@@ -34,9 +34,26 @@ struct Comic: Decodable {
   var images: [ComicImage]?
   var thumbnail: ComicImage?
   var creators: ComicCreatorList?
+  var dates: [ComicDate]?
 }
 
 struct ComicImage: Decodable {
   var path: String?
   var `extension`: String?
+}
+
+struct ComicDate: Decodable {
+  var type: String?
+  var date: Date?
+}
+
+struct ComicCreatorList: Decodable {
+  var available: Int?
+  var returned: Int?
+  var items: [ComicCreatorSummary]?
+}
+
+struct ComicCreatorSummary: Decodable {
+  var name: String?
+  var role: String?
 }

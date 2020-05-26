@@ -12,54 +12,30 @@ import MagazineLayout
 import Combine
 
 class ComicCollectionHeaderCell: MagazineLayoutCollectionReusableView {
-  private let comicFilterView: UISegmentedControl
-  private var comicsFilterHandle: AnyCancellable?
-  var viewModel: ComicHomeViewModel? {
-    didSet {
-      comicsFilterHandle = viewModel?.$comicsFilter.sink(receiveCompletion: {_ in
-        self.comicsFilterHandle = nil
-      }, receiveValue: { newComicsFilter in
-        DispatchQueue.main.async {
-          for index in 0..<newComicsFilter.count {
-            self.comicFilterView.insertSegment(withTitle: newComicsFilter[index], at: index, animated: true)
-          }
-          if self.comicFilterView.numberOfSegments > 0 {
-            self.comicFilterView.selectedSegmentIndex = 0
-            if let selectedComicFilter = self.viewModel?.comicsFilter[self.comicFilterView.selectedSegmentIndex] {
-              self.viewModel?.selectedComicFilter = selectedComicFilter
-            }
-          }
-        }
-      })
-    }
-  }
+  private let title: UILabel
 
-  @objc private func comicFilterChanged(_ sender: UISegmentedControl) {
-    guard let viewModel = self.viewModel else {
-      return
+  func setSectionTitle(_ title: String) {
+    DispatchQueue.main.async {
+      self.title.text = title
     }
-    viewModel.selectedComicFilter = viewModel.comicsFilter[sender.selectedSegmentIndex]
   }
 
   private func layoutComponents() {
-    comicFilterView.backgroundColor = AppConstants.marvelColor
-    comicFilterView.selectedSegmentTintColor = .white
-    comicFilterView.setTitleTextAttributes([NSAttributedString.Key.font: AppConstants.comicBodyFont, NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-    comicFilterView.setTitleTextAttributes([NSAttributedString.Key.font: AppConstants.comicBodyFont, NSAttributedString.Key.foregroundColor: AppConstants.marvelColor], for: .selected)
+    title.translatesAutoresizingMaskIntoConstraints = false
+    title.backgroundColor = AppConstants.comicBackgroundColor
+    title.font = AppConstants.comicLargeTitle
 
-    comicFilterView.addTarget(self, action: #selector(self.comicFilterChanged), for: .valueChanged)
-    comicFilterView.translatesAutoresizingMaskIntoConstraints = false
-    addSubview(comicFilterView)
+    addSubview(title)
     NSLayoutConstraint.activate([
-      comicFilterView.topAnchor.constraint(equalTo: topAnchor),
-      comicFilterView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      comicFilterView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      comicFilterView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+      title.leadingAnchor.constraint(equalTo: leadingAnchor),
+      title.topAnchor.constraint(equalTo: topAnchor),
+      title.bottomAnchor.constraint(equalTo: bottomAnchor),
+      title.widthAnchor.constraint(equalTo: widthAnchor)
     ])
   }
 
   override init(frame: CGRect) {
-    comicFilterView = UISegmentedControl()
+    title = UILabel()
     super.init(frame: frame)
     layoutComponents()
   }

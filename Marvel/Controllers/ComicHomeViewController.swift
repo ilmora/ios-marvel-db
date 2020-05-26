@@ -34,28 +34,22 @@ class ComicHomeViewController: UIViewController {
         self.navigationController?.pushViewController(ComicDetailViewController(selectedComic), animated: true)
       }
     })
-    selectedComicFilterHandle = viewModel.$selectedComicFilter.sink(receiveCompletion: {_ in
-      self.selectedComicFilterHandle = nil
-    }, receiveValue: { newSelectedComicFilter in
-      guard let newFilterAsEnum = ComicFilter(rawValue: newSelectedComicFilter) else {
-        self.selectedComicFilterHandle = nil
-        return
+    api.fetchNewlyPublishedComics { comicsResult in
+      switch comicsResult {
+      case .success(let comics):
+        self.viewModel.newComics = comics
+      case .failure(let error):
+        print(error)
       }
-      switch newFilterAsEnum {
-      case .new:
-        self.api.fetchComics(completion: { comicsResult in
-          switch comicsResult {
-          case .success(let comics):
-            self.viewModel.comics = comics
-          case .failure(let error):
-            print(error.localizedDescription)
-          }
-        })
-      case .free:
-        self.viewModel.comics.removeAll()
+    }
+    api.fetchAboutToBePublishedComics { comicsResult in
+      switch comicsResult {
+      case .success(let comics):
+        self.viewModel.nextComics = comics
+      case .failure(let error):
+        print(error)
       }
-    })
-    self.viewModel.comicsFilter = self.comicFilters.map { $0.rawValue }
+    }
   }
 
   init() {
