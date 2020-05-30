@@ -21,13 +21,14 @@ class ComicCollectionHeaderCell: MagazineLayoutCollectionReusableView {
   }
 
   private func layoutComponents() {
+    backgroundColor = AppConstants.comicBackgroundColor
     title.translatesAutoresizingMaskIntoConstraints = false
     title.backgroundColor = AppConstants.comicBackgroundColor
     title.font = AppConstants.comicLargeTitle
 
     addSubview(title)
     NSLayoutConstraint.activate([
-      title.leadingAnchor.constraint(equalTo: leadingAnchor),
+      title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
       title.topAnchor.constraint(equalTo: topAnchor),
       title.bottomAnchor.constraint(equalTo: bottomAnchor),
       title.widthAnchor.constraint(equalTo: widthAnchor)

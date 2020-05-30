@@ -23,6 +23,7 @@
 		D536EEF52478665100C5BC7F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D536EEF42478665100C5BC7F /* Roboto-Bold.ttf */; };
 		D536EEF7247866B700C5BC7F /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D536EEF6247866B700C5BC7F /* Roboto-Black.ttf */; };
 		D584602E2441CC8900F01D5D /* MarvelResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D584602D2441CC8900F01D5D /* MarvelResultType.swift */; };
+		D59A6404247DA9FA0031C2B2 /* CharactersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59A6403247DA9FA0031C2B2 /* CharactersListViewController.swift */; };
 		D5A6DEA824791F2400CCC05E /* ComicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A6DEA724791F2400CCC05E /* ComicDetailViewController.swift */; };
 		D5A6DEAB24791FBB00CCC05E /* ComicDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A6DEAA24791FBB00CCC05E /* ComicDetailView.swift */; };
 		D5A6DEAD247921DC00CCC05E /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A6DEAC247921DC00CCC05E /* ComicDetailViewModel.swift */; };
@@ -55,6 +56,8 @@
 		D536EEF42478665100C5BC7F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		D536EEF6247866B700C5BC7F /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		D584602D2441CC8900F01D5D /* MarvelResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelResultType.swift; sourceTree = "<group>"; };
+		D596F6AA24803C1800BBFF9B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D59A6403247DA9FA0031C2B2 /* CharactersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewController.swift; sourceTree = "<group>"; };
 		D5A6DEA724791F2400CCC05E /* ComicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewController.swift; sourceTree = "<group>"; };
 		D5A6DEAA24791FBB00CCC05E /* ComicDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailView.swift; sourceTree = "<group>"; };
 		D5A6DEAC247921DC00CCC05E /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
@@ -181,6 +184,13 @@
 			path = Comic;
 			sourceTree = "<group>";
 		};
+		D59A6405247DAA3B0031C2B2 /* CharactersList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CharactersList;
+			sourceTree = "<group>";
+		};
 		D5A6DEA924791F5200CCC05E /* ComicDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +211,7 @@
 		D5C50D1D2441CC0B00644413 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D59A6405247DAA3B0031C2B2 /* CharactersList */,
 				D5A6DEA924791F5200CCC05E /* ComicDetail */,
 				D5E4373D2474261A0036333A /* ComicHome */,
 			);
@@ -212,6 +223,7 @@
 			children = (
 				D503480B2440DAC300925C08 /* ComicHomeViewController.swift */,
 				D5A6DEA724791F2400CCC05E /* ComicDetailViewController.swift */,
+				D59A6403247DA9FA0031C2B2 /* CharactersListViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -280,6 +292,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = D50347FB2440DAC300925C08;
 			productRefGroup = D50348052440DAC300925C08 /* Products */;
@@ -369,6 +382,7 @@
 				D503481C2440DD3600925C08 /* MarvelAPI.swift in Sources */,
 				D5C50D1724419E4400644413 /* ComicCollectionCell.swift in Sources */,
 				D5F0B9FB2478050D003F7110 /* ComeHomeViewMagazineLayout.swift in Sources */,
+				D59A6404247DA9FA0031C2B2 /* CharactersListViewController.swift in Sources */,
 				D5D66E5D24791530003FD75A /* AppConstants.swift in Sources */,
 				D5A97EE0247A570B00A72833 /* Reusable.swift in Sources */,
 				D584602E2441CC8900F01D5D /* MarvelResultType.swift in Sources */,
@@ -383,6 +397,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D50348132440DAC400925C08 /* Base */,
+				D596F6AA24803C1800BBFF9B /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -394,6 +409,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -454,6 +470,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

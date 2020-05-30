@@ -38,10 +38,10 @@ extension ComicHomeView: UICollectionViewDelegateMagazineLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetsForSectionAtIndex index: Int) -> UIEdgeInsets {
-    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    return UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetsForItemsInSectionAtIndex index: Int) -> UIEdgeInsets {
-    UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+    UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
   }
 }
