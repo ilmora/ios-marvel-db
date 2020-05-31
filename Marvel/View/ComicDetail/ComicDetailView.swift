@@ -18,8 +18,8 @@ class ComicDetailView: UIView {
 
   private let titleLabel: UILabel
 
-  private let publishedTitleLabel: UILabel
-  private let publishedValueLabel: UILabel
+  private let publishedDateLabel: UILabel
+  private var creatorsLabel: UILabel
 
   private let coverImage: UIImageView
   private let viewModel: ComicDetailViewModel
@@ -38,7 +38,24 @@ class ComicDetailView: UIView {
     if let publicationDate = viewModel.comic.dates?.first(where: { $0.type == "onsaleDate" }) {
       let formatter = DateFormatter()
       formatter.dateStyle = .full
-      publishedValueLabel.text = formatter.string(from: publicationDate.date!)
+      let dateLabel = "DATE DE SORTIE"
+      let text = NSMutableAttributedString(string: "\(dateLabel) : \(formatter.string(from: publicationDate.date!))")
+      text.setAttributes([NSAttributedString.Key.font: AppConstants.comicBody], range: NSRange(location: 0, length: text.string.count))
+      text.setAttributes([NSAttributedString.Key.font: AppConstants.comicTitle], range: NSRange(location: 0, length: dateLabel.count))
+      publishedDateLabel.attributedText = text
+    }
+
+    if let creators = viewModel.comic.creators?.items {
+      let text = NSMutableAttributedString()
+      for creator in creators.sorted(by: { $0.role ?? "" < $1.role ?? "" }) {
+        guard let name = creator.name, let role = creator.role else {
+          continue
+        }
+        let creatorText = NSMutableAttributedString(string: "\(role.uppercased()) : \(name)\n")
+        creatorText.setAttributes([NSAttributedString.Key.font: AppConstants.comicTitle], range: NSRange(location: 0, length: role.count))
+        text.append(creatorText)
+      }
+      creatorsLabel.attributedText = text
     }
   }
 
@@ -51,26 +68,32 @@ class ComicDetailView: UIView {
 
     backgroundColor = AppConstants.comicBackgroundColor
 
-    titleLabel.translatesAutoresizingMaskIntoConstraints = false
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     coverImage.translatesAutoresizingMaskIntoConstraints = false
     container.translatesAutoresizingMaskIntoConstraints = false
 
     container.axis = .vertical
     container.alignment = .fill
+    container.spacing = 40
+
+    coverImage.layer.shadowColor = UIColor.black.cgColor
+    coverImage.layer.shadowOffset = CGSize(width: 0, height: 0)
+    coverImage.layer.shadowRadius = 3
+    coverImage.layer.shadowOpacity = 1
 
     scrollView.showsVerticalScrollIndicator = false
 
     titleLabel.numberOfLines = 0
     titleLabel.font = AppConstants.comicLargeTitle
 
-    publishedTitleLabel.text = "Date de sortie"
+    creatorsLabel.numberOfLines = 0
+
+    publishedDateLabel.font = AppConstants.comicBody
 
     container.addArrangedSubview(titleLabel)
-    container.setCustomSpacing(10, after: titleLabel)
     container.addArrangedSubview(coverImage)
-    container.addArrangedSubview(publishedTitleLabel)
-    container.addArrangedSubview(publishedValueLabel)
+    container.addArrangedSubview(publishedDateLabel)
+    container.addArrangedSubview(creatorsLabel)
     scrollView.addSubview(container)
     addSubview(scrollView)
 
@@ -97,8 +120,8 @@ class ComicDetailView: UIView {
     container = UIStackView()
     titleLabel = UILabel()
     scrollView = UIScrollView()
-    publishedTitleLabel = UILabel()
-    publishedValueLabel = UILabel()
+    publishedDateLabel = UILabel()
+    creatorsLabel = UILabel()
     super.init(frame: .zero)
     setupView()
     reloadData()

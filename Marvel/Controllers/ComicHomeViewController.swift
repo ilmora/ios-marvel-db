@@ -18,8 +18,6 @@ class ComicHomeViewController: UIViewController {
   private let api = MarvelAPI()
   private let viewModel: ComicHomeViewModel
 
-  private let comicFilters = ComicFilter.allCases
-
   override func loadView() {
     view = comicHomeView
   }
