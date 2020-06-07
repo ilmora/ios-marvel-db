@@ -33,7 +33,11 @@ class ComicHomeView: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
   }
 
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-    2
+    var count = 1
+    if viewModel.nextComics.first != nil {
+      count += 1
+    }
+    return count
   }
 
   func collectionView(

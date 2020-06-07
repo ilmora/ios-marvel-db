@@ -16,6 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let marvelTabBarItem = UITabBarItem(title: "Comic", image: UIImage(systemName: "book"), tag: 0)
     homeVC.tabBarItem = marvelTabBarItem
 
+    let charactersVC = CharactersListViewController()
+    let charactersTabBarItem = UITabBarItem(title: "Characters", image: UIImage(systemName: "person"), tag: 1)
+    charactersVC.tabBarItem = charactersTabBarItem
+
     let homeNavigationVC = UINavigationController(rootViewController: homeVC)
 
     let rootVC = UITabBarController()
@@ -23,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     rootVC.tabBar.barTintColor = .white
     var viewControllers = [UIViewController]()
     viewControllers.append(homeNavigationVC)
+    viewControllers.append(charactersVC)
     rootVC.viewControllers = viewControllers
     rootVC.selectedViewController = viewControllers.first!
     return rootVC

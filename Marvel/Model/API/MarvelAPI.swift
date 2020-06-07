@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 struct MarvelAPI {
   // MARK: Private functions
@@ -23,7 +24,7 @@ struct MarvelAPI {
     return queryItems
   }
 
-  private func changeImageUrlToHttps(_ comicImage: ComicImage) -> ComicImage {
+  private func changeImageUrlToHttps(_ comicImage: Image) -> Image {
     var mutableComicImage = comicImage
     mutableComicImage.path = mutableComicImage.path?.replacingOccurrences(of: "http", with: "https")
     return mutableComicImage
@@ -35,22 +36,57 @@ struct MarvelAPI {
     return _jsonDecoder
   }
 
+  // MARK: Characters
+  private func fetchManyCharaters(offset: Int, limit: Int, sub: PassthroughSubject<[Character], Error>) {
+    var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/characters")!
+    var queryParams = getApiParametersAsQueryItems()
+    queryParams.append(URLQueryItem(name: "offset", value: String(offset)))
+    queryParams.append(URLQueryItem(name: "limit", value: String(limit)))
+    queryParams.append(URLQueryItem(name: "orderBy", value: "name"))
+    urlComponents.queryItems = queryParams
+    let request = URLRequest(url: urlComponents.url!)
+
+    URLSession.shared.dataTask(with: request) { data, response, error in
+      if error != nil {
+        sub.send(completion: .failure(error!))
+      } else if let data = data {
+        do {
+          let characters = try self.jsonDecoder.decode(CharacterDataWrapper.self, from: data)
+          let count = characters.data!.count!
+          sub.send(characters.data!.results!)
+          if characters.data!.offset! + count < characters.data!.total! {
+            self.fetchManyCharaters(offset: offset + count, limit: limit, sub: sub)
+          } else {
+            sub.send(completion: .finished)
+          }
+        } catch {
+          sub.send(completion: .failure(error))
+        }
+      }
+    }.resume()
+  }
+
+  func fetchAllCharacters() -> AnyPublisher<[Character], Error> {
+    let sub = PassthroughSubject<[Character], Error>()
+    fetchManyCharaters(offset: 0, limit: 100, sub: sub)
+    return sub.eraseToAnyPublisher()
+  }
+
+  // MARK: Comic
   private func handleComicResult(_ data: Data, _ completion: (Result<[Comic], Error>) -> Void) throws {
     var result: ComicDataWrapper = try self.jsonDecoder.decode(ComicDataWrapper.self, from: data)
     if result.code == 200 {
-      result.data.results = result.data.results?.map {
+      result.data!.results = result.data?.results?.map {
         var mutableComic = $0
         mutableComic.images = mutableComic.images?.map(self.changeImageUrlToHttps)
         mutableComic.thumbnail = mutableComic.thumbnail.map(self.changeImageUrlToHttps)
         return mutableComic
       }
-      completion(.success(result.data.results!))
+      completion(.success(result.data!.results!))
     } else {
       throw URLError(URLError.Code(rawValue: result.code!))
     }
   }
-
-  // MARK: Public functions
 
   func fetchAboutToBePublishedComics(completion: @escaping (Result<[Comic], Error>) -> Void) {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
@@ -58,7 +94,6 @@ struct MarvelAPI {
     queryParams.append(URLQueryItem(name: "dateDescriptor", value: "nextWeek"))
     urlComponents.queryItems = queryParams
     let request = URLRequest(url: urlComponents.url!)
-    print(request)
     URLSession.shared.dataTask(with: request) { data, response, error in
       guard let data = data else {
         completion(.failure(error!))
@@ -75,7 +110,7 @@ struct MarvelAPI {
   func fetchNewlyPublishedComics(completion: @escaping (Result<[Comic], Error>) -> Void) {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
     var queryParams = getApiParametersAsQueryItems()
-    queryParams.append(URLQueryItem(name: "dateDescriptor", value: "thisWeek"))
+    queryParams.append(URLQueryItem(name: "dateDescriptor", value: "thisMonth"))
     urlComponents.queryItems = queryParams
     let request = URLRequest(url: urlComponents.url!)
     URLSession.shared.dataTask(with: request) { data, response, error in

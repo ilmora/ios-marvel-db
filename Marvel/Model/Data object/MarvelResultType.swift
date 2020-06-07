@@ -9,8 +9,8 @@
 import Foundation
 
 protocol MarvelResultType {
-  associatedtype DataType
-  var data: DataType { get set }
+  associatedtype DataWrapper
+  var data: DataWrapper? { get set }
 
   var code: Int? { get set }
   var status: String? { get set }
@@ -18,4 +18,13 @@ protocol MarvelResultType {
   var attributionText: String? { get set }
   var attributionHtml: String? { get set }
   var etag: String? { get set }
+}
+
+protocol MarvelDataContainer {
+  associatedtype DataContainer
+  var offset: Int? { get set }
+  var limit: Int? { get set }
+  var total: Int? { get set }
+  var count: Int? { get set }
+  var results: [DataContainer]? { get set }
 }

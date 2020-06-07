@@ -15,10 +15,10 @@ struct ComicDataWrapper: MarvelResultType, Decodable {
   var attributionText: String?
   var attributionHtml: String?
   var etag: String?
-  var data: ComicDataContainer
+  var data: ComicDataContainer?
 }
 
-struct ComicDataContainer: Decodable {
+struct ComicDataContainer: MarvelDataContainer, Decodable {
   var offset: Int?
   var limit: Int?
   var total: Int?
@@ -31,15 +31,11 @@ struct Comic: Decodable {
   var title: String?
   var description: String?
   var pageCount: Int?
-  var images: [ComicImage]?
-  var thumbnail: ComicImage?
+  var images: [Image]?
+  var thumbnail: Image?
   var creators: ComicCreatorList?
   var dates: [ComicDate]?
-}
-
-struct ComicImage: Decodable {
-  var path: String?
-  var `extension`: String?
+  var prices: [ComicPrice]?
 }
 
 struct ComicDate: Decodable {
@@ -56,4 +52,9 @@ struct ComicCreatorList: Decodable {
 struct ComicCreatorSummary: Decodable {
   var name: String?
   var role: String?
+}
+
+struct ComicPrice: Decodable {
+  var type: String?
+  var price: Float?
 }
