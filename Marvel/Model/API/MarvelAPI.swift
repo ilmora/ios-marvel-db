@@ -24,12 +24,6 @@ struct MarvelAPI {
     return queryItems
   }
 
-  private func changeImageUrlToHttps(_ comicImage: Image) -> Image {
-    var mutableComicImage = comicImage
-    mutableComicImage.path = mutableComicImage.path?.replacingOccurrences(of: "http", with: "https")
-    return mutableComicImage
-  }
-
   private var jsonDecoder: JSONDecoder {
     let _jsonDecoder = JSONDecoder()
     _jsonDecoder.dateDecodingStrategy = .iso8601
@@ -51,14 +45,7 @@ struct MarvelAPI {
         sub.send(completion: .failure(error!))
       } else if let data = data {
         do {
-          var characters = try self.jsonDecoder.decode(CharacterDataWrapper.self, from: data)
-          characters.data!.results = characters.data?.results?.map { character in
-            var mutableCharacter = character
-            if let image = character.thumbnail {
-              mutableCharacter.thumbnail = self.changeImageUrlToHttps(image)
-            }
-            return mutableCharacter
-          }
+          let characters = try self.jsonDecoder.decode(CharacterDataWrapper.self, from: data)
           let count = characters.data!.count!
           sub.send(characters.data!.results!)
           if characters.data!.offset! + count < characters.data!.total! {
@@ -81,14 +68,8 @@ struct MarvelAPI {
 
   // MARK: Comic
   private func handleComicResult(_ data: Data, _ completion: (Result<[Comic], Error>) -> Void) throws {
-    var result: ComicDataWrapper = try self.jsonDecoder.decode(ComicDataWrapper.self, from: data)
+    let result: ComicDataWrapper = try self.jsonDecoder.decode(ComicDataWrapper.self, from: data)
     if result.code == 200 {
-      result.data!.results = result.data?.results?.map {
-        var mutableComic = $0
-        mutableComic.images = mutableComic.images?.map(self.changeImageUrlToHttps)
-        mutableComic.thumbnail = mutableComic.thumbnail.map(self.changeImageUrlToHttps)
-        return mutableComic
-      }
       completion(.success(result.data!.results!))
     } else {
       throw URLError(URLError.Code(rawValue: result.code!))
