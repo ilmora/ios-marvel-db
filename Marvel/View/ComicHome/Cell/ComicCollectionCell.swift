@@ -16,10 +16,8 @@ class ComicCollectionCell: MagazineLayoutCollectionViewCell {
   private let titleLabel: UILabel
   private let container: UIStackView
 
-  private var comic: Comic
 
   func configureCell(with comic: Comic) {
-    self.comic = comic
     titleLabel.text = comic.title
     if let comicImage = comic.thumbnail {
       let imageURL = URL(string: "\(comicImage.path!).\(comicImage.extension!)")!
@@ -69,7 +67,6 @@ class ComicCollectionCell: MagazineLayoutCollectionViewCell {
     coverImage = UIImageView()
     titleLabel = UILabel()
     container = UIStackView()
-    comic = Comic()
     super.init(frame: frame)
     layoutComponents()
     backgroundColor = .white

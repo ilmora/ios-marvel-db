@@ -51,7 +51,14 @@ struct MarvelAPI {
         sub.send(completion: .failure(error!))
       } else if let data = data {
         do {
-          let characters = try self.jsonDecoder.decode(CharacterDataWrapper.self, from: data)
+          var characters = try self.jsonDecoder.decode(CharacterDataWrapper.self, from: data)
+          characters.data!.results = characters.data?.results?.map { character in
+            var mutableCharacter = character
+            if let image = character.thumbnail {
+              mutableCharacter.thumbnail = self.changeImageUrlToHttps(image)
+            }
+            return mutableCharacter
+          }
           let count = characters.data!.count!
           sub.send(characters.data!.results!)
           if characters.data!.offset! + count < characters.data!.total! {

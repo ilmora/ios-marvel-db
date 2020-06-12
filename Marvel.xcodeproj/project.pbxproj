@@ -25,6 +25,7 @@
 		D536EEF52478665100C5BC7F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D536EEF42478665100C5BC7F /* Roboto-Bold.ttf */; };
 		D536EEF7247866B700C5BC7F /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D536EEF6247866B700C5BC7F /* Roboto-Black.ttf */; };
 		D53B9218248D2F9800069D74 /* CharactersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53B9217248D2F9800069D74 /* CharactersListViewModel.swift */; };
+		D576453924913C8400CA9CDE /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D576453824913C8400CA9CDE /* ArrayExtensions.swift */; };
 		D584602E2441CC8900F01D5D /* MarvelResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D584602D2441CC8900F01D5D /* MarvelResultType.swift */; };
 		D59A6404247DA9FA0031C2B2 /* CharactersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59A6403247DA9FA0031C2B2 /* CharactersListViewController.swift */; };
 		D59ACD452486BA9E005E951A /* CharactersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59ACD442486BA9E005E951A /* CharactersListView.swift */; };
@@ -62,6 +63,7 @@
 		D536EEF42478665100C5BC7F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		D536EEF6247866B700C5BC7F /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		D53B9217248D2F9800069D74 /* CharactersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewModel.swift; sourceTree = "<group>"; };
+		D576453824913C8400CA9CDE /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		D584602D2441CC8900F01D5D /* MarvelResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelResultType.swift; sourceTree = "<group>"; };
 		D596F6AA24803C1800BBFF9B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D59A6403247DA9FA0031C2B2 /* CharactersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				D5A97EDF247A570B00A72833 /* Reusable.swift */,
 				D503481D2440EBA400925C08 /* MD5.swift */,
+				D576453824913C8400CA9CDE /* ArrayExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				D5034821244108CA00925C08 /* Comic.swift in Sources */,
 				D503481E2440EBA400925C08 /* MD5.swift in Sources */,
 				D53B9218248D2F9800069D74 /* CharactersListViewModel.swift in Sources */,
+				D576453924913C8400CA9CDE /* ArrayExtensions.swift in Sources */,
 				D50348082440DAC300925C08 /* AppDelegate.swift in Sources */,
 				D5A6DEA824791F2400CCC05E /* ComicDetailViewController.swift in Sources */,
 				D5A6DEAD247921DC00CCC05E /* ComicDetailViewModel.swift in Sources */,
