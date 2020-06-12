@@ -20,14 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let charactersTabBarItem = UITabBarItem(title: "Characters", image: UIImage(systemName: "person"), tag: 1)
     charactersVC.tabBarItem = charactersTabBarItem
 
-    let homeNavigationVC = UINavigationController(rootViewController: homeVC)
-
     let rootVC = UITabBarController()
     rootVC.tabBar.tintColor = AppConstants.marvelColor
-    rootVC.tabBar.barTintColor = .white
+    rootVC.tabBar.barTintColor = .systemBackground
     var viewControllers = [UIViewController]()
-    viewControllers.append(homeNavigationVC)
-    viewControllers.append(charactersVC)
+    viewControllers.append(UINavigationController(rootViewController: homeVC))
+    viewControllers.append(UINavigationController(rootViewController: charactersVC))
     rootVC.viewControllers = viewControllers
     rootVC.selectedViewController = viewControllers.first!
     return rootVC
