@@ -17,6 +17,8 @@
 		D503481E2440EBA400925C08 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503481D2440EBA400925C08 /* MD5.swift */; };
 		D5034821244108CA00925C08 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5034820244108CA00925C08 /* Comic.swift */; };
 		D50EA843245E96460030308A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D50EA842245E96460030308A /* Podfile */; };
+		D51419902496618E0007417B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D51419922496618E0007417B /* Localizable.strings */; };
+		D51419952496637C0007417B /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51419942496637C0007417B /* StringExtensions.swift */; };
 		D528296D248D153D00CDFB62 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528296C248D153D00CDFB62 /* Character.swift */; };
 		D528296F248D162700CDFB62 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528296E248D162700CDFB62 /* Image.swift */; };
 		D536EEF22478657E00C5BC7F /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D536EEF02478657E00C5BC7F /* Roboto-Regular.ttf */; };
@@ -54,6 +56,9 @@
 		D503481D2440EBA400925C08 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		D5034820244108CA00925C08 /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
 		D50EA842245E96460030308A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D514198F2496617A0007417B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D51419912496618E0007417B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D51419942496637C0007417B /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		D528296C248D153D00CDFB62 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		D528296E248D162700CDFB62 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		D536EEF02478657E00C5BC7F /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -62,7 +67,6 @@
 		D536EEF6247866B700C5BC7F /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		D576453824913C8400CA9CDE /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		D584602D2441CC8900F01D5D /* MarvelResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelResultType.swift; sourceTree = "<group>"; };
-		D596F6AA24803C1800BBFF9B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D59A6403247DA9FA0031C2B2 /* CharactersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewController.swift; sourceTree = "<group>"; };
 		D59ACD442486BA9E005E951A /* CharactersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListView.swift; sourceTree = "<group>"; };
 		D59ACD472486C46B005E951A /* CharacterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewCell.swift; sourceTree = "<group>"; };
@@ -151,6 +155,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		D5141993249662810007417B /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				D51419922496618E0007417B /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		D528296B248D142200CDFB62 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +191,7 @@
 				D5A97EDF247A570B00A72833 /* Reusable.swift */,
 				D503481D2440EBA400925C08 /* MD5.swift */,
 				D576453824913C8400CA9CDE /* ArrayExtensions.swift */,
+				D51419942496637C0007417B /* StringExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -219,6 +232,7 @@
 		D5C50D1D2441CC0B00644413 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D5141993249662810007417B /* Localization */,
 				D536EEED2478644000C5BC7F /* Fonts */,
 				D59A6405247DAA3B0031C2B2 /* CharactersList */,
 				D5A6DEA924791F5200CCC05E /* ComicDetail */,
@@ -341,6 +355,7 @@
 				D50348142440DAC400925C08 /* LaunchScreen.storyboard in Resources */,
 				D536EEF52478665100C5BC7F /* Roboto-Bold.ttf in Resources */,
 				D536EEF32478657E00C5BC7F /* Roboto-Light.ttf in Resources */,
+				D51419902496618E0007417B /* Localizable.strings in Resources */,
 				D536EEF7247866B700C5BC7F /* Roboto-Black.ttf in Resources */,
 				D536EEF22478657E00C5BC7F /* Roboto-Regular.ttf in Resources */,
 				D50348112440DAC400925C08 /* Assets.xcassets in Resources */,
@@ -396,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D51419952496637C0007417B /* StringExtensions.swift in Sources */,
 				D59ACD452486BA9E005E951A /* CharactersListView.swift in Sources */,
 				D5B734E9247428F5004F9CA6 /* ComicHomeView.swift in Sources */,
 				D503480C2440DAC300925C08 /* ComicHomeViewController.swift in Sources */,
@@ -429,9 +445,17 @@
 			isa = PBXVariantGroup;
 			children = (
 				D50348132440DAC400925C08 /* Base */,
-				D596F6AA24803C1800BBFF9B /* fr */,
+				D514198F2496617A0007417B /* fr */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D51419922496618E0007417B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D51419912496618E0007417B /* fr */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

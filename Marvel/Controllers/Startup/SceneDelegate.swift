@@ -13,11 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   private func buildAppView() -> UITabBarController {
     let homeVC = ComicHomeViewController()
-    let marvelTabBarItem = UITabBarItem(title: "Comic", image: UIImage(systemName: "book"), tag: 0)
+    let marvelTabBarItem = UITabBarItem(title: "Comic".localized, image: UIImage(systemName: "book"), tag: 0)
     homeVC.tabBarItem = marvelTabBarItem
 
     let charactersVC = CharactersListViewController()
-    let charactersTabBarItem = UITabBarItem(title: "Characters", image: UIImage(systemName: "person"), tag: 1)
+    let charactersTabBarItem = UITabBarItem(title: "Characters".localized , image: UIImage(systemName: "person"), tag: 1)
     charactersVC.tabBarItem = charactersTabBarItem
 
     let rootVC = UITabBarController()

@@ -30,7 +30,7 @@ class ComicDetailViewController: UIViewController {
     if let publicationDate = comic.dates?.first(where: { $0.type == "onsaleDate" }) {
       let formatter = DateFormatter()
       formatter.dateStyle = .full
-      let dateLabel = "DATE DE SORTIE"
+      let dateLabel = "OnSaleDate".localized
       let text = NSMutableAttributedString(string: "\(dateLabel) : \(formatter.string(from: publicationDate.date!))")
       text.setAttributes([NSAttributedString.Key.font: AppConstants.comicBody], range: NSRange(location: 0, length: text.string.count))
       text.setAttributes([NSAttributedString.Key.font: AppConstants.comicTitle], range: NSRange(location: 0, length: dateLabel.count))
@@ -40,7 +40,7 @@ class ComicDetailViewController: UIViewController {
     if let creators = comic.creators?.items {
       let text = NSMutableAttributedString()
       for creator in creators.sorted(by: { $0.role ?? "" < $1.role ?? "" }) {
-        guard let name = creator.name, let role = creator.role else {
+        guard let name = creator.name, let role = creator.role?.localized else {
           continue
         }
         let creatorText = NSMutableAttributedString(string: "\(role.uppercased()) : \(name)\n")

@@ -1,0 +1,20 @@
+/* 
+  French.strings
+  Marvel
+
+  Created by Tristan Djahel on 14/06/2020.
+  Copyright © 2020 Tristan Djahel. All rights reserved.
+*/
+"OnSaleDate" = "Date de sortie";
+"Comic" = "Bande dessinée";
+"Characters" = "Personnage";
+"colorist" = "coloriste";
+"colorist (cover)" = "coloriste (couverture)";
+"editor" = "editeur";
+"letterer" = "lettrage";
+"penciler (cover)" = "dessinateur (couverture)";
+"writer" = "ecrivain";
+"inker" = "encreur";
+"inker (cover)" = "encreur (couverture)";
+"painter (cover)" = "peintre (couverture)";
+
