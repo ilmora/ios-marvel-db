@@ -21,8 +21,8 @@ struct AppConstants {
   static let comicLargeTitle = UIFont(name: "Roboto-black", size: AppConstants.getFontSizeForScreen(baseFontSize: 30))!
   static let comicBody = UIFont(name: "Roboto-Light", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
 
-  struct Comic {
-    static let newComicsSection = 0
-    static let futureComicsSection = 1
+  struct ComicSection {
+    static let newComics = 0
+    static let futureComics = 1
   }
 }

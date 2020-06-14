@@ -37,9 +37,9 @@ class ComicHomeViewController: UIViewController {
       }
       let comic: Comic
       switch indexPath.section {
-      case AppConstants.Comic.newComicsSection:
+      case AppConstants.ComicSection.newComics:
         comic = self.dataSource.newComics[indexPath.row]
-      case AppConstants.Comic.futureComicsSection:
+      case AppConstants.ComicSection.futureComics:
         comic = self.dataSource.futureComics[indexPath.row]
       default:
         fatalError()

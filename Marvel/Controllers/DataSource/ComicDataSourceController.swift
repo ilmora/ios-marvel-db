@@ -37,10 +37,10 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
         fatalError()
       }
       switch indexPath.section {
-      case 0:
-        cell.title.text = "Nouveau"
-      case 1:
-        cell.title.text = "Prochainement"
+      case AppConstants.ComicSection.newComics:
+        cell.title.text = "comics_new".localized
+      case AppConstants.ComicSection.futureComics:
+        cell.title.text = "comics_to_come".localized
       default:
         fatalError()
       }
@@ -49,9 +49,9 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     switch section {
-    case AppConstants.Comic.newComicsSection:
+    case AppConstants.ComicSection.newComics:
       return newComics.count
-    case AppConstants.Comic.futureComicsSection:
+    case AppConstants.ComicSection.futureComics:
       return futureComics.count
     default:
       fatalError()
@@ -73,9 +73,9 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
     }
     let comic: Comic
     switch indexPath.section {
-    case AppConstants.Comic.newComicsSection:
+    case AppConstants.ComicSection.newComics:
       comic = newComics[indexPath.row]
-    case AppConstants.Comic.futureComicsSection:
+    case AppConstants.ComicSection.futureComics:
       comic = futureComics[indexPath.row]
     default:
       fatalError()
