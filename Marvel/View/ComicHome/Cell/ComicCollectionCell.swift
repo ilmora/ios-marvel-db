@@ -44,7 +44,7 @@ class ComicCollectionCell: MagazineLayoutCollectionViewCell {
     container.setCustomSpacing(15, after: coverImage)
     contentView.addSubview(container)
 
-    coverImage.layer.shadowColor = UIColor.black.cgColor
+    coverImage.layer.shadowColor = UIColor.label.cgColor
     coverImage.layer.shadowOffset = CGSize(width: 0, height: 0)
     coverImage.layer.shadowRadius = 3
     coverImage.layer.shadowOpacity = 1

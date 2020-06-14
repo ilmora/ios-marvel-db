@@ -41,8 +41,8 @@ struct MarvelAPI {
     let request = URLRequest(url: urlComponents.url!)
 
     URLSession.shared.dataTask(with: request) { data, response, error in
-      if error != nil {
-        sub.send(completion: .failure(error!))
+      if let error = error {
+        sub.send(completion: .failure(error))
       } else if let data = data {
         do {
           let characters = try self.jsonDecoder.decode(CharacterDataWrapper.self, from: data)
@@ -76,39 +76,29 @@ struct MarvelAPI {
     }
   }
 
-  func fetchAboutToBePublishedComics(completion: @escaping (Result<[Comic], Error>) -> Void) {
+  func fetchAboutToBePublishedComics() -> AnyPublisher<[Comic], Error> {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
     var queryParams = getApiParametersAsQueryItems()
     queryParams.append(URLQueryItem(name: "dateDescriptor", value: "nextWeek"))
     urlComponents.queryItems = queryParams
     let request = URLRequest(url: urlComponents.url!)
-    URLSession.shared.dataTask(with: request) { data, response, error in
-      guard let data = data else {
-        completion(.failure(error!))
-        return
-      }
-      do {
-        try self.handleComicResult(data, completion)
-      } catch {
-        completion(.failure(error))
-      }
-    }.resume()
+    return URLSession.shared.dataTaskPublisher(for: request)
+      .map { $0.data }
+      .decode(type: ComicDataWrapper.self, decoder: jsonDecoder)
+      .compactMap { $0.data?.results }
+      .eraseToAnyPublisher()
   }
 
-  func fetchNewlyPublishedComics(completion: @escaping (Result<[Comic], Error>) -> Void) {
+  func fetchNewlyPublishedComics() -> AnyPublisher<[Comic], Error> {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
     var queryParams = getApiParametersAsQueryItems()
     queryParams.append(URLQueryItem(name: "dateDescriptor", value: "thisMonth"))
     urlComponents.queryItems = queryParams
     let request = URLRequest(url: urlComponents.url!)
-    URLSession.shared.dataTask(with: request) { data, response, error in
-      if let data = data {
-        do {
-          try self.handleComicResult(data, completion)
-        } catch {
-          completion(.failure(error))
-        }
-      }
-    }.resume()
+    return URLSession.shared.dataTaskPublisher(for: request)
+      .map { $0.data }
+      .decode(type: ComicDataWrapper.self, decoder: jsonDecoder)
+      .compactMap { $0.data?.results }
+      .eraseToAnyPublisher()
   }
 }

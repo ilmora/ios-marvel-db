@@ -12,17 +12,19 @@ import Combine
 
 class CharactersListViewController: UIViewController {
   private let charactersView: CharactersListView
-  private let marvelAPI = MarvelAPI()
   private var charactersHandle: AnyCancellable?
-  private let viewModel: CharactersViewModel
+  private let dataSource = CharacterListDataSourceController()
+  private var charactersListHandle: AnyCancellable?
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    charactersHandle = marvelAPI.fetchAllCharacters()
-    .sink(receiveCompletion: { error in
-    }, receiveValue: { characters in
-      self.viewModel.characters.append(contentsOf: characters)
+    charactersView.tableView.dataSource = self.dataSource
+    charactersListHandle = dataSource.$characters.sink(receiveValue: { _ in
+      DispatchQueue.main.async {
+        self.charactersView.tableView.reloadData()
+      }
     })
+    dataSource.fetchData()
   }
 
   override func loadView() {
@@ -30,8 +32,7 @@ class CharactersListViewController: UIViewController {
   }
 
   init() {
-    viewModel = CharactersViewModel()
-    charactersView = CharactersListView(viewModel)
+    charactersView = CharactersListView()
     super.init(nibName: nil, bundle: nil)
   }
 

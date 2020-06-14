@@ -13,58 +13,14 @@ import Combine
 
 class ComicDetailView: UIView {
   private let scrollView: UIScrollView
-
   private let container: UIStackView
 
-  private let titleLabel: UILabel
-
-  private let publishedDateLabel: UILabel
-  private var creatorsLabel: UILabel
-
-  private let coverImage: UIImageView
-  private let viewModel: ComicDetailViewModel
-  private var viewModelHandle: AnyCancellable?
-
-  private func reloadData() {
-    if let imageComponent = viewModel.comic.images?.first, let imagePath = imageComponent.path, let imageExtension = imageComponent.extension {
-      var imageURL = URL(string: imagePath)!
-      imageURL.appendPathExtension(imageExtension)
-      coverImage.kf.setImage(with: imageURL)
-    }
-    if let comicTitle = viewModel.comic.title {
-      titleLabel.text = comicTitle
-    }
-
-    if let publicationDate = viewModel.comic.dates?.first(where: { $0.type == "onsaleDate" }) {
-      let formatter = DateFormatter()
-      formatter.dateStyle = .full
-      let dateLabel = "DATE DE SORTIE"
-      let text = NSMutableAttributedString(string: "\(dateLabel) : \(formatter.string(from: publicationDate.date!))")
-      text.setAttributes([NSAttributedString.Key.font: AppConstants.comicBody], range: NSRange(location: 0, length: text.string.count))
-      text.setAttributes([NSAttributedString.Key.font: AppConstants.comicTitle], range: NSRange(location: 0, length: dateLabel.count))
-      publishedDateLabel.attributedText = text
-    }
-
-    if let creators = viewModel.comic.creators?.items {
-      let text = NSMutableAttributedString()
-      for creator in creators.sorted(by: { $0.role ?? "" < $1.role ?? "" }) {
-        guard let name = creator.name, let role = creator.role else {
-          continue
-        }
-        let creatorText = NSMutableAttributedString(string: "\(role.uppercased()) : \(name)\n")
-        creatorText.setAttributes([NSAttributedString.Key.font: AppConstants.comicTitle], range: NSRange(location: 0, length: role.count))
-        text.append(creatorText)
-      }
-      creatorsLabel.attributedText = text
-    }
-  }
+  let titleLabel: UILabel
+  let publishedDateLabel: UILabel
+  var creatorsLabel: UILabel
+  let coverImage: UIImageView
 
   private func setupView() {
-    viewModelHandle = self.viewModel.$comic.sink(receiveCompletion: { _ in
-      self.viewModelHandle = nil
-    }, receiveValue: { _ in
-      self.reloadData()
-    })
 
     backgroundColor = AppConstants.comicBackgroundColor
 
@@ -114,8 +70,7 @@ class ComicDetailView: UIView {
     ])
   }
 
-  init(_ viewModel: ComicDetailViewModel) {
-    self.viewModel = viewModel
+  init() {
     coverImage = UIImageView()
     container = UIStackView()
     titleLabel = UILabel()
@@ -124,7 +79,6 @@ class ComicDetailView: UIView {
     creatorsLabel = UILabel()
     super.init(frame: .zero)
     setupView()
-    reloadData()
   }
 
   required init?(coder: NSCoder) {
