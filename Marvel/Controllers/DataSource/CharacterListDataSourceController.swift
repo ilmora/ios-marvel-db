@@ -59,7 +59,13 @@ class CharacterListDataSourceController: NSObject, UITableViewDataSource {
     let firstCharOfCharacter = charactersPrefix[indexPath.section]
 
     let character = characters.filter { $0.name?.hasPrefix(firstCharOfCharacter) ?? false }[indexPath.row]
-    cell.configureCell(with: character)
+
+    cell.characterNameLabel.text = character.name
+    if let path = character.thumbnail?.path,
+      let `extension` = character.thumbnail?.extension,
+      let thumbmailURL = URL(string: "\(path).\(`extension`)") {
+      cell.characterThumbmail.kf.setImage(with: thumbmailURL)
+    }
     return cell
   }
 

@@ -12,13 +12,7 @@ import MagazineLayout
 import Combine
 
 class ComicCollectionHeaderCell: MagazineLayoutCollectionReusableView {
-  private let title: UILabel
-
-  func setSectionTitle(_ title: String) {
-    DispatchQueue.main.async {
-      self.title.text = title
-    }
-  }
+  let title: UILabel
 
   private func layoutComponents() {
     backgroundColor = AppConstants.comicBackgroundColor

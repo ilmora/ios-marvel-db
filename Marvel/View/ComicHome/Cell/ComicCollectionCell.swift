@@ -12,18 +12,9 @@ import Kingfisher
 import MagazineLayout
 
 class ComicCollectionCell: MagazineLayoutCollectionViewCell {
-  private let coverImage: UIImageView
-  private let titleLabel: UILabel
+  let coverImage: UIImageView
+  let titleLabel: UILabel
   private let container: UIStackView
-
-
-  func configureCell(with comic: Comic) {
-    titleLabel.text = comic.title
-    if let comicImage = comic.thumbnail {
-      let imageURL = URL(string: "\(comicImage.path!).\(comicImage.extension!)")!
-      coverImage.kf.setImage(with: imageURL)
-    }
-  }
 
   private func layoutComponents() {
     container.translatesAutoresizingMaskIntoConstraints = false

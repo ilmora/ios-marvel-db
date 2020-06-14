@@ -38,9 +38,9 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
       }
       switch indexPath.section {
       case 0:
-        cell.setSectionTitle("Nouveau")
+        cell.title.text = "Nouveau"
       case 1:
-        cell.setSectionTitle("Prochainement")
+        cell.title.text = "Prochainement"
       default:
         fatalError()
       }
@@ -71,13 +71,19 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
       as? ComicCollectionCell else {
         fatalError("Cell ComicCell was not registered")
     }
+    let comic: Comic
     switch indexPath.section {
     case AppConstants.Comic.newComicsSection:
-      cell.configureCell(with: newComics[indexPath.row])
+      comic = newComics[indexPath.row]
     case AppConstants.Comic.futureComicsSection:
-      cell.configureCell(with: futureComics[indexPath.row])
+      comic = futureComics[indexPath.row]
     default:
       fatalError()
+    }
+    cell.titleLabel.text = comic.title
+    if let comicImage = comic.thumbnail {
+      let imageURL = URL(string: "\(comicImage.path!).\(comicImage.extension!)")!
+      cell.coverImage.kf.setImage(with: imageURL)
     }
     return cell
   }

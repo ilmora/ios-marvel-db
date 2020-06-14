@@ -11,8 +11,8 @@ import Combine
 
 struct MarvelAPI {
   // MARK: Private functions
-  private let publicKey = "publickey"
-  private let privateKey = "privatekey"
+  private let publicKey = "50f9dc6bd4b9654b780baccb00f805e5"
+  private let privateKey = "d754bd4a0b60da783b0a98d2153df05d0788f965"
 
   private func getApiParametersAsQueryItems() -> [URLQueryItem] {
     let timeStamp = String(Date().timeIntervalSince1970)

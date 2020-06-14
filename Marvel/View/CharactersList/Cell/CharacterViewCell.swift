@@ -12,18 +12,8 @@ import Kingfisher
 
 class CharacterViewCell: UITableViewCell {
   private let container: UIStackView
-  private let characterNameLabel: UILabel
-  private let characterThumbmail: UIImageView
-
-  func configureCell(with character: Character) {
-    characterNameLabel.text = character.name
-
-    if let path = character.thumbnail?.path,
-      let `extension` = character.thumbnail?.extension,
-      let thumbmailURL = URL(string: "\(path).\(`extension`)") {
-      characterThumbmail.kf.setImage(with: thumbmailURL)
-    }
-  }
+  let characterNameLabel: UILabel
+  let characterThumbmail: UIImageView
 
   private func layoutComponents() {
     container.translatesAutoresizingMaskIntoConstraints = false
