@@ -232,11 +232,11 @@
 		D5C50D1D2441CC0B00644413 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D5141993249662810007417B /* Localization */,
-				D536EEED2478644000C5BC7F /* Fonts */,
 				D59A6405247DAA3B0031C2B2 /* CharactersList */,
 				D5A6DEA924791F5200CCC05E /* ComicDetail */,
 				D5E4373D2474261A0036333A /* ComicHome */,
+				D536EEED2478644000C5BC7F /* Fonts */,
+				D5141993249662810007417B /* Localization */,
 			);
 			path = View;
 			sourceTree = "<group>";

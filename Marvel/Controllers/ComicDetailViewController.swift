@@ -32,7 +32,6 @@ class ComicDetailViewController: UIViewController {
       formatter.dateStyle = .full
       let dateLabel = "OnSaleDate".localized
       let text = NSMutableAttributedString(string: "\(dateLabel) : \(formatter.string(from: publicationDate.date!))")
-      text.setAttributes([NSAttributedString.Key.font: AppConstants.comicBody], range: NSRange(location: 0, length: text.string.count))
       text.setAttributes([NSAttributedString.Key.font: AppConstants.comicTitle], range: NSRange(location: 0, length: dateLabel.count))
       comicDetailView.publishedDateLabel.attributedText = text
     }

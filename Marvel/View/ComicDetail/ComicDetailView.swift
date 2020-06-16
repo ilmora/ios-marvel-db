@@ -44,8 +44,6 @@ class ComicDetailView: UIView {
 
     creatorsLabel.numberOfLines = 0
 
-    publishedDateLabel.font = AppConstants.comicBody
-
     container.addArrangedSubview(titleLabel)
     container.addArrangedSubview(coverImage)
     container.addArrangedSubview(publishedDateLabel)
