@@ -13,6 +13,8 @@ class ComicDetailViewController: UIViewController {
   private let comicDetailView: ComicDetailView
   private let comic: Comic
 
+  private let keyInfoFont = UIFont(name: "Roboto-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
+
   override func loadView() {
     view = comicDetailView
   }
@@ -23,16 +25,14 @@ class ComicDetailViewController: UIViewController {
       imageURL.appendPathExtension(imageExtension)
       comicDetailView.coverImage.kf.setImage(with: imageURL)
     }
-    if let comicTitle = comic.title {
-      comicDetailView.titleLabel.text = comicTitle
-    }
+    comicDetailView.titleLabel.text = comic.title
 
     if let publicationDate = comic.dates?.first(where: { $0.type == "onsaleDate" }) {
       let formatter = DateFormatter()
       formatter.dateStyle = .full
       let dateLabel = "OnSaleDate".localized
-      let text = NSMutableAttributedString(string: "\(dateLabel) : \(formatter.string(from: publicationDate.date!))")
-      text.setAttributes([NSAttributedString.Key.font: AppConstants.comicTitle], range: NSRange(location: 0, length: dateLabel.count))
+      let text = NSMutableAttributedString(string: "\(dateLabel) : \(formatter.string(from: publicationDate.date!).localizedCapitalized)")
+      text.setAttributes([NSAttributedString.Key.font: keyInfoFont], range: NSRange(location: 0, length: dateLabel.count))
       comicDetailView.publishedDateLabel.attributedText = text
     }
 
@@ -42,8 +42,8 @@ class ComicDetailViewController: UIViewController {
         guard let name = creator.name, let role = creator.role?.localized else {
           continue
         }
-        let creatorText = NSMutableAttributedString(string: "\(role.uppercased()) : \(name)\n")
-        creatorText.setAttributes([NSAttributedString.Key.font: AppConstants.comicTitle], range: NSRange(location: 0, length: role.count))
+        let creatorText = NSMutableAttributedString(string: "\(role.localizedCapitalized) : \(name)\n")
+        creatorText.setAttributes([NSAttributedString.Key.font: keyInfoFont], range: NSRange(location: 0, length: role.count))
         text.append(creatorText)
       }
       comicDetailView.creatorsLabel.attributedText = text

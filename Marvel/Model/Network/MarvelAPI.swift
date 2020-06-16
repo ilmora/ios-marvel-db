@@ -46,9 +46,9 @@ struct MarvelAPI {
       } else if let data = data {
         do {
           let characters = try self.jsonDecoder.decode(CharacterDataWrapper.self, from: data)
-          let count = characters.data!.count!
-          sub.send(characters.data!.results!)
-          if characters.data!.offset! + count < characters.data!.total! {
+          let count = characters.data.count
+          sub.send(characters.data.results)
+          if characters.data.offset + count < characters.data.total {
             self.fetchManyCharaters(offset: offset + count, limit: limit, sub: sub)
           } else {
             sub.send(completion: .finished)
@@ -70,9 +70,9 @@ struct MarvelAPI {
   private func handleComicResult(_ data: Data, _ completion: (Result<[Comic], Error>) -> Void) throws {
     let result: ComicDataWrapper = try self.jsonDecoder.decode(ComicDataWrapper.self, from: data)
     if result.code == 200 {
-      completion(.success(result.data!.results!))
+      completion(.success(result.data.results))
     } else {
-      throw URLError(URLError.Code(rawValue: result.code!))
+      throw URLError(URLError.Code(rawValue: result.code))
     }
   }
 
@@ -85,7 +85,7 @@ struct MarvelAPI {
     return URLSession.shared.dataTaskPublisher(for: request)
       .map { $0.data }
       .decode(type: ComicDataWrapper.self, decoder: jsonDecoder)
-      .compactMap { $0.data?.results }
+      .map { $0.data.results }
       .eraseToAnyPublisher()
   }
 
@@ -98,7 +98,7 @@ struct MarvelAPI {
     return URLSession.shared.dataTaskPublisher(for: request)
       .map { $0.data }
       .decode(type: ComicDataWrapper.self, decoder: jsonDecoder)
-      .compactMap { $0.data?.results }
+      .map { $0.data.results }
       .eraseToAnyPublisher()
   }
 }

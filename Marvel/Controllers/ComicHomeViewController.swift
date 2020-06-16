@@ -22,6 +22,8 @@ class ComicHomeViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+    self.navigationController?.navigationBar.isTranslucent = false
     comicHomeView.collectionView.dataSource = self.dataSource
     fetchComicsHandle = dataSource.$newComics
       .merge(with: dataSource.$futureComics)

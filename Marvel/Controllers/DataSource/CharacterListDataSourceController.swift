@@ -58,7 +58,7 @@ class CharacterListDataSourceController: NSObject, UITableViewDataSource {
     }
     let firstCharOfCharacter = charactersPrefix[indexPath.section]
 
-    let character = characters.filter { $0.name?.hasPrefix(firstCharOfCharacter) ?? false }[indexPath.row]
+    let character = characters.filter { $0.name.hasPrefix(firstCharOfCharacter) }[indexPath.row]
 
     cell.characterNameLabel.text = character.name
     if let path = character.thumbnail?.path,
