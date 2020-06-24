@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import MagazineLayout
 import Combine
 
 class ComicDataSourceController: NSObject, UICollectionViewDataSource {
@@ -28,42 +27,12 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
     })
   }
 
-  func collectionView(
-    _ collectionView: UICollectionView,
-    viewForSupplementaryElementOfKind kind: String,
-    at indexPath: IndexPath)
-    -> UICollectionReusableView {
-      guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: MagazineLayout.SupplementaryViewKind.sectionHeader, withReuseIdentifier: ComicCollectionHeaderCell.reusableIdentifier, for: indexPath) as? ComicCollectionHeaderCell else {
-        fatalError()
-      }
-      switch indexPath.section {
-      case AppConstants.ComicSection.newComics:
-        cell.title.text = "comics_new".localized
-      case AppConstants.ComicSection.futureComics:
-        cell.title.text = "comics_to_come".localized
-      default:
-        fatalError()
-      }
-      return cell
-  }
-
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    switch section {
-    case AppConstants.ComicSection.newComics:
-      return newComics.count
-    case AppConstants.ComicSection.futureComics:
-      return futureComics.count
-    default:
-      fatalError()
-    }
+    newComics.count
   }
 
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-    var count = 1
-    if futureComics.first != nil {
-      count += 1
-    }
-    return count
+    1
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -71,15 +40,7 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
       as? ComicCollectionCell else {
         fatalError("Cell ComicCell was not registered")
     }
-    let comic: Comic
-    switch indexPath.section {
-    case AppConstants.ComicSection.newComics:
-      comic = newComics[indexPath.row]
-    case AppConstants.ComicSection.futureComics:
-      comic = futureComics[indexPath.row]
-    default:
-      fatalError()
-    }
+    let comic = newComics[indexPath.row]
     cell.titleLabel.text = comic.title
     if let comicImage = comic.thumbnail {
       let imageURL = URL(string: "\(comicImage.path!).\(comicImage.extension!)")!

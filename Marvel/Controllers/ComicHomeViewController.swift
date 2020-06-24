@@ -37,15 +37,7 @@ class ComicHomeViewController: UIViewController {
       guard let indexPath = indexPath else {
         return
       }
-      let comic: Comic
-      switch indexPath.section {
-      case AppConstants.ComicSection.newComics:
-        comic = self.dataSource.newComics[indexPath.row]
-      case AppConstants.ComicSection.futureComics:
-        comic = self.dataSource.futureComics[indexPath.row]
-      default:
-        fatalError()
-      }
+      let comic = self.dataSource.newComics[indexPath.row]
       self.navigationController?.pushViewController(ComicDetailViewController(comic), animated: true)
     })
   }

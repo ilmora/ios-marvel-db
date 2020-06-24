@@ -9,9 +9,8 @@
 import Foundation
 import UIKit
 import Kingfisher
-import MagazineLayout
 
-class ComicCollectionCell: MagazineLayoutCollectionViewCell {
+class ComicCollectionCell: UICollectionViewCell {
   let coverImage: UIImageView
   let titleLabel: UILabel
   private let container: UIStackView
