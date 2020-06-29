@@ -11,8 +11,8 @@ import Combine
 
 struct MarvelAPI {
   // MARK: Private functions
-  private let publicKey = "50f9dc6bd4b9654b780baccb00f805e5"
-  private let privateKey = "d754bd4a0b60da783b0a98d2153df05d0788f965"
+  private let publicKey = "publickey"
+  private let privateKey = "privatekey"
 
   private func getApiParametersAsQueryItems() -> [URLQueryItem] {
     let timeStamp = String(Date().timeIntervalSince1970)
@@ -67,15 +67,6 @@ struct MarvelAPI {
   }
 
   // MARK: Comic
-  private func handleComicResult(_ data: Data, _ completion: (Result<[Comic], Error>) -> Void) throws {
-    let result: ComicDataWrapper = try self.jsonDecoder.decode(ComicDataWrapper.self, from: data)
-    if result.code == 200 {
-      completion(.success(result.data.results))
-    } else {
-      throw URLError(URLError.Code(rawValue: result.code))
-    }
-  }
-
   func fetchAboutToBePublishedComics() -> AnyPublisher<[Comic], Error> {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
     var queryParams = getApiParametersAsQueryItems()
@@ -92,7 +83,7 @@ struct MarvelAPI {
   func fetchNewlyPublishedComics() -> AnyPublisher<[Comic], Error> {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
     var queryParams = getApiParametersAsQueryItems()
-    queryParams.append(URLQueryItem(name: "dateDescriptor", value: "thisMonth"))
+    queryParams.append(URLQueryItem(name: "dateDescriptor", value: "thisWeek"))
     urlComponents.queryItems = queryParams
     let request = URLRequest(url: urlComponents.url!)
     return URLSession.shared.dataTaskPublisher(for: request)

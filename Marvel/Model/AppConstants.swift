@@ -21,3 +21,8 @@ struct AppConstants {
   static let comicLargeTitle = UIFont(name: "Roboto-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 30))!
   static let comicBody = UIFont(name: "Roboto-Light", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
 }
+
+enum ComicFilterCase: String, CaseIterable {
+  case New = "comics_new"
+  case Future = "comics_to_come"
+}

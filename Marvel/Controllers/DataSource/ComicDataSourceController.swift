@@ -16,6 +16,8 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
   private let marvelApi = MarvelAPI()
   private var fetchComicsHandle: AnyCancellable?
 
+  var comicsTypeDisplayed: ComicFilterCase = .New
+
   func fetchData() {
     fetchComicsHandle = marvelApi.fetchAboutToBePublishedComics()
       .zip(marvelApi.fetchNewlyPublishedComics())
@@ -27,8 +29,17 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
     })
   }
 
+  func getComicsFromFilter() -> [Comic] {
+    switch comicsTypeDisplayed {
+    case .New:
+      return newComics
+    case .Future:
+      return futureComics
+    }
+  }
+
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    newComics.count
+    getComicsFromFilter().count
   }
 
   func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -40,7 +51,7 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
       as? ComicCollectionCell else {
         fatalError("Cell ComicCell was not registered")
     }
-    let comic = newComics[indexPath.row]
+    let comic = getComicsFromFilter()[indexPath.row]
     cell.titleLabel.text = comic.title
     if let comicImage = comic.thumbnail {
       let imageURL = URL(string: "\(comicImage.path!).\(comicImage.extension!)")!
