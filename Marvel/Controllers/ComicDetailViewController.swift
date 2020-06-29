@@ -48,6 +48,15 @@ class ComicDetailViewController: UIViewController {
       }
       comicDetailView.creatorsLabel.attributedText = text
     }
+
+    if let summary = comic.description {
+      let summaryText = NSMutableAttributedString()
+      let summaryTextTitle = NSMutableAttributedString(string: "\("summary".localized.capitalized)\n", attributes: [NSAttributedString.Key.font: keyInfoFont])
+      let summaryTextContent = NSMutableAttributedString(string: summary)
+      summaryText.append(summaryTextTitle)
+      summaryText.append(summaryTextContent)
+      comicDetailView.summaryLabel.attributedText = summaryText
+    }
   }
 
   override func viewDidLoad() {

@@ -8,8 +8,8 @@
 "OnSaleDate" = "Date de sortie";
 "Comic" = "Bande dessinée";
 "Characters" = "Personnage";
-"colorist" = "coloriste";
-"colorist (cover)" = "coloriste (couverture)";
+"colorist" = "illustration";
+"colorist (cover)" = "illustration (couverture)";
 "editor" = "editeur";
 "letterer" = "lettrage";
 "penciler (cover)" = "dessinateur (couverture)";
@@ -19,3 +19,4 @@
 "painter (cover)" = "peintre (couverture)";
 "comics_new" = "Nouveau";
 "comics_to_come" = "Prochainement";
+"summary" = "description";

@@ -19,6 +19,7 @@ class ComicDetailView: UIView {
   let publishedDateLabel: UILabel
   var creatorsLabel: UILabel
   let coverImage: UIImageView
+  let summaryLabel: UILabel
 
   private func setupView() {
 
@@ -45,11 +46,14 @@ class ComicDetailView: UIView {
     titleLabel.font = AppConstants.comicLargeTitle
 
     creatorsLabel.numberOfLines = 0
+    
+    summaryLabel.numberOfLines = 0
 
     container.addArrangedSubview(titleLabel)
     container.addArrangedSubview(coverImage)
     container.addArrangedSubview(publishedDateLabel)
     container.addArrangedSubview(creatorsLabel)
+    container.addArrangedSubview(summaryLabel)
     scrollView.addSubview(container)
     addSubview(scrollView)
 
@@ -77,6 +81,7 @@ class ComicDetailView: UIView {
     scrollView = UIScrollView()
     publishedDateLabel = UILabel()
     creatorsLabel = UILabel()
+    summaryLabel = UILabel()
     super.init(frame: .zero)
     setupView()
   }

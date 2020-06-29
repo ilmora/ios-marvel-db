@@ -23,7 +23,6 @@ class ComicHomeViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    navigationItem.title = ""
     comicHomeView.collectionView.dataSource = dataSource
     navigationItem.titleView = comicFilter
     fetchComicsHandle = dataSource.$newComics
