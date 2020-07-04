@@ -13,7 +13,7 @@ import Combine
 
 class ComicDetailView: UIView {
   private let scrollView: UIScrollView
-  private let container: UIStackView
+  let container: UIStackView
 
   let titleLabel: UILabel
   let publishedDateLabel: UILabel
@@ -53,7 +53,6 @@ class ComicDetailView: UIView {
     container.addArrangedSubview(coverImage)
     container.addArrangedSubview(publishedDateLabel)
     container.addArrangedSubview(creatorsLabel)
-    container.addArrangedSubview(summaryLabel)
     scrollView.addSubview(container)
     addSubview(scrollView)
 

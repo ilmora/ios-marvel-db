@@ -50,12 +50,15 @@ class ComicDetailViewController: UIViewController {
     }
 
     if let summary = comic.description {
+      comicDetailView.container.addArrangedSubview(comicDetailView.summaryLabel)
       let summaryText = NSMutableAttributedString()
       let summaryTextTitle = NSMutableAttributedString(string: "\("summary".localized.capitalized)\n", attributes: [NSAttributedString.Key.font: keyInfoFont])
       let summaryTextContent = NSMutableAttributedString(string: summary)
       summaryText.append(summaryTextTitle)
       summaryText.append(summaryTextContent)
       comicDetailView.summaryLabel.attributedText = summaryText
+    } else {
+      comicDetailView.container.removeArrangedSubview(comicDetailView.summaryLabel)
     }
   }
 
