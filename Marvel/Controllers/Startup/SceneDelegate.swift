@@ -16,16 +16,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let marvelTabBarItem = UITabBarItem(title: "Comic".localized, image: UIImage(systemName: "book"), tag: 0)
     homeVC.tabBarItem = marvelTabBarItem
 
-    let charactersVC = CharactersListViewController()
-    let charactersTabBarItem = UITabBarItem(title: "Characters".localized , image: UIImage(systemName: "person"), tag: 1)
-    charactersVC.tabBarItem = charactersTabBarItem
+    let searchVC = SearchViewController()
+    let searchTabBarItem = UITabBarItem(title: "search".localized , image: UIImage(systemName: "magnifyingglass"), tag: 1)
+    searchVC.tabBarItem = searchTabBarItem
 
     let rootVC = UITabBarController()
     rootVC.tabBar.tintColor = AppConstants.marvelColor
     rootVC.tabBar.barTintColor = .systemBackground
     var viewControllers = [UIViewController]()
     viewControllers.append(UINavigationController(rootViewController: homeVC))
-    viewControllers.append(UINavigationController(rootViewController: charactersVC))
+    viewControllers.append(UINavigationController(rootViewController: searchVC))
     rootVC.viewControllers = viewControllers
     rootVC.selectedViewController = viewControllers.first!
     return rootVC

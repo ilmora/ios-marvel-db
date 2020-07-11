@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import Combine
 
-class CharactersListView: UIView {
+class SearchResultView: UIView {
   let tableView: UITableView
 
   private func setupView() {
     tableView.translatesAutoresizingMaskIntoConstraints = false
-    tableView.register(CharacterViewCell.self, forCellReuseIdentifier: CharacterViewCell.reusableIdentifier)
+    tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reusableIdentifier)
     tableView.rowHeight = 75
     addSubview(tableView)
     NSLayoutConstraint.activate([
@@ -24,10 +24,6 @@ class CharactersListView: UIView {
       tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
       tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
     ])
-
-    DispatchQueue.main.async {
-      self.tableView.reloadData()
-    }
   }
 
   init() {

@@ -30,40 +30,40 @@ struct MarvelAPI {
     return _jsonDecoder
   }
 
-  // MARK: Characters
-  private func fetchManyCharaters(offset: Int, limit: Int, sub: PassthroughSubject<[Character], Error>) {
-    var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/characters")!
+  // MARK: Search
+  private func fetchComics(containing: String) -> AnyPublisher<[Comic], Error> {
+    var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
     var queryParams = getApiParametersAsQueryItems()
-    queryParams.append(URLQueryItem(name: "offset", value: String(offset)))
-    queryParams.append(URLQueryItem(name: "limit", value: String(limit)))
-    queryParams.append(URLQueryItem(name: "orderBy", value: "name"))
+    queryParams.append(URLQueryItem(name: "title", value: containing))
+
     urlComponents.queryItems = queryParams
     let request = URLRequest(url: urlComponents.url!)
-
-    URLSession.shared.dataTask(with: request) { data, response, error in
-      if let error = error {
-        sub.send(completion: .failure(error))
-      } else if let data = data {
-        do {
-          let characters = try self.jsonDecoder.decode(CharacterDataWrapper.self, from: data)
-          let count = characters.data.count
-          sub.send(characters.data.results)
-          if characters.data.offset + count < characters.data.total {
-            self.fetchManyCharaters(offset: offset + count, limit: limit, sub: sub)
-          } else {
-            sub.send(completion: .finished)
-          }
-        } catch {
-          sub.send(completion: .failure(error))
-        }
-      }
-    }.resume()
+    return URLSession.shared.dataTaskPublisher(for: request)
+      .map { $0.data }
+      .decode(type: ComicDataWrapper.self, decoder: jsonDecoder)
+      .map { $0.data.results }
+      .eraseToAnyPublisher()
   }
 
-  func fetchAllCharacters() -> AnyPublisher<[Character], Error> {
-    let sub = PassthroughSubject<[Character], Error>()
-    fetchManyCharaters(offset: 0, limit: 100, sub: sub)
-    return sub.eraseToAnyPublisher()
+  private func fetchCharacters(containing: String) -> AnyPublisher<[Character], Error> {
+    var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/characters?")!
+    var queryParams = getApiParametersAsQueryItems()
+    queryParams.append(URLQueryItem(name: "nameStartsWith", value: containing))
+
+    urlComponents.queryItems = queryParams
+    let request = URLRequest(url: urlComponents.url!)
+    return URLSession.shared.dataTaskPublisher(for: request)
+      .map { $0.data }
+      .decode(type: CharacterDataWrapper.self, decoder: jsonDecoder)
+      .map { $0.data.results }
+      .eraseToAnyPublisher()
+  }
+
+  func fetchEntities(containing text: String) -> (AnyPublisher<[Comic], Error>, AnyPublisher<[Character], Error>) {
+    let comicsPublisher = fetchComics(containing: text)
+    let charactersPublisher = fetchCharacters(containing: text)
+
+    return (comicsPublisher, charactersPublisher)
   }
 
   // MARK: Comic
@@ -83,7 +83,7 @@ struct MarvelAPI {
   func fetchNewlyPublishedComics() -> AnyPublisher<[Comic], Error> {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
     var queryParams = getApiParametersAsQueryItems()
-    queryParams.append(URLQueryItem(name: "dateDescriptor", value: "thisWeek"))
+    queryParams.append(URLQueryItem(name: "dateDescriptor", value: "thisMonth"))
     urlComponents.queryItems = queryParams
     let request = URLRequest(url: urlComponents.url!)
     return URLSession.shared.dataTaskPublisher(for: request)
