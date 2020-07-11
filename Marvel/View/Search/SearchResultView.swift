@@ -16,7 +16,8 @@ class SearchResultView: UIView {
   private func setupView() {
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.reusableIdentifier)
-    tableView.rowHeight = 75
+    tableView.rowHeight = 100
+    tableView.tableFooterView = UIView(frame: .zero)
     addSubview(tableView)
     NSLayoutConstraint.activate([
       tableView.topAnchor.constraint(equalTo: topAnchor),

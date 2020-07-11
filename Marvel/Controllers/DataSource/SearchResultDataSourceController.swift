@@ -9,11 +9,10 @@
 import Foundation
 import UIKit
 import Combine
+import Kingfisher
 
-class SearchResultDataSourceController: NSObject, UISearchResultsUpdating, UITableViewDataSource {
-
+class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
   // MARK: Data
-
   private let api = MarvelAPI()
 
   @Published private var inputSearchText: String?
@@ -26,7 +25,6 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating, UITab
   private var charactersHandle: AnyCancellable?
 
   // MARK: Events
-
   func updateSearchResults(for searchController: UISearchController) {
     if textInputHandle == nil {
       textInputHandle = $inputSearchText
@@ -36,8 +34,8 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating, UITab
     inputSearchText = searchController.searchBar.text
   }
 
-  func fetchResultFromApi(_ newSearchValue: String?) {
-    guard let newSearchValue = newSearchValue else {
+  private func fetchResultFromApi(_ newSearchValue: String?) {
+    guard let newSearchValue = newSearchValue, newSearchValue != "" else {
       comics = [Comic]()
       characters = [Character]()
       return
@@ -54,22 +52,21 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating, UITab
       self.characters = characters
     })
   }
+}
 
-  // MARK: TableView Data source
+// MARK: TableView Data source
+extension SearchResultDataSourceController: UITableViewDataSource {
+
+  private func getImageUrl(of image: Image) -> URL {
+    URL(string: "\(image.path!).\(image.extension!)")!
+  }
 
   func numberOfSections(in tableView: UITableView) -> Int {
-    2
+    1
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    switch section {
-    case 0:
-      return comics.count
-    case 1:
-      return characters.count
-    default:
-      fatalError()
-    }
+    comics.count + characters.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,16 +74,26 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating, UITab
       as? SearchResultCell else {
         fatalError()
     }
-    let resultTitleText: String?
-    switch indexPath.section {
-    case 0:
-      resultTitleText = comics[indexPath.row].title
-    case 1:
-      resultTitleText = characters[indexPath.row].name
-    default:
-      fatalError()
+    if indexPath.row < comics.count {
+      // Comic
+      let comic = comics[indexPath.row]
+      cell.resultTitle.text = comic.title
+      if let thumbnail = comic.thumbnail {
+        cell.resultTypeImage.kf.setImage(with: getImageUrl(of: thumbnail))
+      } else {
+        cell.resultTypeImage.image = UIImage(systemName: "book.fill")
+      }
+    } else {
+      // Personnage
+      let character = characters[indexPath.row - comics.count]
+      cell.resultTitle.text = character.name
+      if let thumbnail = character.thumbnail {
+        cell.resultTypeImage.kf.setImage(with: getImageUrl(of: thumbnail),
+                                         options: [.processor(RoundCornerImageProcessor(cornerRadius: 2000))])
+      } else {
+        cell.resultTypeImage.image = UIImage(systemName: "person.fill")
+      }
     }
-    cell.resultTitle.text = resultTitleText
     return cell
   }
 }

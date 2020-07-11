@@ -34,7 +34,7 @@ struct MarvelAPI {
   private func fetchComics(containing: String) -> AnyPublisher<[Comic], Error> {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
     var queryParams = getApiParametersAsQueryItems()
-    queryParams.append(URLQueryItem(name: "title", value: containing))
+    queryParams.append(URLQueryItem(name: "titleStartsWith", value: containing))
 
     urlComponents.queryItems = queryParams
     let request = URLRequest(url: urlComponents.url!)

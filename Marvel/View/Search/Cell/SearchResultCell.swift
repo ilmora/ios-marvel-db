@@ -11,21 +11,35 @@ import UIKit
 
 class SearchResultCell: UITableViewCell {
   let resultTitle: UILabel
+  let resultTypeImage: UIImageView
+  private let container: UIStackView
 
   private func setupView() {
-    resultTitle.translatesAutoresizingMaskIntoConstraints = false
+    container.translatesAutoresizingMaskIntoConstraints = false
+    resultTypeImage.translatesAutoresizingMaskIntoConstraints = false
 
-    contentView.addSubview(resultTitle)
+    container.axis = .horizontal
+    container.distribution = .fill
+    container.spacing = 15
+    container.alignment = .center
+    container.addArrangedSubview(resultTypeImage)
+    container.addArrangedSubview(resultTitle)
+
+    contentView.addSubview(container)
     NSLayoutConstraint.activate([
-      resultTitle.topAnchor.constraint(equalTo: contentView.topAnchor),
-      resultTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-      resultTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-      resultTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+      container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+      container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+      container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+      container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+
+      resultTypeImage.widthAnchor.constraint(equalTo: resultTypeImage.heightAnchor)
     ])
   }
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     resultTitle = UILabel()
+    resultTypeImage = UIImageView()
+    container = UIStackView()
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupView()
   }

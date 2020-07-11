@@ -13,27 +13,24 @@ import Combine
 class SearchViewController: UIViewController {
   private let searchResultView: SearchResultView
   private let searchBarController: UISearchController
-  private var charactersHandle: AnyCancellable?
-  private var comicsHandle: AnyCancellable?
+  private var searchHandle: AnyCancellable?
   private let searchBarResultDataSource: SearchResultDataSourceController
 
   override func viewDidLoad() {
     super.viewDidLoad()
     searchBarController.searchResultsUpdater = searchBarResultDataSource
+    searchBarController.obscuresBackgroundDuringPresentation = false
     navigationItem.searchController = searchBarController
     navigationItem.title = "search".localized
 
     searchResultView.tableView.dataSource = searchBarResultDataSource
-    charactersHandle = searchBarResultDataSource.$characters.sink(receiveValue: { _ in
-      DispatchQueue.main.async {
-        self.searchResultView.tableView.reloadData()
-      }
-    })
-    comicsHandle = searchBarResultDataSource.$comics.sink(receiveValue: { _ in
-      DispatchQueue.main.async {
-        self.searchResultView.tableView.reloadData()
-      }
-    })
+    searchHandle = searchBarResultDataSource.$comics
+      .combineLatest(searchBarResultDataSource.$characters)
+      .sink(receiveValue: { _ in
+        DispatchQueue.main.async {
+          self.searchResultView.tableView.reloadData()
+        }
+      })
   }
 
   override func loadView() {
