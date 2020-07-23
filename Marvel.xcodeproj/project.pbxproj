@@ -44,6 +44,7 @@
 		D5E38F0924CA159800AFBA3F /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E38F0624CA159800AFBA3F /* Raleway-Bold.ttf */; };
 		D5E38F0A24CA159800AFBA3F /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E38F0724CA159800AFBA3F /* Raleway-Medium.ttf */; };
 		D5E38F0B24CA159800AFBA3F /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E38F0824CA159800AFBA3F /* Raleway-Regular.ttf */; };
+		D5E38F0D24CA1C6A00AFBA3F /* SearchResultFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */; };
 		D5E7BFB524B9E67B00AC0EF1 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E7BFB424B9E67B00AC0EF1 /* SearchResultCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		D5E38F0624CA159800AFBA3F /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		D5E38F0724CA159800AFBA3F /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
 		D5E38F0824CA159800AFBA3F /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
+		D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFooterView.swift; sourceTree = "<group>"; };
 		D5E7BFB424B9E67B00AC0EF1 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		F9F8D26C812548D0F8F46E83 /* Pods-Marvel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marvel.debug.xcconfig"; path = "Target Support Files/Pods-Marvel/Pods-Marvel.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -226,6 +228,7 @@
 			children = (
 				D5E7BFB424B9E67B00AC0EF1 /* SearchResultCell.swift */,
 				D52BD4E724C8C450001965F0 /* SearchResultHeaderView.swift */,
+				D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				D52BD4E824C8C450001965F0 /* SearchResultHeaderView.swift in Sources */,
 				D528296D248D153D00CDFB62 /* Character.swift in Sources */,
 				D5A6DEAB24791FBB00CCC05E /* ComicDetailView.swift in Sources */,
+				D5E38F0D24CA1C6A00AFBA3F /* SearchResultFooterView.swift in Sources */,
 				D5CE5A4224B0A37500E8AF36 /* SearchResultDataSourceController.swift in Sources */,
 				D5CE5A4824B0AB7800E8AF36 /* Series.swift in Sources */,
 				D503480A2440DAC300925C08 /* SceneDelegate.swift in Sources */,

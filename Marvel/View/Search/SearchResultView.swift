@@ -30,6 +30,9 @@ class SearchResultView: UIView, UICollectionViewDelegate {
     collectionView.register(SearchResultHeaderView.self,
                             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                             withReuseIdentifier: SearchResultHeaderView.reusableIdentifier)
+    collectionView.register(SearchResultFooterView.self,
+                            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                            withReuseIdentifier: SearchResultFooterView.reusableIdentifier)
     collectionView.delegate = self
     collectionView.backgroundColor = .systemBackground
     addSubview(collectionView)
@@ -42,17 +45,21 @@ class SearchResultView: UIView, UICollectionViewDelegate {
   }
 
   init() {
-    let headerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-    let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100)),
-                                                 subitem: item, count: 1)
     let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+      let headerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+      let footerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(30)), elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+      let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+      let item = NSCollectionLayoutItem(layoutSize: itemSize)
+      let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(70)),
+                                                   subitem: item, count: 1)
       let section = NSCollectionLayoutSection(group: group)
       section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-      section.boundarySupplementaryItems = [headerItem]
+      section.boundarySupplementaryItems = [headerItem, footerItem]
       return section
     }
+    let layoutConfiguration = UICollectionViewCompositionalLayoutConfiguration()
+    layoutConfiguration.interSectionSpacing = 50
+    layout.configuration = layoutConfiguration
     collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     super.init(frame: .zero)
     setupView()

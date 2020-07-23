@@ -69,11 +69,13 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    guard let sectionCase = SearchResultView.SectionTitles(rawValue: indexPath.section) else {
+      fatalError()
+    }
     switch kind {
     case UICollectionView.elementKindSectionHeader:
       guard let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchResultHeaderView.reusableIdentifier, for: indexPath)
-        as? SearchResultHeaderView,
-      let sectionCase = SearchResultView.SectionTitles(rawValue: indexPath.section) else {
+        as? SearchResultHeaderView else {
           fatalError()
       }
       switch sectionCase {
@@ -83,6 +85,12 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
         headerCell.sectionTitle.text = "Characters".localized
       }
       return headerCell
+    case UICollectionView.elementKindSectionFooter:
+      guard let footerCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchResultFooterView.reusableIdentifier, for: indexPath)
+        as? SearchResultFooterView else {
+          fatalError()
+      }
+      return footerCell
     default:
       fatalError()
     }
