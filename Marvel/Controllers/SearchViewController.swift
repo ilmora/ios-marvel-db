@@ -14,6 +14,7 @@ class SearchViewController: UIViewController {
   private let searchResultView: SearchResultView
   private let searchBarController: UISearchController
   private var searchHandle: AnyCancellable?
+  private var selectedRowHandle: AnyCancellable?
   private let searchBarResultDataSource: SearchResultDataSourceController
 
   override func viewDidLoad() {
@@ -23,14 +24,28 @@ class SearchViewController: UIViewController {
     navigationItem.searchController = searchBarController
     navigationItem.title = "search".localized
 
-    searchResultView.tableView.dataSource = searchBarResultDataSource
+    searchResultView.collectionView.dataSource = searchBarResultDataSource
     searchHandle = searchBarResultDataSource.$comics
-      .combineLatest(searchBarResultDataSource.$characters)
+      .zip(searchBarResultDataSource.$characters)
       .sink(receiveValue: { _ in
         DispatchQueue.main.async {
-          self.searchResultView.tableView.reloadData()
+          self.searchResultView.collectionView.reloadData()
         }
       })
+
+    selectedRowHandle = searchResultView.$selectedRow.sink(receiveValue: { selectedRow in
+      guard let selectedRow = selectedRow,
+        let sectionCase = SearchResultView.SectionTitles(rawValue: selectedRow.section) else {
+        return
+      }
+      switch sectionCase {
+      case .Comics:
+        let comic = self.searchBarResultDataSource.comics[selectedRow.row]
+        self.navigationController?.pushViewController(ComicDetailViewController(comic), animated: true)
+      case .Characters:
+        return
+      }
+    })
   }
 
   override func loadView() {

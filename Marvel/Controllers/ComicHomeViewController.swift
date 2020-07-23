@@ -44,6 +44,7 @@ class ComicHomeViewController: UIViewController {
     comicFilter.backgroundColor = AppConstants.marvelColor
     comicFilter.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
     comicFilter.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+    comicFilter.selectedSegmentTintColor = .white
     comicFilter.selectedSegmentIndex = 0
 
     comicFilter.addTarget(self, action: #selector(comicFilterChanged), for: .valueChanged)

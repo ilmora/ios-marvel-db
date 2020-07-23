@@ -9,10 +9,13 @@
 import Foundation
 import UIKit
 
-class SearchResultCell: UITableViewCell {
+class SearchResultCell: UICollectionViewCell {
   let resultTitle: UILabel
   let resultTypeImage: UIImageView
   private let container: UIStackView
+
+  private let resultTypeImageRatioEqual: NSLayoutConstraint
+  private let resultTypeImageRatioBook: NSLayoutConstraint
 
   private func setupView() {
     container.translatesAutoresizingMaskIntoConstraints = false
@@ -32,15 +35,27 @@ class SearchResultCell: UITableViewCell {
       container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
       container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
 
-      resultTypeImage.widthAnchor.constraint(equalTo: resultTypeImage.heightAnchor)
+      resultTypeImage.widthAnchor.constraint(lessThanOrEqualToConstant: 75)
     ])
   }
 
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+  func setImageRatio(_ multiplier: Float) {
+    if multiplier == 1.0 {
+      resultTypeImageRatioBook.isActive = false
+      resultTypeImageRatioEqual.isActive = true
+    } else if multiplier == 1.5 {
+      resultTypeImageRatioBook.isActive = true
+      resultTypeImageRatioEqual.isActive = false
+    }
+  }
+
+  override init(frame: CGRect) {
     resultTitle = UILabel()
     resultTypeImage = UIImageView()
     container = UIStackView()
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
+    resultTypeImageRatioBook = resultTypeImage.heightAnchor.constraint(equalTo: resultTypeImage.widthAnchor, multiplier: 1.5)
+    resultTypeImageRatioEqual = resultTypeImage.heightAnchor.constraint(equalTo: resultTypeImage.widthAnchor, multiplier: 1)
+    super.init(frame: frame)
     setupView()
   }
 

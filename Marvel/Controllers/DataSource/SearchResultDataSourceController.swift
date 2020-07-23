@@ -54,46 +54,84 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
   }
 }
 
-// MARK: TableView Data source
-extension SearchResultDataSourceController: UITableViewDataSource {
-
-  private func getImageUrl(of image: Image) -> URL {
-    URL(string: "\(image.path!).\(image.extension!)")!
+// MARK: CollectionView Data source
+extension SearchResultDataSourceController: UICollectionViewDataSource {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    guard let sectionCase = SearchResultView.SectionTitles(rawValue: section) else {
+      return 0
+    }
+    switch sectionCase {
+    case .Comics:
+      return min(comics.count, 2)
+    case .Characters:
+      return min(characters.count, 2)
+    }
   }
 
-  func numberOfSections(in tableView: UITableView) -> Int {
-    1
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    switch kind {
+    case UICollectionView.elementKindSectionHeader:
+      guard let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchResultHeaderView.reusableIdentifier, for: indexPath)
+        as? SearchResultHeaderView,
+      let sectionCase = SearchResultView.SectionTitles(rawValue: indexPath.section) else {
+          fatalError()
+      }
+      switch sectionCase {
+      case .Comics:
+        headerCell.sectionTitle.text = "Comic".localized
+      case .Characters:
+        headerCell.sectionTitle.text = "Characters".localized
+      }
+      return headerCell
+    default:
+      fatalError()
+    }
   }
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    comics.count + characters.count
-  }
-
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultCell.reusableIdentifier, for: indexPath)
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.reusableIdentifier, for: indexPath)
       as? SearchResultCell else {
         fatalError()
     }
-    if indexPath.row < comics.count {
-      // Comic
+    guard let sectionCase = SearchResultView.SectionTitles(rawValue: indexPath.section) else {
+      fatalError()
+    }
+    switch sectionCase {
+    case .Comics:
       let comic = comics[indexPath.row]
       cell.resultTitle.text = comic.title
+      cell.setImageRatio(1.5)
       if let thumbnail = comic.thumbnail {
         cell.resultTypeImage.kf.setImage(with: getImageUrl(of: thumbnail))
       } else {
         cell.resultTypeImage.image = UIImage(systemName: "book.fill")
       }
-    } else {
-      // Personnage
-      let character = characters[indexPath.row - comics.count]
+    case .Characters:
+      let character = characters[indexPath.row]
       cell.resultTitle.text = character.name
+      cell.setImageRatio(1.0)
       if let thumbnail = character.thumbnail {
-        cell.resultTypeImage.kf.setImage(with: getImageUrl(of: thumbnail),
-                                         options: [.processor(RoundCornerImageProcessor(cornerRadius: 2000))])
+        cell.resultTypeImage.kf.setImage(with: getImageUrl(of: thumbnail))
       } else {
         cell.resultTypeImage.image = UIImage(systemName: "person.fill")
       }
     }
     return cell
+  }
+
+
+  private func getImageUrl(of image: Image) -> URL {
+    URL(string: "\(image.path!).\(image.extension!)")!
+  }
+
+  func numberOfSections(in: UICollectionView) -> Int {
+    var nbOfSections = 0
+    if comics.first != nil {
+      nbOfSections += 1
+    }
+    if characters.first != nil {
+      nbOfSections += 1
+    }
+    return nbOfSections
   }
 }
