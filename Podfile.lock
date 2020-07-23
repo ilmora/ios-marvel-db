@@ -1,22 +1,18 @@
 PODS:
-  - Instabug (9.1.5)
   - Kingfisher (5.14.0):
     - Kingfisher/Core (= 5.14.0)
   - Kingfisher/Core (5.14.0)
 
 DEPENDENCIES:
-  - Instabug
   - Kingfisher
 
 SPEC REPOS:
   trunk:
-    - Instabug
     - Kingfisher
 
 SPEC CHECKSUMS:
-  Instabug: 1548d150fd89713288a3ceceb59de7e615b1d0d7
   Kingfisher: 7b64389a43139c903ec434788344c288217c792d
 
-PODFILE CHECKSUM: a29b7efdd14cc6ae6c05d5f037634ab386840ea6
+PODFILE CHECKSUM: 2b041128e74faafea4084455846d53a1bddbbb13
 
 COCOAPODS: 1.9.1

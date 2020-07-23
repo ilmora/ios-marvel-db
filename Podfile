@@ -7,5 +7,4 @@ target 'Marvel' do
 
   # Pods for Marvel
   pod 'Kingfisher'
-  pod 'Instabug'
 end
