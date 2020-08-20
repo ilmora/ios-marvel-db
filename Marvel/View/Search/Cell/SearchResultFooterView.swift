@@ -10,16 +10,10 @@ import Foundation
 import UIKit
 
 class SearchResultFooterView: UICollectionReusableView {
-  let seeMoreButton: UIButton
+  var seeMoreButton: SeeMoreButton
 
   private func setupView() {
     seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
-    seeMoreButton.setTitle("SeeMore".localized, for: .normal)
-    seeMoreButton.setTitleColor(.systemGray, for: .normal)
-    seeMoreButton.backgroundColor = .clear
-    seeMoreButton.layer.borderColor = UIColor.systemGray3.cgColor
-    seeMoreButton.layer.borderWidth = 2
-    seeMoreButton.layer.cornerRadius = 10
     addSubview(seeMoreButton)
     NSLayoutConstraint.activate([
       seeMoreButton.topAnchor.constraint(equalTo: topAnchor),
@@ -30,7 +24,7 @@ class SearchResultFooterView: UICollectionReusableView {
   }
 
   override init(frame: CGRect) {
-    seeMoreButton = UIButton()
+    seeMoreButton = SeeMoreButton()
     super.init(frame: frame)
     setupView()
   }

@@ -15,11 +15,6 @@ class SearchResultView: UIView, UICollectionViewDelegate {
 
   @Published private(set) var selectedRow: IndexPath?
 
-  enum SectionTitles: Int {
-    case Comics = 0
-    case Characters
-  }
-
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     selectedRow = indexPath
   }

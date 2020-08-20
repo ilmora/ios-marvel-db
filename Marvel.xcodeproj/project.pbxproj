@@ -34,6 +34,10 @@
 		D5A97EE0247A570B00A72833 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A97EDF247A570B00A72833 /* Reusable.swift */; };
 		D5B734E9247428F5004F9CA6 /* ComicHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B734E8247428F5004F9CA6 /* ComicHomeView.swift */; };
 		D5B87E332495807400D6AEFB /* ComicDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B87E322495807400D6AEFB /* ComicDataSourceController.swift */; };
+		D5C3365F24E7D40300C37E09 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C3365E24E7D40300C37E09 /* CharacterDetailView.swift */; };
+		D5C3366124E84E8C00C37E09 /* SeeMoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C3366024E84E8C00C37E09 /* SeeMoreButton.swift */; };
+		D5C3366324E853AA00C37E09 /* SeeMoreComicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C3366224E853AA00C37E09 /* SeeMoreComicsViewController.swift */; };
+		D5C3366624E8566C00C37E09 /* SeeMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C3366524E8566C00C37E09 /* SeeMoreView.swift */; };
 		D5C50D1724419E4400644413 /* ComicCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C50D1624419E4400644413 /* ComicCollectionCell.swift */; };
 		D5CE5A4224B0A37500E8AF36 /* SearchResultDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CE5A4124B0A37500E8AF36 /* SearchResultDataSourceController.swift */; };
 		D5CE5A4424B0A93800E8AF36 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CE5A4324B0A93800E8AF36 /* Creator.swift */; };
@@ -80,6 +84,10 @@
 		D5A97EDF247A570B00A72833 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		D5B734E8247428F5004F9CA6 /* ComicHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicHomeView.swift; sourceTree = "<group>"; };
 		D5B87E322495807400D6AEFB /* ComicDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDataSourceController.swift; sourceTree = "<group>"; };
+		D5C3365E24E7D40300C37E09 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
+		D5C3366024E84E8C00C37E09 /* SeeMoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreButton.swift; sourceTree = "<group>"; };
+		D5C3366224E853AA00C37E09 /* SeeMoreComicsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreComicsViewController.swift; sourceTree = "<group>"; };
+		D5C3366524E8566C00C37E09 /* SeeMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreView.swift; sourceTree = "<group>"; };
 		D5C50D1624419E4400644413 /* ComicCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCollectionCell.swift; sourceTree = "<group>"; };
 		D5CE5A4124B0A37500E8AF36 /* SearchResultDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDataSourceController.swift; sourceTree = "<group>"; };
 		D5CE5A4324B0A93800E8AF36 /* Creator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
@@ -219,6 +227,7 @@
 			children = (
 				D59ACD462486C438005E951A /* Cell */,
 				D59ACD442486BA9E005E951A /* SearchResultView.swift */,
+				D5C3366024E84E8C00C37E09 /* SeeMoreButton.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -241,6 +250,22 @@
 			path = ComicDetail;
 			sourceTree = "<group>";
 		};
+		D5C3365D24E7D3EF00C37E09 /* CharacterDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D5C3365E24E7D40300C37E09 /* CharacterDetailView.swift */,
+			);
+			path = CharacterDetail;
+			sourceTree = "<group>";
+		};
+		D5C3366424E855C500C37E09 /* SeeMore */ = {
+			isa = PBXGroup;
+			children = (
+				D5C3366524E8566C00C37E09 /* SeeMoreView.swift */,
+			);
+			path = SeeMore;
+			sourceTree = "<group>";
+		};
 		D5C50D1C2441CC0100644413 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +277,8 @@
 		D5C50D1D2441CC0B00644413 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D5C3366424E855C500C37E09 /* SeeMore */,
+				D5C3365D24E7D3EF00C37E09 /* CharacterDetail */,
 				D59A6405247DAA3B0031C2B2 /* Search */,
 				D5A6DEA924791F5200CCC05E /* ComicDetail */,
 				D5E4373D2474261A0036333A /* ComicHome */,
@@ -287,6 +314,7 @@
 				D503480B2440DAC300925C08 /* ComicHomeViewController.swift */,
 				D5A6DEA724791F2400CCC05E /* ComicDetailViewController.swift */,
 				D59A6403247DA9FA0031C2B2 /* SearchViewController.swift */,
+				D5C3366224E853AA00C37E09 /* SeeMoreComicsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -326,6 +354,8 @@
 			dependencies = (
 			);
 			name = Marvel;
+			packageProductDependencies = (
+			);
 			productName = Marvel;
 			productReference = D50348042440DAC300925C08 /* Marvel.app */;
 			productType = "com.apple.product-type.application";
@@ -355,6 +385,8 @@
 				fr,
 			);
 			mainGroup = D50347FB2440DAC300925C08;
+			packageReferences = (
+			);
 			productRefGroup = D50348052440DAC300925C08 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -441,6 +473,7 @@
 				D5034821244108CA00925C08 /* Comic.swift in Sources */,
 				D5B87E332495807400D6AEFB /* ComicDataSourceController.swift in Sources */,
 				D503481E2440EBA400925C08 /* MD5.swift in Sources */,
+				D5C3366324E853AA00C37E09 /* SeeMoreComicsViewController.swift in Sources */,
 				D50348082440DAC300925C08 /* AppDelegate.swift in Sources */,
 				D5A6DEA824791F2400CCC05E /* ComicDetailViewController.swift in Sources */,
 				D528296F248D162700CDFB62 /* Image.swift in Sources */,
@@ -451,6 +484,9 @@
 				D5CE5A4224B0A37500E8AF36 /* SearchResultDataSourceController.swift in Sources */,
 				D5CE5A4824B0AB7800E8AF36 /* Series.swift in Sources */,
 				D503480A2440DAC300925C08 /* SceneDelegate.swift in Sources */,
+				D5C3366124E84E8C00C37E09 /* SeeMoreButton.swift in Sources */,
+				D5C3366624E8566C00C37E09 /* SeeMoreView.swift in Sources */,
+				D5C3365F24E7D40300C37E09 /* CharacterDetailView.swift in Sources */,
 				D503481C2440DD3600925C08 /* MarvelAPI.swift in Sources */,
 				D5CE5A4624B0AAA300E8AF36 /* Event.swift in Sources */,
 				D5C50D1724419E4400644413 /* ComicCollectionCell.swift in Sources */,

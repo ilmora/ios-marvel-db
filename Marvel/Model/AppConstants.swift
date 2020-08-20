@@ -27,3 +27,8 @@ enum ComicFilterCase: String, CaseIterable {
   case New = "comics_new"
   case Future = "comics_to_come"
 }
+
+enum SearchEntitiesSectionTitles: Int {
+  case Comics = 0
+  case Characters
+}

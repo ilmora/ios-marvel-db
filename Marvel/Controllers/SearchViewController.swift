@@ -35,7 +35,7 @@ class SearchViewController: UIViewController {
 
     selectedRowHandle = searchResultView.$selectedRow.sink(receiveValue: { selectedRow in
       guard let selectedRow = selectedRow,
-        let sectionCase = SearchResultView.SectionTitles(rawValue: selectedRow.section) else {
+        let sectionCase = SearchEntitiesSectionTitles(rawValue: selectedRow.section) else {
         return
       }
       switch sectionCase {
@@ -48,6 +48,17 @@ class SearchViewController: UIViewController {
     })
   }
 
+  private func seeMoreButtonPressed(_ targetEntity: SearchEntitiesSectionTitles) {
+    let vc: UIViewController
+    switch targetEntity {
+    case .Characters:
+      vc = UIViewController()
+    case .Comics:
+      vc = SeeMoreComicsViewController(comics: searchBarResultDataSource.comics)
+    }
+    navigationController?.pushViewController(vc, animated: true)
+  }
+
   override func loadView() {
     view = searchResultView
   }
@@ -57,6 +68,7 @@ class SearchViewController: UIViewController {
     searchBarResultDataSource = SearchResultDataSourceController()
     searchBarController = UISearchController(searchResultsController: nil)
     super.init(nibName: nil, bundle: nil)
+    searchBarResultDataSource.seeMoreButtonHandler = seeMoreButtonPressed(_:)
   }
 
   required init?(coder: NSCoder) {

@@ -24,6 +24,9 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
   @Published private(set) var characters = [Character]()
   private var charactersHandle: AnyCancellable?
 
+  typealias SeeMoreButtonHandler = ((SearchEntitiesSectionTitles) -> Void)
+  var seeMoreButtonHandler: SeeMoreButtonHandler?
+
   // MARK: Events
   func updateSearchResults(for searchController: UISearchController) {
     if textInputHandle == nil {
@@ -52,12 +55,20 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
       self.characters = characters
     })
   }
+
+  @objc private func didPressSeeMoreButton(_ sender: UIButton) {
+    guard let targetEntity = (sender as? SeeMoreButton)?.targetEntity,
+      let completion = self.seeMoreButtonHandler else {
+        return
+    }
+    completion(targetEntity)
+  }
 }
 
 // MARK: CollectionView Data source
 extension SearchResultDataSourceController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    guard let sectionCase = SearchResultView.SectionTitles(rawValue: section) else {
+    guard let sectionCase = SearchEntitiesSectionTitles(rawValue: section) else {
       return 0
     }
     switch sectionCase {
@@ -69,7 +80,7 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-    guard let sectionCase = SearchResultView.SectionTitles(rawValue: indexPath.section) else {
+    guard let sectionCase = SearchEntitiesSectionTitles(rawValue: indexPath.section) else {
       fatalError()
     }
     switch kind {
@@ -90,6 +101,13 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
         as? SearchResultFooterView else {
           fatalError()
       }
+      switch sectionCase {
+      case .Characters:
+        footerCell.seeMoreButton.targetEntity = .Characters
+      case .Comics:
+        footerCell.seeMoreButton.targetEntity = .Comics
+      }
+      footerCell.seeMoreButton.addTarget(self, action: #selector(didPressSeeMoreButton), for: .touchDown)
       return footerCell
     default:
       fatalError()
@@ -101,7 +119,7 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
       as? SearchResultCell else {
         fatalError()
     }
-    guard let sectionCase = SearchResultView.SectionTitles(rawValue: indexPath.section) else {
+    guard let sectionCase = SearchEntitiesSectionTitles(rawValue: indexPath.section) else {
       fatalError()
     }
     switch sectionCase {
