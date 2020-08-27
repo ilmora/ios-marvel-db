@@ -43,20 +43,16 @@ class SearchViewController: UIViewController {
         let comic = self.searchBarResultDataSource.comics[selectedRow.row]
         self.navigationController?.pushViewController(ComicDetailViewController(comic), animated: true)
       case .Characters:
-        return
+        let character = self.searchBarResultDataSource.characters[selectedRow.row]
+        self.navigationController?.pushViewController(CharacterDetailViewController(character: character), animated: true)
       }
     })
   }
 
-  private func seeMoreButtonPressed(_ targetEntity: SearchEntitiesSectionTitles) {
-    let vc: UIViewController
-    switch targetEntity {
-    case .Characters:
-      vc = UIViewController()
-    case .Comics:
-      vc = SeeMoreComicsViewController(comics: searchBarResultDataSource.comics)
+  private func reloadCollectionView() {
+    DispatchQueue.main.async {
+      self.searchResultView.collectionView.reloadData()
     }
-    navigationController?.pushViewController(vc, animated: true)
   }
 
   override func loadView() {
@@ -68,7 +64,7 @@ class SearchViewController: UIViewController {
     searchBarResultDataSource = SearchResultDataSourceController()
     searchBarController = UISearchController(searchResultsController: nil)
     super.init(nibName: nil, bundle: nil)
-    searchBarResultDataSource.seeMoreButtonHandler = seeMoreButtonPressed(_:)
+    searchBarResultDataSource.didPressSeeMoreButtonHandler = reloadCollectionView
   }
 
   required init?(coder: NSCoder) {

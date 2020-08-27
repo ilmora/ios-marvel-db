@@ -11,4 +11,8 @@ import Foundation
 struct Image: Decodable {
   var path: String?
   var `extension`: String?
+
+  var url: URL {
+    URL(string: "\(path!).\(`extension`!)")!
+  }
 }

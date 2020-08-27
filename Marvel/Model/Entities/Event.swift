@@ -31,3 +31,15 @@ struct Event: Identifiable, Decodable {
   var title: String
   var description: String
 }
+
+struct EventList: Decodable, EntityList {
+  var available: Int?
+  var returned: Int?
+  var collectionURI: String?
+  var items: [EventSummary]?
+}
+
+struct EventSummary: Decodable, EntitySummary {
+  var resourceURI: String?
+  var name: String?
+}

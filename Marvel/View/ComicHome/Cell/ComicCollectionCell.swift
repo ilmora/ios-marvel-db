@@ -24,10 +24,10 @@ class ComicCollectionCell: UICollectionViewCell {
     container.alignment = .fill
     container.distribution = .fill
 
-    contentView.backgroundColor = AppConstants.comicBackgroundColor
+    contentView.backgroundColor = AppConstants.backgroundColor
     titleLabel.numberOfLines = 0
     titleLabel.textAlignment = .natural
-    titleLabel.font = AppConstants.comicTitle
+    titleLabel.font = AppConstants.title
 
     container.addArrangedSubview(coverImage)
     container.addArrangedSubview(titleLabel)

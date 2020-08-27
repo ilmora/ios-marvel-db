@@ -19,7 +19,7 @@ class ComicHomeView: UIView, UICollectionViewDelegate {
   }
 
   func setupView() {
-    backgroundColor = AppConstants.comicBackgroundColor
+    backgroundColor = AppConstants.backgroundColor
     collectionView.backgroundColor = .clear
     collectionView.translatesAutoresizingMaskIntoConstraints = false
     collectionView.register(ComicCollectionCell.self, forCellWithReuseIdentifier: ComicCollectionCell.reusableIdentifier)

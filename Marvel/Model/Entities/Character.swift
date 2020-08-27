@@ -33,4 +33,7 @@ struct Character: Decodable {
   var modified: Date?
   var resourceURI: String?
   var thumbnail: Image?
+  var comics: ComicList?
+  var stories: StoryList?
+  var series: SeriesList?
 }

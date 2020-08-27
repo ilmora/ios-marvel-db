@@ -16,10 +16,10 @@ struct AppConstants {
   }
 
   static let marvelColor = UIColor(named: "Marvel")!
-  static let comicBackgroundColor = UIColor.systemGray6
-  static let comicTitle = UIFont(name: "Roboto-Regular", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
-  static let comicLargeTitle = UIFont(name: "Roboto-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 30))!
-  static let comicBody = UIFont(name: "Roboto-Light", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
+  static let backgroundColor = UIColor.systemGray6
+  static let title = UIFont(name: "Roboto-Regular", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
+  static let largeTitle = UIFont(name: "Roboto-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 30))!
+  static let body = UIFont(name: "Roboto-Light", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
   static let headerSerachResultFont = UIFont(name: "Raleway-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
 }
 

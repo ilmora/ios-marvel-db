@@ -24,8 +24,10 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
   @Published private(set) var characters = [Character]()
   private var charactersHandle: AnyCancellable?
 
-  typealias SeeMoreButtonHandler = ((SearchEntitiesSectionTitles) -> Void)
-  var seeMoreButtonHandler: SeeMoreButtonHandler?
+  private var nbComicsToDisplay = 2
+  private var nbCharactersToDisplay = 2
+
+  var didPressSeeMoreButtonHandler: (() -> Void)?
 
   // MARK: Events
   func updateSearchResults(for searchController: UISearchController) {
@@ -57,11 +59,18 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
   }
 
   @objc private func didPressSeeMoreButton(_ sender: UIButton) {
-    guard let targetEntity = (sender as? SeeMoreButton)?.targetEntity,
-      let completion = self.seeMoreButtonHandler else {
+    guard let targetEntity = (sender as? SeeMoreButton)?.targetEntity else {
         return
     }
-    completion(targetEntity)
+    switch targetEntity {
+    case .Comics:
+      nbComicsToDisplay = comics.count
+    case .Characters:
+      nbCharactersToDisplay = characters.count
+    }
+    if let handler = didPressSeeMoreButtonHandler {
+      handler()
+    }
   }
 }
 
@@ -73,9 +82,9 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
     }
     switch sectionCase {
     case .Comics:
-      return min(comics.count, 2)
+      return min(comics.count, nbComicsToDisplay)
     case .Characters:
-      return min(characters.count, 2)
+      return min(characters.count, nbCharactersToDisplay)
     }
   }
 
@@ -128,7 +137,7 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
       cell.resultTitle.text = comic.title
       cell.setImageRatio(1.5)
       if let thumbnail = comic.thumbnail {
-        cell.resultTypeImage.kf.setImage(with: getImageUrl(of: thumbnail))
+        cell.resultTypeImage.kf.setImage(with: thumbnail.url)
       } else {
         cell.resultTypeImage.image = UIImage(systemName: "book.fill")
       }
@@ -137,17 +146,12 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
       cell.resultTitle.text = character.name
       cell.setImageRatio(1.0)
       if let thumbnail = character.thumbnail {
-        cell.resultTypeImage.kf.setImage(with: getImageUrl(of: thumbnail))
+        cell.resultTypeImage.kf.setImage(with: thumbnail.url)
       } else {
         cell.resultTypeImage.image = UIImage(systemName: "person.fill")
       }
     }
     return cell
-  }
-
-
-  private func getImageUrl(of image: Image) -> URL {
-    URL(string: "\(image.path!).\(image.extension!)")!
   }
 
   func numberOfSections(in: UICollectionView) -> Int {

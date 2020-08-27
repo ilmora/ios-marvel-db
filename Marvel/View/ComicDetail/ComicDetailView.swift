@@ -23,7 +23,7 @@ class ComicDetailView: UIView {
 
   private func setupView() {
 
-    backgroundColor = AppConstants.comicBackgroundColor
+    backgroundColor = AppConstants.backgroundColor
 
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     coverImage.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ class ComicDetailView: UIView {
     scrollView.showsVerticalScrollIndicator = false
 
     titleLabel.numberOfLines = 0
-    titleLabel.font = AppConstants.comicLargeTitle
+    titleLabel.font = AppConstants.largeTitle
 
     creatorsLabel.numberOfLines = 0
     

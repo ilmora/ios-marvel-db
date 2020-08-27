@@ -58,3 +58,15 @@ struct ComicPrice: Decodable {
   var type: String?
   var price: Float?
 }
+
+struct ComicList: Decodable, EntityList {
+  var available: Int?
+  var returned: Int?
+  var collectionURI: String?
+  var items: [ComicSummary]?
+}
+
+struct ComicSummary: Decodable, EntitySummary {
+  var resourceURI: String?
+  var name: String?
+}

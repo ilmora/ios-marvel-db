@@ -28,3 +28,16 @@ protocol MarvelDataContainer {
   var count: Int { get set }
   var results: [DataContainer] { get set }
 }
+
+protocol EntityList {
+  var available: Int? { get set }
+  var returned: Int? { get set }
+  var collectionURI: String? { get set }
+  associatedtype EntityType
+  var items: [EntityType]? { get set }
+}
+
+protocol EntitySummary {
+  var resourceURI: String? { get set }
+  var name: String? { get set }
+}

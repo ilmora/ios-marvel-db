@@ -31,3 +31,15 @@ struct Series: Decodable, Identifiable {
   var title: String
   var description: String
 }
+
+struct SeriesList: Decodable, EntityList {
+  var available: Int?
+  var returned: Int?
+  var collectionURI: String?
+  var items: [SeriesSummary]?
+}
+
+struct SeriesSummary: Decodable, EntitySummary {
+  var resourceURI: String?
+  var name: String?
+}

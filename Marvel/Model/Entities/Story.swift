@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct StoriesDataWrapper: MarvelResultType, Decodable {
-  var data: StoriesDataContainer
+struct StoryDataWrapper: MarvelResultType, Decodable {
+  var data: StoryDataContainer
   var code: Int
   var status: String
   var copyright: String
@@ -18,8 +18,8 @@ struct StoriesDataWrapper: MarvelResultType, Decodable {
   var etag: String
 }
 
-struct StoriesDataContainer: MarvelResultType, Decodable {
-  var data: Stories
+struct StoryDataContainer: MarvelResultType, Decodable {
+  var data: Story
   var code: Int
   var status: String
   var copyright: String
@@ -28,8 +28,21 @@ struct StoriesDataContainer: MarvelResultType, Decodable {
   var etag: String
 }
 
-struct Stories: Decodable, Identifiable {
+struct Story: Decodable, Identifiable {
   var id: Int
   var title: String
   var description: String
+}
+
+struct StoryList: Decodable, EntityList {
+  var available: Int?
+  var returned: Int?
+  var collectionURI: String?
+  var items: [StorySummary]?
+}
+
+struct StorySummary: Decodable, EntitySummary {
+  var resourceURI: String?
+  var name: String?
+  var type: String?
 }
