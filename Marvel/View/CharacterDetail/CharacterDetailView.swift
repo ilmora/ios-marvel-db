@@ -14,6 +14,7 @@ class CharacterDetailView: UIView {
   private let scrollView: UIScrollView
   private let container: UIStackView
   private let thumbnail: UIImageView
+  let collectionView: UICollectionView
   let nameLabel: UILabel
 
   func setThumbnailImage(_ url: URL?) {
@@ -24,17 +25,20 @@ class CharacterDetailView: UIView {
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     container.translatesAutoresizingMaskIntoConstraints = false
     thumbnail.translatesAutoresizingMaskIntoConstraints = false
+    collectionView.translatesAutoresizingMaskIntoConstraints = false
 
     nameLabel.font = AppConstants.largeTitle
 
     addSubview(scrollView)
     scrollView.addSubview(container)
     scrollView.backgroundColor = AppConstants.backgroundColor
+    collectionView.backgroundColor = .clear
     container.axis = .vertical
     container.alignment = .center
     container.spacing = 20
     container.addArrangedSubview(thumbnail)
     container.addArrangedSubview(nameLabel)
+    container.addArrangedSubview(collectionView)
     NSLayoutConstraint.activate([
       scrollView.topAnchor.constraint(equalTo: topAnchor),
       scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -46,9 +50,13 @@ class CharacterDetailView: UIView {
       container.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 10),
       container.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
       container.centerXAnchor.constraint(equalTo: centerXAnchor),
+      container.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
 
       thumbnail.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 4),
-      thumbnail.heightAnchor.constraint(equalTo: thumbnail.widthAnchor, multiplier: 1)
+      thumbnail.heightAnchor.constraint(equalTo: thumbnail.widthAnchor, multiplier: 1),
+
+      collectionView.widthAnchor.constraint(equalTo: container.widthAnchor),
+      collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100)
     ])
   }
 
@@ -57,6 +65,17 @@ class CharacterDetailView: UIView {
     container = UIStackView()
     thumbnail = UIImageView()
     nameLabel = UILabel()
+    let layout = UICollectionViewCompositionalLayout {(sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+      let headerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+      let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .fractionalHeight(1))
+      let item = NSCollectionLayoutItem(layoutSize: itemSize)
+      let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100)), subitems: [item])
+      let section = NSCollectionLayoutSection(group: group)
+      section.orthogonalScrollingBehavior = .groupPaging
+      section.boundarySupplementaryItems = [headerItem]
+      return section
+    }
+    collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     super.init(frame: .zero)
     setupView()
   }

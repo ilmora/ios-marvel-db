@@ -11,7 +11,7 @@ import UIKit
 
 class SeeMoreButton: UIButton {
 
-  var targetEntity: SearchEntitiesSectionTitles?
+  var targetEntity: SearchEntitiesSection?
 
   init() {
     super.init(frame: .zero)

@@ -33,8 +33,8 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
   func updateSearchResults(for searchController: UISearchController) {
     if textInputHandle == nil {
       textInputHandle = $inputSearchText
-        .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-        .sink(receiveValue: fetchResultFromApi)
+              .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+              .sink(receiveValue: fetchResultFromApi)
     }
     inputSearchText = searchController.searchBar.text
   }
@@ -60,7 +60,7 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
 
   @objc private func didPressSeeMoreButton(_ sender: UIButton) {
     guard let targetEntity = (sender as? SeeMoreButton)?.targetEntity else {
-        return
+      return
     }
     switch targetEntity {
     case .Comics:
@@ -77,7 +77,7 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
 // MARK: CollectionView Data source
 extension SearchResultDataSourceController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    guard let sectionCase = SearchEntitiesSectionTitles(rawValue: section) else {
+    guard let sectionCase = SearchEntitiesSection(rawValue: section) else {
       return 0
     }
     switch sectionCase {
@@ -89,26 +89,21 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-    guard let sectionCase = SearchEntitiesSectionTitles(rawValue: indexPath.section) else {
+    guard let sectionCase = SearchEntitiesSection(rawValue: indexPath.section) else {
       fatalError()
     }
     switch kind {
     case UICollectionView.elementKindSectionHeader:
       guard let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchResultHeaderView.reusableIdentifier, for: indexPath)
-        as? SearchResultHeaderView else {
-          fatalError()
+              as? SearchResultHeaderView else {
+        fatalError()
       }
-      switch sectionCase {
-      case .Comics:
-        headerCell.sectionTitle.text = "Comic".localized
-      case .Characters:
-        headerCell.sectionTitle.text = "Characters".localized
-      }
+      headerCell.sectionTitle.text = sectionCase.title
       return headerCell
     case UICollectionView.elementKindSectionFooter:
       guard let footerCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchResultFooterView.reusableIdentifier, for: indexPath)
-        as? SearchResultFooterView else {
-          fatalError()
+              as? SearchResultFooterView else {
+        fatalError()
       }
       switch sectionCase {
       case .Characters:
@@ -124,11 +119,8 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.reusableIdentifier, for: indexPath)
-      as? SearchResultCell else {
-        fatalError()
-    }
-    guard let sectionCase = SearchEntitiesSectionTitles(rawValue: indexPath.section) else {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.reusableIdentifier, for: indexPath) as? SearchResultCell,
+          let sectionCase = SearchEntitiesSection(rawValue: indexPath.section) else {
       fatalError()
     }
     switch sectionCase {
@@ -155,13 +147,6 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
   }
 
   func numberOfSections(in: UICollectionView) -> Int {
-    var nbOfSections = 0
-    if comics.first != nil {
-      nbOfSections += 1
-    }
-    if characters.first != nil {
-      nbOfSections += 1
-    }
-    return nbOfSections
+    [comics, characters].filter { ($0 as! [Any]).first != nil }.count
   }
 }

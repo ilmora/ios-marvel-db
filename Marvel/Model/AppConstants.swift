@@ -20,7 +20,7 @@ struct AppConstants {
   static let title = UIFont(name: "Roboto-Regular", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
   static let largeTitle = UIFont(name: "Roboto-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 30))!
   static let body = UIFont(name: "Roboto-Light", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
-  static let headerSerachResultFont = UIFont(name: "Raleway-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
+  static let headerSearchResultFont = UIFont(name: "Raleway-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
 }
 
 enum ComicFilterCase: String, CaseIterable {
@@ -28,7 +28,16 @@ enum ComicFilterCase: String, CaseIterable {
   case Future = "comics_to_come"
 }
 
-enum SearchEntitiesSectionTitles: Int {
+enum SearchEntitiesSection: Int {
   case Comics = 0
   case Characters
+
+  var title: String {
+    switch self {
+    case .Comics:
+      return "Comic".localized
+    case .Characters:
+      return "Characters".localized
+    }
+  }
 }

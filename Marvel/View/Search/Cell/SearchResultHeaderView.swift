@@ -16,7 +16,7 @@ class SearchResultHeaderView: UICollectionReusableView {
     sectionTitle.translatesAutoresizingMaskIntoConstraints = false
     backgroundColor = .systemBackground
     sectionTitle.textColor = .label
-    sectionTitle.font = AppConstants.headerSerachResultFont
+    sectionTitle.font = AppConstants.headerSearchResultFont
     addSubview(sectionTitle)
     NSLayoutConstraint.activate([
       sectionTitle.topAnchor.constraint(equalTo: topAnchor),

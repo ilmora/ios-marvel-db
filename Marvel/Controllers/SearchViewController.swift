@@ -35,7 +35,7 @@ class SearchViewController: UIViewController {
 
     selectedRowHandle = searchResultView.$selectedRow.sink(receiveValue: { selectedRow in
       guard let selectedRow = selectedRow,
-        let sectionCase = SearchEntitiesSectionTitles(rawValue: selectedRow.section) else {
+        let sectionCase = SearchEntitiesSection(rawValue: selectedRow.section) else {
         return
       }
       switch sectionCase {
