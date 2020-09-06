@@ -15,4 +15,8 @@ struct Image: Decodable {
   var url: URL {
     URL(string: "\(path!).\(`extension`!)")!
   }
+
+  static var imageNotFound: Image {
+    return Image(path: "https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available", extension: "jpg")
+  }
 }

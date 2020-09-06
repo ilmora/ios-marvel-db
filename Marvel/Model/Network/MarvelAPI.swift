@@ -100,4 +100,18 @@ struct MarvelAPI {
       .map { $0.data.results }
       .eraseToAnyPublisher()
   }
+
+  // MARK: Characters
+  func fetchSeries(from character: Character) -> AnyPublisher<[Series], Error> {
+    var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/characters/\(character.id)/series")!
+    let queryParams = getApiParametersAsQueryItems()
+    urlComponents.queryItems = queryParams
+    let urlRequest = URLRequest(url: urlComponents.url!)
+
+    return URLSession.shared.dataTaskPublisher(for: urlRequest)
+      .map { $0.data }
+      .decode(type: SeriesDataWrapper.self, decoder: jsonDecoder)
+      .map { $0.data.results }
+      .eraseToAnyPublisher()
+  }
 }

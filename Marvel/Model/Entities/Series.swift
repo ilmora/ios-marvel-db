@@ -28,8 +28,15 @@ struct SeriesDataContainer: MarvelDataContainer, Decodable {
 
 struct Series: Decodable, Identifiable {
   var id: Int
-  var title: String
-  var description: String
+  var title: String?
+  var description: String?
+  var resourceURI: String?
+  var startYear: Int
+  var endYear: Int
+  var rating: String?
+  var thumbnail: Image
+  var next: SeriesSummary?
+  var previous: SeriesSummary?
 }
 
 struct SeriesList: Decodable, EntityList {

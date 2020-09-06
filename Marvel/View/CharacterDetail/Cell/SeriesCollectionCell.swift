@@ -8,38 +8,43 @@ import UIKit
 import Kingfisher
 
 class SeriesCollectionCell: UICollectionViewCell {
-  let thumbnail: UIImageView
+  private let thumbnail: UIImageView
   let title: UILabel
-  private let container: UIStackView
 
   required init?(coder: NSCoder) {
     fatalError()
   }
 
+  func setThumbnailImage(with url: URL) {
+    thumbnail.kf.setImage(with: url, options: [.processor(BlendImageProcessor(blendMode: .plusDarker))])
+  }
+
   private func layoutComponents() {
-    container.translatesAutoresizingMaskIntoConstraints = false
-    container.axis = .vertical
-    container.distribution = .fill
-    container.alignment = .fill
+    thumbnail.translatesAutoresizingMaskIntoConstraints = false
+    title.translatesAutoresizingMaskIntoConstraints = false
 
     title.numberOfLines = 0
+    title.textColor = .white
 
-    container.addArrangedSubview(thumbnail)
-    container.addArrangedSubview(title)
+    contentView.addSubview(thumbnail)
+    contentView.addSubview(title)
 
-    contentView.addSubview(container)
     NSLayoutConstraint.activate([
-      container.topAnchor.constraint(equalTo: contentView.topAnchor),
-      container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-      container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-      container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+      thumbnail.topAnchor.constraint(equalTo: contentView.topAnchor),
+      thumbnail.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      thumbnail.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+      thumbnail.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+      title.topAnchor.constraint(equalTo: contentView.topAnchor),
+      title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+      title.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
     ])
   }
 
   override init(frame: CGRect) {
     thumbnail = UIImageView()
     title = UILabel()
-    container = UIStackView()
     super.init(frame: frame)
     layoutComponents()
   }

@@ -14,6 +14,7 @@ class CharacterDetailView: UIView {
   private let scrollView: UIScrollView
   private let container: UIStackView
   private let thumbnail: UIImageView
+  let descriptionLabel: UILabel
   let collectionView: UICollectionView
   let nameLabel: UILabel
 
@@ -28,17 +29,26 @@ class CharacterDetailView: UIView {
     collectionView.translatesAutoresizingMaskIntoConstraints = false
 
     nameLabel.font = AppConstants.largeTitle
+    descriptionLabel.font = AppConstants.body
+    descriptionLabel.textColor = .black
+    descriptionLabel.numberOfLines = 0
 
     addSubview(scrollView)
+
     scrollView.addSubview(container)
     scrollView.backgroundColor = AppConstants.backgroundColor
+
     collectionView.backgroundColor = .clear
+
     container.axis = .vertical
     container.alignment = .center
+    container.distribution = .fill
     container.spacing = 20
     container.addArrangedSubview(thumbnail)
     container.addArrangedSubview(nameLabel)
+    container.addArrangedSubview(descriptionLabel)
     container.addArrangedSubview(collectionView)
+
     NSLayoutConstraint.activate([
       scrollView.topAnchor.constraint(equalTo: topAnchor),
       scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -56,7 +66,7 @@ class CharacterDetailView: UIView {
       thumbnail.heightAnchor.constraint(equalTo: thumbnail.widthAnchor, multiplier: 1),
 
       collectionView.widthAnchor.constraint(equalTo: container.widthAnchor),
-      collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100)
+      collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
     ])
   }
 
@@ -67,15 +77,17 @@ class CharacterDetailView: UIView {
     nameLabel = UILabel()
     let layout = UICollectionViewCompositionalLayout {(sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
       let headerItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
-      let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .fractionalHeight(1))
+      let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalHeight(1))
       let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(100)), subitems: [item])
+      let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150)), subitems: [item])
+      group.interItemSpacing = .fixed(10)
       let section = NSCollectionLayoutSection(group: group)
       section.orthogonalScrollingBehavior = .groupPaging
       section.boundarySupplementaryItems = [headerItem]
       return section
     }
     collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    descriptionLabel = UILabel()
     super.init(frame: .zero)
     setupView()
   }
