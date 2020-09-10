@@ -1,8 +1,8 @@
 //
-//  CharactersViewController.swift
+//  SearchResultViewController.swift
 //  Marvel
 //
-//  Created by Tristan Djahel on 26/05/2020.
+//  Created by Tristan Djahel on 06/09/2020.
 //  Copyright © 2020 Tristan Djahel. All rights reserved.
 //
 
@@ -10,41 +10,52 @@ import Foundation
 import UIKit
 import Combine
 
-class SearchViewController: UIViewController {
+class SearchResultViewController: UIViewController, UISearchResultsUpdating {
   private let searchResultView: SearchResultView
-  private let searchBarController: UISearchController
-  private var searchHandle: AnyCancellable?
-  private var selectedRowHandle: AnyCancellable?
   private let searchBarResultDataSource: SearchResultDataSourceController
+  private var selectedRowHandle: AnyCancellable?
+  private var searchHandle: AnyCancellable?
+  private var userInputTimer: Timer?
+  var previousViewController: UIViewController?
+
+  func updateSearchResults(for searchController: UISearchController) {
+    guard let userInput = searchController.searchBar.text, userInput != "" else {
+      return
+    }
+    userInputTimer?.invalidate()
+    userInputTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+      self.searchBarResultDataSource.fetchResultFromApi(userInput)
+      var userSearchHistory = Cache.userSearchHistory
+      userSearchHistory.insert(userInput, at: 0)
+      Cache.userSearchHistory = userSearchHistory
+    }
+  }
+
+  override func loadView() {
+    view = searchResultView
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    searchBarController.searchResultsUpdater = searchBarResultDataSource
-    searchBarController.obscuresBackgroundDuringPresentation = false
-    navigationItem.searchController = searchBarController
-    navigationItem.title = "search".localized
-
     searchResultView.collectionView.dataSource = searchBarResultDataSource
     searchHandle = searchBarResultDataSource.$comics
-      .zip(searchBarResultDataSource.$characters)
+      .combineLatest(searchBarResultDataSource.$characters)
       .sink(receiveValue: { _ in
-        DispatchQueue.main.async {
-          self.searchResultView.collectionView.reloadData()
-        }
+        self.reloadCollectionView()
       })
 
     selectedRowHandle = searchResultView.$selectedRow.sink(receiveValue: { selectedRow in
       guard let selectedRow = selectedRow,
         let sectionCase = SearchEntitiesSection(rawValue: selectedRow.section) else {
-        return
+          return
       }
       switch sectionCase {
       case .Comics:
         let comic = self.searchBarResultDataSource.comics[selectedRow.row]
-        self.navigationController?.pushViewController(ComicDetailViewController(comic), animated: true)
+        self.previousViewController?.navigationController?.pushViewController(ComicDetailViewController(comic), animated: true)
       case .Characters:
         let character = self.searchBarResultDataSource.characters[selectedRow.row]
-        self.navigationController?.pushViewController(CharacterDetailViewController(character: character), animated: true)
+        self.previousViewController?.navigationController?.pushViewController(CharacterDetailViewController(character: character), animated: true)
       }
     })
   }
@@ -55,14 +66,9 @@ class SearchViewController: UIViewController {
     }
   }
 
-  override func loadView() {
-    view = searchResultView
-  }
-
   init() {
     searchResultView = SearchResultView()
     searchBarResultDataSource = SearchResultDataSourceController()
-    searchBarController = UISearchController(searchResultsController: nil)
     super.init(nibName: nil, bundle: nil)
     searchBarResultDataSource.didPressSeeMoreButtonHandler = reloadCollectionView
   }

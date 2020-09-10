@@ -41,3 +41,13 @@ protocol EntitySummary {
   var resourceURI: String? { get set }
   var name: String? { get set }
 }
+
+protocol MarvelErrorType {
+  var code: Int { get set }
+  var status: String { get set }
+}
+
+struct MarvelError: MarvelErrorType, Error {
+  var code: Int
+  var status: String
+}

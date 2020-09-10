@@ -11,7 +11,7 @@ import UIKit
 import Combine
 import Kingfisher
 
-class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
+class SearchResultDataSourceController: NSObject {
   // MARK: Data
   private let api = MarvelAPI()
 
@@ -24,25 +24,17 @@ class SearchResultDataSourceController: NSObject, UISearchResultsUpdating {
   @Published private(set) var characters = [Character]()
   private var charactersHandle: AnyCancellable?
 
-  private var nbComicsToDisplay = 2
-  private var nbCharactersToDisplay = 2
+  private var nbComicsToDisplay = 6
+  private var nbCharactersToDisplay = 6
 
   var didPressSeeMoreButtonHandler: (() -> Void)?
 
-  // MARK: Events
-  func updateSearchResults(for searchController: UISearchController) {
-    if textInputHandle == nil {
-      textInputHandle = $inputSearchText
-              .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-              .sink(receiveValue: fetchResultFromApi)
-    }
-    inputSearchText = searchController.searchBar.text
-  }
-
-  private func fetchResultFromApi(_ newSearchValue: String?) {
+  func fetchResultFromApi(_ newSearchValue: String?) {
     guard let newSearchValue = newSearchValue, newSearchValue != "" else {
       comics = [Comic]()
       characters = [Character]()
+      nbComicsToDisplay = 6
+      nbCharactersToDisplay = 6
       return
     }
     let (comicPublisher, characterPublisher) = api.fetchEntities(containing: newSearchValue)

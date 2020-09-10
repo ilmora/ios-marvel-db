@@ -29,8 +29,9 @@ enum ComicFilterCase: String, CaseIterable {
 }
 
 enum SearchEntitiesSection: Int {
-  case Comics = 0
-  case Characters
+  case Characters = 0
+  case Comics
+
 
   var title: String {
     switch self {

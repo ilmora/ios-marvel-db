@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let marvelTabBarItem = UITabBarItem(title: "Comic".localized, image: UIImage(systemName: "book"), tag: 0)
     homeVC.tabBarItem = marvelTabBarItem
 
-    let searchVC = SearchViewController()
+    let searchVC = SearchHomeViewController()
     let searchTabBarItem = UITabBarItem(title: "search".localized , image: UIImage(systemName: "magnifyingglass"), tag: 1)
     searchVC.tabBarItem = searchTabBarItem
 
