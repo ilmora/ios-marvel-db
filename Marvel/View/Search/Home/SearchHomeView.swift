@@ -14,6 +14,7 @@ class SearchHomeView: UIView {
 
   private func layoutComponents() {
     historicUserInputCollectionView.translatesAutoresizingMaskIntoConstraints = false
+    historicUserInputCollectionView.backgroundColor = AppConstants.backgroundColor
     addSubview(historicUserInputCollectionView)
     NSLayoutConstraint.activate([
       historicUserInputCollectionView.topAnchor.constraint(equalTo: topAnchor),
@@ -25,10 +26,12 @@ class SearchHomeView: UIView {
 
   init() {
     let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-      let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+      let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(20))
       let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .estimated(50), heightDimension: .fractionalHeight(1.0)), subitems: [item])
+      let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(UIScreen.main.bounds.height * 0.7)), subitems: [item])
+      group.interItemSpacing = .fixed(20)
       let section = NSCollectionLayoutSection(group: group)
+      section.contentInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
       return section
     }
     historicUserInputCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)

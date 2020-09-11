@@ -18,7 +18,7 @@ class SearchHomeViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    searchBarController.searchBar.sizeToFit()
+    navigationItem.hidesSearchBarWhenScrolling = false
     searchBarController.searchResultsUpdater = searchResultViewController
     searchBarController.obscuresBackgroundDuringPresentation = false
     navigationItem.searchController = searchBarController

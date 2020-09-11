@@ -26,7 +26,12 @@ class SearchResultViewController: UIViewController, UISearchResultsUpdating {
     userInputTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
       self.searchBarResultDataSource.fetchResultFromApi(userInput)
       var userSearchHistory = Cache.userSearchHistory
-      userSearchHistory.insert(userInput, at: 0)
+      if !Cache.userSearchHistory.contains(userInput) {
+        userSearchHistory.insert(userInput, at: 0)
+      } else {
+        let index = userSearchHistory.index(of: userInput).unsafelyUnwrapped
+        userSearchHistory.swapAt(0, index)
+      }
       Cache.userSearchHistory = userSearchHistory
     }
   }
