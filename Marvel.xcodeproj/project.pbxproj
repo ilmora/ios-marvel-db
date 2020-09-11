@@ -46,7 +46,6 @@
 		D5C3365F24E7D40300C37E09 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C3365E24E7D40300C37E09 /* CharacterDetailView.swift */; };
 		D5C3366124E84E8C00C37E09 /* SeeMoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C3366024E84E8C00C37E09 /* SeeMoreButton.swift */; };
 		D5C50D1724419E4400644413 /* ComicCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C50D1624419E4400644413 /* ComicCollectionCell.swift */; };
-		D5CB1E3E25092BDC001FC154 /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB1E3D25092BDC001FC154 /* ChildViewController.swift */; };
 		D5CE5A4224B0A37500E8AF36 /* SearchResultDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CE5A4124B0A37500E8AF36 /* SearchResultDataSourceController.swift */; };
 		D5CE5A4424B0A93800E8AF36 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CE5A4324B0A93800E8AF36 /* Creator.swift */; };
 		D5CE5A4624B0AAA300E8AF36 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CE5A4524B0AAA300E8AF36 /* Event.swift */; };
@@ -104,7 +103,6 @@
 		D5C3365E24E7D40300C37E09 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		D5C3366024E84E8C00C37E09 /* SeeMoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreButton.swift; sourceTree = "<group>"; };
 		D5C50D1624419E4400644413 /* ComicCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCollectionCell.swift; sourceTree = "<group>"; };
-		D5CB1E3D25092BDC001FC154 /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
 		D5CE5A4124B0A37500E8AF36 /* SearchResultDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDataSourceController.swift; sourceTree = "<group>"; };
 		D5CE5A4324B0A93800E8AF36 /* Creator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
 		D5CE5A4524B0AAA300E8AF36 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 				D5A97EDF247A570B00A72833 /* Reusable.swift */,
 				D503481D2440EBA400925C08 /* MD5.swift */,
 				D51419942496637C0007417B /* StringExtensions.swift */,
-				D5CB1E3D25092BDC001FC154 /* ChildViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -565,7 +562,6 @@
 				D5CE5A4A24B0AD1B00E8AF36 /* Story.swift in Sources */,
 				D59ACD452486BA9E005E951A /* SearchResultView.swift in Sources */,
 				D5B734E9247428F5004F9CA6 /* ComicHomeView.swift in Sources */,
-				D5CB1E3E25092BDC001FC154 /* ChildViewController.swift in Sources */,
 				D52A023325055CB400B7BE8C /* Cache.swift in Sources */,
 				D5E7BFB524B9E67B00AC0EF1 /* SearchResultCell.swift in Sources */,
 				D503480C2440DAC300925C08 /* ComicHomeViewController.swift in Sources */,
