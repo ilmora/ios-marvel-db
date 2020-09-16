@@ -17,7 +17,7 @@ class SeriesHeaderCollectionCell: UICollectionViewCell {
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
     titleLabel.font = AppConstants.title
-    titleLabel.textColor = .black
+    titleLabel.textColor = .label
 
     contentView.addSubview(titleLabel)
 

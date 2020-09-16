@@ -12,6 +12,7 @@ class CharacterDetailViewController: UIViewController {
   private let characterDetailView: CharacterDetailView
   private let characterDetailDataSource: CharacterDetailDataSourceController
   private var seriesHandle: AnyCancellable?
+  private var translateHandle: AnyCancellable?
 
   override func loadView() {
     view = characterDetailView
@@ -19,6 +20,16 @@ class CharacterDetailViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    let translateClient = GoogleTranslateAPI()
+    if let description = character.description {
+      translateHandle = translateClient.translate(characterDetailDescription: description)
+      .sink(receiveCompletion: { completion in
+      }, receiveValue: { translatedText in
+        DispatchQueue.main.async {
+          self.characterDetailView.descriptionLabel.text = translatedText
+        }
+      })
+    }
     characterDetailView.setThumbnailImage(character.thumbnail?.url)
     characterDetailView.descriptionLabel.text = character.description
     characterDetailView.nameLabel.text = character.name

@@ -16,7 +16,7 @@ class SeriesCollectionCell: UICollectionViewCell {
   }
 
   func setThumbnailImage(with url: URL) {
-    thumbnail.kf.setImage(with: url, options: [.processor(BlendImageProcessor(blendMode: .plusDarker))])
+    thumbnail.kf.setImage(with: url, options: [.processor(OverlayImageProcessor(overlay: .systemBackground, fraction: 0.5))])
   }
 
   private func layoutComponents() {
@@ -24,7 +24,7 @@ class SeriesCollectionCell: UICollectionViewCell {
     title.translatesAutoresizingMaskIntoConstraints = false
 
     title.numberOfLines = 0
-    title.textColor = .white
+    title.textColor = .label
 
     contentView.addSubview(thumbnail)
     contentView.addSubview(title)

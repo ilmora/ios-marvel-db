@@ -30,7 +30,7 @@ class CharacterDetailView: UIView {
 
     nameLabel.font = AppConstants.largeTitle
     descriptionLabel.font = AppConstants.body
-    descriptionLabel.textColor = .black
+    descriptionLabel.textColor = .label
     descriptionLabel.numberOfLines = 0
 
     addSubview(scrollView)
@@ -58,9 +58,11 @@ class CharacterDetailView: UIView {
       container.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
       container.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 10),
       container.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 10),
-      container.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+      container.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
       container.centerXAnchor.constraint(equalTo: centerXAnchor),
       container.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+
+      nameLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 35),
 
       thumbnail.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 4),
       thumbnail.heightAnchor.constraint(equalTo: thumbnail.widthAnchor, multiplier: 1),
