@@ -22,3 +22,5 @@
 "summary" = "description";
 "search" = "Rechercher";
 "SeeMore" = "Voir plus";
+"DisplayOriginalText" = "Voir le texte original";
+"DisplayTranslatedText" = "Afficher le texte traduit";

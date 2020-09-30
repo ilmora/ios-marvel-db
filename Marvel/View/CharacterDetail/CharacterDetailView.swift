@@ -14,9 +14,12 @@ class CharacterDetailView: UIView {
   private let scrollView: UIScrollView
   private let container: UIStackView
   private let thumbnail: UIImageView
-  let descriptionLabel: UILabel
   let collectionView: UICollectionView
   let nameLabel: UILabel
+
+  private let descriptionContainer: UIStackView
+  let descriptionLabel: UILabel
+  let switchTextLang: UIButton
 
   func setThumbnailImage(_ url: URL?) {
     thumbnail.kf.setImage(with: url, options: [.processor(RoundCornerImageProcessor(cornerRadius: 20))])
@@ -39,6 +42,13 @@ class CharacterDetailView: UIView {
     scrollView.backgroundColor = AppConstants.backgroundColor
 
     collectionView.backgroundColor = .clear
+    collectionView.alwaysBounceVertical = false
+
+    descriptionContainer.axis = .vertical
+    descriptionContainer.alignment = .trailing
+    descriptionContainer.distribution = .fill
+    descriptionContainer.addArrangedSubview(descriptionLabel)
+    descriptionContainer.addArrangedSubview(switchTextLang)
 
     container.axis = .vertical
     container.alignment = .center
@@ -46,7 +56,7 @@ class CharacterDetailView: UIView {
     container.spacing = 20
     container.addArrangedSubview(thumbnail)
     container.addArrangedSubview(nameLabel)
-    container.addArrangedSubview(descriptionLabel)
+    container.addArrangedSubview(descriptionContainer)
     container.addArrangedSubview(collectionView)
 
     NSLayoutConstraint.activate([
@@ -60,7 +70,6 @@ class CharacterDetailView: UIView {
       container.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 10),
       container.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
       container.centerXAnchor.constraint(equalTo: centerXAnchor),
-      container.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
 
       nameLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 35),
 
@@ -68,7 +77,7 @@ class CharacterDetailView: UIView {
       thumbnail.heightAnchor.constraint(equalTo: thumbnail.widthAnchor, multiplier: 1),
 
       collectionView.widthAnchor.constraint(equalTo: container.widthAnchor),
-      collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+      collectionView.heightAnchor.constraint(equalToConstant: 175)
     ])
   }
 
@@ -90,6 +99,8 @@ class CharacterDetailView: UIView {
     }
     collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     descriptionLabel = UILabel()
+    switchTextLang = UIButton(type: .system)
+    descriptionContainer = UIStackView()
     super.init(frame: .zero)
     setupView()
   }

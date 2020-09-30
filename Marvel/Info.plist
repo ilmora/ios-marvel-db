@@ -24,6 +24,15 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MarvelAPIKeys</key>
+	<dict>
+		<key>Private</key>
+		<string>d754bd4a0b60da783b0a98d2153df05d0788f965</string>
+		<key>Public</key>
+		<string>50f9dc6bd4b9654b780baccb00f805e5</string>
+	</dict>
+	<key>GoogleTranslateApiKey</key>
+	<string>AIzaSyBUg6ZRZDRjfin8DaT_4bJFPoeCLfyr6PA</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Raleway-Regular.ttf</string>
@@ -68,5 +77,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

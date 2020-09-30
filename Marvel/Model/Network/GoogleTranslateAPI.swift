@@ -15,7 +15,7 @@ struct GoogleTranslateAPI {
     var url = URLComponents(string: "https://translation.googleapis.com/language/translate/v2")!
     var queryParams = [URLQueryItem]()
     queryParams.append(URLQueryItem(name: "q", value: characterDetailDescription))
-    queryParams.append(URLQueryItem(name: "target", value: "fr"))
+    queryParams.append(URLQueryItem(name: "target", value: Locale.current.languageCode))
     queryParams.append(URLQueryItem(name: "key", value: apiKey))
 
     url.queryItems = queryParams
