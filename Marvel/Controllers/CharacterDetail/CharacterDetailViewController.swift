@@ -47,12 +47,12 @@ class CharacterDetailViewController: UIViewController, UICollectionViewDelegate 
     characterDetailView.collectionView.dataSource = characterDetailDataSource
     characterDetailView.collectionView.register(SeriesCollectionCell.self, forCellWithReuseIdentifier: SeriesCollectionCell.reusableIdentifier)
     characterDetailView.collectionView.register(SeriesHeaderCollectionCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SeriesHeaderCollectionCell.reusableIdentifier)
-    characterDetailDataSource.fetchSeries()
     seriesHandle = characterDetailDataSource.$series.sink(receiveValue: { _ in
       DispatchQueue.main.async {
         self.characterDetailView.collectionView.reloadData()
       }
     })
+    characterDetailDataSource.fetchSeries()
   }
 
   @objc private func switchDescriptionCulture() {

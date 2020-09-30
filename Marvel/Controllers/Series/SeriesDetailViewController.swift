@@ -12,7 +12,7 @@ class SeriesDetailViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    seriesDetailView.label.text = "ALLO"
+    seriesDetailView.label.text = series.title
   }
 
   override func loadView() {

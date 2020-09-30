@@ -23,7 +23,10 @@ class CharacterDetailDataSourceController: NSObject, UICollectionViewDataSource 
       as? SeriesCollectionCell else {
       fatalError()
     }
-    cell.title.text = character.series?.items?[indexPath.row].name ?? ""
+    guard indexPath.row < series.count - 1 else {
+      return cell
+    }
+    cell.title.text = series[indexPath.row].title ?? ""
     if indexPath.row < series.count {
       cell.setThumbnailImage(with: series[indexPath.row].thumbnail.url)
     } else {
