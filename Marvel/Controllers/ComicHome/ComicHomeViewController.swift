@@ -9,63 +9,72 @@
 import UIKit
 import Combine
 
-class ComicHomeViewController: UIViewController {
-
-  private let comicHomeView: ComicHomeView
-  private let comicFilter: UISegmentedControl
-  private let dataSource: ComicDataSourceController
+class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
   private var selectedComicHandle: AnyCancellable?
   private var fetchComicsHandle: AnyCancellable?
 
-  override func loadView() {
-    view = comicHomeView
+  private var pageController: UIPageViewController
+  private var controllers: [UIViewController]
+  private var presentingVCIndex = 0 {
+    didSet {
+      title = controllers[presentingVCIndex].title
+    }
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    comicHomeView.collectionView.dataSource = dataSource
-    navigationItem.titleView = comicFilter
-    fetchComicsHandle = dataSource.$newComics
-      .merge(with: dataSource.$futureComics)
-      .sink(receiveValue: { _ in
-        DispatchQueue.main.async {
-          self.comicHomeView.collectionView.reloadData()
-        }
-      })
-    dataSource.fetchData()
-    selectedComicHandle = comicHomeView.$selectedCellIndex.sink(receiveValue: { indexPath in
-      guard let indexPath = indexPath else {
-        return
-      }
-      let comic = self.dataSource.getComicsFromFilter()[indexPath.row]
-      self.navigationController?.pushViewController(ComicDetailViewController(comic), animated: true)
-    })
 
-    comicFilter.backgroundColor = AppConstants.marvelColor
-    comicFilter.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
-    comicFilter.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
-    comicFilter.selectedSegmentTintColor = .white
-    comicFilter.selectedSegmentIndex = 0
+    addChild(pageController)
+    view.addSubview(pageController.view)
 
-    comicFilter.addTarget(self, action: #selector(comicFilterChanged), for: .valueChanged)
+    let views = ["pageController": pageController.view] as [String: AnyObject]
+    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[pageController]|", options: [], metrics: nil, views: views))
+    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[pageController]|", options: [], metrics: nil, views: views))
+
+    controllers = [ComicHomeListViewController(comicType: .New), ComicHomeListViewController(comicType: .Future)]
+    pageController.setViewControllers([controllers[0]], direction: .forward, animated: false, completion: nil)
+    pageController.dataSource = self
+    pageController.delegate = self
+
+    navigationItem.title = controllers.first?.title
   }
 
-  @objc private func comicFilterChanged(_ sender: UISegmentedControl) {
-    switch sender.selectedSegmentIndex {
-    case 0:
-      dataSource.comicsTypeDisplayed = .New
-    case 1:
-      dataSource.comicsTypeDisplayed = .Future
-    default:
-      fatalError()
+  func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    if let index = controllers.firstIndex(of: viewController) {
+      if index > 0 {
+        return controllers[index - 1]
+      } else {
+        return nil
+      }
     }
-    self.comicHomeView.collectionView.reloadData()
+    return nil
+  }
+
+  func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    if let index = controllers.firstIndex(of: viewController) {
+      if index < controllers.count - 1 {
+        return controllers[index + 1]
+      } else {
+        return nil
+      }
+    }
+    return nil
+  }
+
+  func pageViewController(_ pageViewController: UIPageViewController,
+                          didFinishAnimating finished: Bool,
+                          previousViewControllers: [UIViewController],
+                          transitionCompleted completed: Bool) {
+    if completed {
+      presentingVCIndex = (presentingVCIndex + 1) % controllers.count
+    } else {
+      presentingVCIndex = (presentingVCIndex - 1) % controllers.count
+    }
   }
 
   init() {
-    comicHomeView = ComicHomeView()
-    comicFilter = UISegmentedControl(items: ComicFilterCase.allCases.map { $0.rawValue.localized })
-    dataSource = ComicDataSourceController()
+    pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    controllers = [UIViewController]()
     super.init(nibName: nil, bundle: nil)
   }
 

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "marvel-289520",
+  "private_key_id": "0e5fd025cf636e4c395fbb6a6cc5da4202ec78dd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC/JGIojV5sROgf\nkEGA2K2Kt6Kx9zDciCcDWZkUkgJ6+Jp6OaQKdxmkV7Fr3Uy39/CY7NwLKicugi8t\nU6tMGYdwMUmYEf8FcFUoDTWJaJk1KYIBHtMsrZsFyytn3xleU+ITd5DrCaouXWBQ\nCFHFRI9ln8NJPif7pmdpFa1oqNyQ7P7YEoyLc/D49jNq66x65NRVVQThAwCNp1RK\nTSVYHAvjB3HJTVXQefk6xugtGpjYCox+g7ohIDLbWodZZRrcERVPJbr+UYyLr5rf\nAELHzOdcJGTw5uvDzxo8H/r7lfp7rwXQzckwixV6M2nbTKmHsXvxeEG+iYJJJxgI\nVnGHzF7JAgMBAAECggEAQQ7etCPOADcB9QBSM0tM4jq3zzAuOtnCwaKk9nnuCzID\nzldBLOi12xiYBHk57CIhi8OO7+PkmzFnYluoocnMrhSwkmiJry25Zlz8nGz0PMKI\ng94cjYf3jGTHPN8UUOVnPS4EruNGv+o7ZnI2dtjrn/DddNgJnt9YMk3VDJrxHAhe\n5rvZSGO4ALkrNJs89j90hhGcauEoc5XrZUsPekuQ2EIn7s5NPf4YSq/tBJxbX5iD\nNXwPpCOMUwxFq2PuefLgaO5vy0dpuH/Oy783uxJgJojbJNEqJEhEL/VHIadjAWjJ\noAC5uk66HS/omFOKSHKV6Z9DTYC26ctFAoI9JGA6SwKBgQD4mqtue5R4Igp+Rzhv\nKL+pt6AhnomQchXkIzu8Ue4By8PA3HB8En67ZjNp49DqKF4nft/sKGkvQLMCzaTR\nMzPHuian2AGXa9gyQZT3KOc3Ax5uK0HU7ZDfC4rUy9RB9HAbtSxQU+CQzosmvtBM\nWECS2X0U5JoWSmtLRbv2PLn0EwKBgQDE1Bd/yv25qkIQKXZFHRK7bQn/V7vR3gP5\nOaYgAzCRgPre5QtmCeT5UX1FwivE5Myg4gQXPC1cI2a1JZv9OkjZyV2Eky55k0zZ\nivWEsJwlIiYBFOjLjrv2Sz4sdY/qtK754/dAGVTNJT0huq/9W1zv9EgUdfO1k419\nIKCaQt4lMwKBgQCOOUY8Fb0RoT/pkGsrxN8phCC7OwyuM2Zstu90xFZqdp1N148O\nnDIemdBuEuQxIdkDtWT7oP7UBqqivu08tZM4/zkgKsZ2Tz9HORe08pScd09QbbTi\n0OphgCPzq4yKEwKUB2kLp4DAtzkKeH2IP7Dpkj0p18KDYB3T2Vg3/fPQOwKBgFM5\nluIbM+OQoTRyQ6b/nw8PEP4d27XmmWmFPcAleSDdF7atxH8VyfK9ySl468bqM7gH\nOVGVyVw/P8typp2RSoKECX3oOeuAJCuL/Tpo7u0onkcwzypbJREESbrEzuCgG6hg\nAwjgbSH9D/c2F/oZ6pcvhFbadP0e8eGprR7tDT9PAoGAczh/omi9dZbiq38JQXsj\nH3syyQbGiK1nmvZYxoJ1zEEMhQmEJyDjoC23Io1R4qq6dFsSCFc7yCaERwWNmFTS\nkcIAmQ58BjwAbQ1ZU4ljBFJq44v8pM4FfUlFeNhBKnXE5ua10PBlmDMPqwk9aY2u\n4m/DwLK5yIZiG6brNi6Ck98=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ios-app@marvel-289520.iam.gserviceaccount.com",
+  "client_id": "115241231812632950780",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ios-app%40marvel-289520.iam.gserviceaccount.com"
+}

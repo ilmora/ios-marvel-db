@@ -29,7 +29,7 @@ class SearchResultViewController: UIViewController, UISearchResultsUpdating {
       if !Cache.userSearchHistory.contains(userInput) {
         userSearchHistory.insert(userInput, at: 0)
       } else {
-        let index = userSearchHistory.index(of: userInput).unsafelyUnwrapped
+        let index = userSearchHistory.firstIndex(of: userInput).unsafelyUnwrapped
         userSearchHistory.swapAt(0, index)
       }
       Cache.userSearchHistory = userSearchHistory

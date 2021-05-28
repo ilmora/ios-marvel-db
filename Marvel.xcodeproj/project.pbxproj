@@ -36,6 +36,7 @@
 		D536EEF32478657E00C5BC7F /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D536EEF12478657E00C5BC7F /* Roboto-Light.ttf */; };
 		D536EEF52478665100C5BC7F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D536EEF42478665100C5BC7F /* Roboto-Bold.ttf */; };
 		D536EEF7247866B700C5BC7F /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D536EEF6247866B700C5BC7F /* Roboto-Black.ttf */; };
+		D53F141126602D940001DBB0 /* ComicHomeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F141026602D940001DBB0 /* ComicHomeListViewController.swift */; };
 		D55293AC25056EBD00C5E47A /* SearchHomeDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55293AB25056EBD00C5E47A /* SearchHomeDataSourceController.swift */; };
 		D55293AF25056F6F00C5E47A /* SearchUserInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55293AE25056F6F00C5E47A /* SearchUserInputCell.swift */; };
 		D584602E2441CC8900F01D5D /* MarvelResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D584602D2441CC8900F01D5D /* MarvelResultType.swift */; };
@@ -60,6 +61,7 @@
 		D5E38F0B24CA159800AFBA3F /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E38F0824CA159800AFBA3F /* Raleway-Regular.ttf */; };
 		D5E38F0D24CA1C6A00AFBA3F /* SearchResultFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */; };
 		D5E7BFB524B9E67B00AC0EF1 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E7BFB424B9E67B00AC0EF1 /* SearchResultCell.swift */; };
+		D5FB018525F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FB018425F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,7 @@
 		D536EEF12478657E00C5BC7F /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		D536EEF42478665100C5BC7F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		D536EEF6247866B700C5BC7F /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		D53F141026602D940001DBB0 /* ComicHomeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicHomeListViewController.swift; sourceTree = "<group>"; };
 		D55293AB25056EBD00C5E47A /* SearchHomeDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeDataSourceController.swift; sourceTree = "<group>"; };
 		D55293AE25056F6F00C5E47A /* SearchUserInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserInputCell.swift; sourceTree = "<group>"; };
 		D584602D2441CC8900F01D5D /* MarvelResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelResultType.swift; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 		D5E38F0824CA159800AFBA3F /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFooterView.swift; sourceTree = "<group>"; };
 		D5E7BFB424B9E67B00AC0EF1 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		D5FB018425F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailCharacterListDataSourceController.swift; sourceTree = "<group>"; };
 		F9F8D26C812548D0F8F46E83 /* Pods-Marvel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marvel.debug.xcconfig"; path = "Target Support Files/Pods-Marvel/Pods-Marvel.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				462F8C51D49B0B364A98A8CD /* SeriesDetailViewController.swift */,
+				D5FB018425F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift */,
 			);
 			path = Series;
 			sourceTree = "<group>";
@@ -276,6 +281,7 @@
 			children = (
 				D503480B2440DAC300925C08 /* ComicHomeViewController.swift */,
 				D5B87E322495807400D6AEFB /* ComicDataSourceController.swift */,
+				D53F141026602D940001DBB0 /* ComicHomeListViewController.swift */,
 			);
 			path = ComicHome;
 			sourceTree = "<group>";
@@ -485,7 +491,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Tristan Djahel";
 				TargetAttributes = {
 					D50348032440DAC300925C08 = {
@@ -592,6 +598,7 @@
 				D503480C2440DAC300925C08 /* ComicHomeViewController.swift in Sources */,
 				D5034821244108CA00925C08 /* Comic.swift in Sources */,
 				D5B87E332495807400D6AEFB /* ComicDataSourceController.swift in Sources */,
+				D53F141126602D940001DBB0 /* ComicHomeListViewController.swift in Sources */,
 				D52A023A2505612B00B7BE8C /* SearchHomeView.swift in Sources */,
 				D503481E2440EBA400925C08 /* MD5.swift in Sources */,
 				D50348082440DAC300925C08 /* AppDelegate.swift in Sources */,
@@ -604,6 +611,7 @@
 				D5E38F0D24CA1C6A00AFBA3F /* SearchResultFooterView.swift in Sources */,
 				D5CE5A4224B0A37500E8AF36 /* SearchResultDataSourceController.swift in Sources */,
 				D5CE5A4824B0AB7800E8AF36 /* Series.swift in Sources */,
+				D5FB018525F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift in Sources */,
 				D503480A2440DAC300925C08 /* SceneDelegate.swift in Sources */,
 				D55293AF25056F6F00C5E47A /* SearchUserInputCell.swift in Sources */,
 				D5C3366124E84E8C00C37E09 /* SeeMoreButton.swift in Sources */,
@@ -676,6 +684,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -737,6 +746,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

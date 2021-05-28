@@ -5,6 +5,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 class SeriesDetailViewController: UIViewController {
   private let seriesDetailView: SeriesDetailView
@@ -12,7 +13,8 @@ class SeriesDetailViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    seriesDetailView.label.text = series.title
+    seriesDetailView.titleLabel.text = series.title
+    seriesDetailView.setThumbnailImage(series.thumbnail.url)
   }
 
   override func loadView() {
