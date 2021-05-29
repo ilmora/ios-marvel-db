@@ -48,9 +48,9 @@ class ComicHomeListViewController: UIViewController {
     super.init(nibName: nil, bundle: nil)
     switch dataSource.comicsTypeDisplayed {
     case .New:
-      title = "New"
+      navigationItem.title = "comics_new".localized
     case .Future:
-      title = "Future"
+      navigationItem.title = "comics_to_come".localized
     }
   }
 

@@ -36,7 +36,7 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
     pageController.dataSource = self
     pageController.delegate = self
 
-    navigationItem.title = controllers.first?.title
+    navigationItem.title = controllers.first?.navigationItem.title
   }
 
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -65,11 +65,8 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
                           didFinishAnimating finished: Bool,
                           previousViewControllers: [UIViewController],
                           transitionCompleted completed: Bool) {
-    if completed {
-      presentingVCIndex = (presentingVCIndex + 1) % controllers.count
-    } else {
-      presentingVCIndex = (presentingVCIndex - 1) % controllers.count
-    }
+    guard completed else { return }
+    navigationItem.title = controllers.first { $0 != previousViewControllers.first }?.navigationItem.title
   }
 
   init() {
