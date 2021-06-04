@@ -22,6 +22,8 @@
 		D503481C2440DD3600925C08 /* MarvelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503481B2440DD3600925C08 /* MarvelAPI.swift */; };
 		D503481E2440EBA400925C08 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503481D2440EBA400925C08 /* MD5.swift */; };
 		D5034821244108CA00925C08 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5034820244108CA00925C08 /* Comic.swift */; };
+		D5036BE6266AC75A00F6653B /* SearchResultCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5036BE5266AC75A00F6653B /* SearchResultCharacterCell.swift */; };
+		D5036BE8266AC79F00F6653B /* SearchResultComicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5036BE7266AC79F00F6653B /* SearchResultComicCell.swift */; };
 		D50EA843245E96460030308A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D50EA842245E96460030308A /* Podfile */; };
 		D51419902496618E0007417B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D51419922496618E0007417B /* Localizable.strings */; };
 		D51419952496637C0007417B /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51419942496637C0007417B /* StringExtensions.swift */; };
@@ -60,7 +62,6 @@
 		D5E38F0A24CA159800AFBA3F /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E38F0724CA159800AFBA3F /* Raleway-Medium.ttf */; };
 		D5E38F0B24CA159800AFBA3F /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E38F0824CA159800AFBA3F /* Raleway-Regular.ttf */; };
 		D5E38F0D24CA1C6A00AFBA3F /* SearchResultFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */; };
-		D5E7BFB524B9E67B00AC0EF1 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E7BFB424B9E67B00AC0EF1 /* SearchResultCell.swift */; };
 		D5FB018525F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FB018425F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,8 @@
 		D503481B2440DD3600925C08 /* MarvelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelAPI.swift; sourceTree = "<group>"; };
 		D503481D2440EBA400925C08 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		D5034820244108CA00925C08 /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
+		D5036BE5266AC75A00F6653B /* SearchResultCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCharacterCell.swift; sourceTree = "<group>"; };
+		D5036BE7266AC79F00F6653B /* SearchResultComicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultComicCell.swift; sourceTree = "<group>"; };
 		D50EA842245E96460030308A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D514198F2496617A0007417B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D51419912496618E0007417B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -122,7 +125,6 @@
 		D5E38F0724CA159800AFBA3F /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
 		D5E38F0824CA159800AFBA3F /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFooterView.swift; sourceTree = "<group>"; };
-		D5E7BFB424B9E67B00AC0EF1 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		D5FB018425F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailCharacterListDataSourceController.swift; sourceTree = "<group>"; };
 		F9F8D26C812548D0F8F46E83 /* Pods-Marvel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marvel.debug.xcconfig"; path = "Target Support Files/Pods-Marvel/Pods-Marvel.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -374,9 +376,10 @@
 		D59ACD462486C438005E951A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				D5E7BFB424B9E67B00AC0EF1 /* SearchResultCell.swift */,
 				D52BD4E724C8C450001965F0 /* SearchResultHeaderView.swift */,
 				D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */,
+				D5036BE5266AC75A00F6653B /* SearchResultCharacterCell.swift */,
+				D5036BE7266AC79F00F6653B /* SearchResultComicCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -594,7 +597,7 @@
 				D59ACD452486BA9E005E951A /* SearchResultView.swift in Sources */,
 				D5B734E9247428F5004F9CA6 /* ComicHomeView.swift in Sources */,
 				D52A023325055CB400B7BE8C /* Cache.swift in Sources */,
-				D5E7BFB524B9E67B00AC0EF1 /* SearchResultCell.swift in Sources */,
+				D5036BE8266AC79F00F6653B /* SearchResultComicCell.swift in Sources */,
 				D503480C2440DAC300925C08 /* ComicHomeViewController.swift in Sources */,
 				D5034821244108CA00925C08 /* Comic.swift in Sources */,
 				D5B87E332495807400D6AEFB /* ComicDataSourceController.swift in Sources */,
@@ -620,6 +623,7 @@
 				D503481C2440DD3600925C08 /* MarvelAPI.swift in Sources */,
 				D5CE5A4624B0AAA300E8AF36 /* Event.swift in Sources */,
 				D5C50D1724419E4400644413 /* ComicCollectionCell.swift in Sources */,
+				D5036BE6266AC75A00F6653B /* SearchResultCharacterCell.swift in Sources */,
 				D59A6404247DA9FA0031C2B2 /* SearchHomeViewController.swift in Sources */,
 				D5D66E5D24791530003FD75A /* AppConstants.swift in Sources */,
 				D5A97EE0247A570B00A72833 /* Reusable.swift in Sources */,

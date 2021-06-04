@@ -19,7 +19,6 @@ class CharacterDetailView: UIView {
 
   private let descriptionContainer: UIStackView
   let descriptionLabel: UILabel
-  let switchTextLang: UIButton
 
   func setThumbnailImage(_ url: URL?) {
     thumbnail.kf.setImage(with: url, options: [.processor(RoundCornerImageProcessor(cornerRadius: 20))])
@@ -48,7 +47,6 @@ class CharacterDetailView: UIView {
     descriptionContainer.alignment = .trailing
     descriptionContainer.distribution = .fill
     descriptionContainer.addArrangedSubview(descriptionLabel)
-    descriptionContainer.addArrangedSubview(switchTextLang)
 
     container.axis = .vertical
     container.alignment = .center
@@ -99,7 +97,6 @@ class CharacterDetailView: UIView {
     }
     collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     descriptionLabel = UILabel()
-    switchTextLang = UIButton(type: .system)
     descriptionContainer = UIStackView()
     super.init(frame: .zero)
     setupView()

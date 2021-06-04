@@ -111,31 +111,35 @@ extension SearchResultDataSourceController: UICollectionViewDataSource {
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.reusableIdentifier, for: indexPath) as? SearchResultCell,
-          let sectionCase = SearchEntitiesSection(rawValue: indexPath.section) else {
+    guard let sectionCase = SearchEntitiesSection(rawValue: indexPath.section) else {
       fatalError()
     }
     switch sectionCase {
     case .Comics:
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultComicCell.reusableIdentifier, for: indexPath) as? SearchResultComicCell else {
+        fatalError()
+      }
       let comic = comics[indexPath.row]
       cell.resultTitle.text = comic.title
-      cell.setImageRatio(1.5)
       if let thumbnail = comic.thumbnail {
         cell.resultTypeImage.kf.setImage(with: thumbnail.url)
       } else {
         cell.resultTypeImage.image = UIImage(systemName: "book.fill")
       }
+      return cell
     case .Characters:
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCharacterCell.reusableIdentifier, for: indexPath) as? SearchResultCharacterCell else {
+        fatalError()
+      }
       let character = characters[indexPath.row]
       cell.resultTitle.text = character.name
-      cell.setImageRatio(1.0)
       if let thumbnail = character.thumbnail {
         cell.resultTypeImage.kf.setImage(with: thumbnail.url)
       } else {
         cell.resultTypeImage.image = UIImage(systemName: "person.fill")
       }
+      return cell
     }
-    return cell
   }
 
   func numberOfSections(in: UICollectionView) -> Int {

@@ -35,7 +35,7 @@ struct Series: Decodable, Identifiable {
   var endYear: Int
   var rating: String?
   var thumbnail: Image
-  var characters: [CharacterList]?
+  var characters: CharacterList?
   var next: SeriesSummary?
   var previous: SeriesSummary?
 }

@@ -41,7 +41,7 @@ struct Character: Decodable {
 struct CharacterList: Decodable {
   var available: Int?
   var returned: Int?
-  var collectionURI: [String]
+  var collectionURI: String
   var items: [CharacterSummary]
 }
 
