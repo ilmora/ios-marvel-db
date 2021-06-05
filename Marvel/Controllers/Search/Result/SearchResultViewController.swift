@@ -10,13 +10,27 @@ import Foundation
 import UIKit
 import Combine
 
-class SearchResultViewController: UIViewController, UISearchResultsUpdating {
+class SearchResultViewController: UIViewController, UISearchResultsUpdating, UICollectionViewDelegate {
   private let searchResultView: SearchResultView
   private let searchBarResultDataSource: SearchResultDataSourceController
   private var selectedRowHandle: AnyCancellable?
   private var searchHandle: AnyCancellable?
   private var userInputTimer: Timer?
   var previousViewController: UIViewController?
+
+  private lazy var dataSource = searchBarResultDataSource.makeDataSource()
+
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard let item = dataSource.itemIdentifier(for: indexPath) else {
+      return
+    }
+    switch item {
+    case .Characters(let character):
+      self.previousViewController?.navigationController?.pushViewController(CharacterDetailViewController(character: character), animated: true)
+    case .Comics(let comic):
+      self.previousViewController?.navigationController?.pushViewController(ComicDetailViewController(comic), animated: true)
+    }
+  }
 
   func updateSearchResults(for searchController: UISearchController) {
     guard let userInput = searchController.searchBar.text, userInput != "" else {
@@ -34,6 +48,7 @@ class SearchResultViewController: UIViewController, UISearchResultsUpdating {
       }
       Cache.userSearchHistory = userSearchHistory
     }
+    searchResultView.collectionView.delegate = self
   }
 
   override func loadView() {
@@ -42,40 +57,18 @@ class SearchResultViewController: UIViewController, UISearchResultsUpdating {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    searchResultView.collectionView.dataSource = searchBarResultDataSource
     searchHandle = searchBarResultDataSource.$comics
       .combineLatest(searchBarResultDataSource.$characters)
+      .receive(on: DispatchQueue.main)
       .sink(receiveValue: { _ in
-        self.reloadCollectionView()
+        self.dataSource.apply(self.searchBarResultDataSource.makeSnapshot(), animatingDifferences: true)
       })
-
-    selectedRowHandle = searchResultView.$selectedRow.sink(receiveValue: { selectedRow in
-      guard let selectedRow = selectedRow,
-        let sectionCase = SearchEntitiesSection(rawValue: selectedRow.section) else {
-          return
-      }
-      switch sectionCase {
-      case .Comics:
-        let comic = self.searchBarResultDataSource.comics[selectedRow.row]
-        self.previousViewController?.navigationController?.pushViewController(ComicDetailViewController(comic), animated: true)
-      case .Characters:
-        let character = self.searchBarResultDataSource.characters[selectedRow.row]
-        self.previousViewController?.navigationController?.pushViewController(CharacterDetailViewController(character: character), animated: true)
-      }
-    })
-  }
-
-  private func reloadCollectionView() {
-    DispatchQueue.main.async {
-      self.searchResultView.collectionView.reloadData()
-    }
   }
 
   init() {
     searchResultView = SearchResultView()
-    searchBarResultDataSource = SearchResultDataSourceController()
+    searchBarResultDataSource = SearchResultDataSourceController(searchResultView.collectionView)
     super.init(nibName: nil, bundle: nil)
-    searchBarResultDataSource.didPressSeeMoreButtonHandler = reloadCollectionView
   }
 
   required init?(coder: NSCoder) {

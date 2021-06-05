@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Image: Decodable {
+struct Image: Decodable, Hashable {
   var path: String?
   var `extension`: String?
 

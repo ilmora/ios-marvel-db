@@ -28,10 +28,19 @@ enum ComicFilterCase: String, CaseIterable {
   case Future = "comics_to_come"
 }
 
-enum SearchEntitiesSection: Int {
-  case Characters = 0
-  case Comics
+enum SearchEntitiesSectionWrapper: Hashable {
+  static func == (lhs: SearchEntitiesSectionWrapper, rhs: SearchEntitiesSectionWrapper) -> Bool {
+    lhs.hashValue == rhs.hashValue
+  }
 
+  case Characters(Character)
+  case Comics(Comic)
+}
+
+enum SearchEntitiesSection: Int, CaseIterable {
+
+  case Characters = 0
+  case Comics = 1
 
   var title: String {
     switch self {

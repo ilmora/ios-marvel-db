@@ -18,9 +18,3 @@ extension UICollectionReusableView: Reusable {
     String(describing: self)
   }
 }
-
-extension UITableViewCell: Reusable {
-  static var reusableIdentifier: String {
-    String(describing: self)
-  }
-}

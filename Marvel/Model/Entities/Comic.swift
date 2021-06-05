@@ -26,7 +26,11 @@ struct ComicDataContainer: MarvelDataContainer, Decodable {
   var results: [Comic]
 }
 
-struct Comic: Decodable {
+struct Comic: Decodable, Hashable {
+  static func == (lhs: Comic, rhs: Comic) -> Bool {
+    lhs.id == rhs.id
+  }
+
   var id: Int
   var title: String
   var description: String?
@@ -38,35 +42,46 @@ struct Comic: Decodable {
   var prices: [ComicPrice]?
 }
 
-struct ComicDate: Decodable {
+struct ComicDate: Decodable, Hashable {
   var type: String?
   var date: Date?
 }
 
-struct ComicCreatorList: Decodable {
+struct ComicCreatorList: Decodable, Hashable {
+  static func == (lhs: ComicCreatorList, rhs: ComicCreatorList) -> Bool {
+    guard let items1 = lhs.items, let items2 = rhs.items else {
+      return false
+    }
+    return items1.elementsEqual(items2) { $0.name == $1.name }
+  }
+
   var available: Int?
   var returned: Int?
   var items: [ComicCreatorSummary]?
 }
 
-struct ComicCreatorSummary: Decodable {
+struct ComicCreatorSummary: Decodable, Hashable {
   var name: String?
   var role: String?
 }
 
-struct ComicPrice: Decodable {
+struct ComicPrice: Decodable, Hashable {
   var type: String?
   var price: Float?
 }
 
-struct ComicList: Decodable, EntityList {
+struct ComicList: Decodable, EntityList, Hashable {
+  static func == (lhs: ComicList, rhs: ComicList) -> Bool {
+    lhs.collectionURI == rhs.collectionURI
+  }
+
   var available: Int?
   var returned: Int?
   var collectionURI: String?
   var items: [ComicSummary]?
 }
 
-struct ComicSummary: Decodable, EntitySummary {
+struct ComicSummary: Decodable, EntitySummary, Hashable {
   var resourceURI: String?
   var name: String?
 }

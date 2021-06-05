@@ -40,14 +40,18 @@ struct Series: Decodable, Identifiable {
   var previous: SeriesSummary?
 }
 
-struct SeriesList: Decodable, EntityList {
+struct SeriesList: Decodable, EntityList, Hashable {
+  static func == (lhs: SeriesList, rhs: SeriesList) -> Bool {
+    lhs.collectionURI == rhs.collectionURI
+  }
+
   var available: Int?
   var returned: Int?
   var collectionURI: String?
   var items: [SeriesSummary]?
 }
 
-struct SeriesSummary: Decodable, EntitySummary {
+struct SeriesSummary: Decodable, EntitySummary, Hashable {
   var resourceURI: String?
   var name: String?
 }

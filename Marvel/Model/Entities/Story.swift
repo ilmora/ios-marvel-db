@@ -34,14 +34,18 @@ struct Story: Decodable, Identifiable {
   var description: String
 }
 
-struct StoryList: Decodable, EntityList {
+struct StoryList: Decodable, EntityList, Hashable {
+  static func == (lhs: StoryList, rhs: StoryList) -> Bool {
+    lhs.collectionURI == rhs.collectionURI
+  }
+
   var available: Int?
   var returned: Int?
   var collectionURI: String?
   var items: [StorySummary]?
 }
 
-struct StorySummary: Decodable, EntitySummary {
+struct StorySummary: Decodable, EntitySummary, Hashable {
   var resourceURI: String?
   var name: String?
   var type: String?

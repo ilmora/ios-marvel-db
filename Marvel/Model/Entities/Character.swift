@@ -26,7 +26,11 @@ struct CharacterDataContainer: MarvelDataContainer, Decodable {
   var results: [Character]
 }
 
-struct Character: Decodable {
+struct Character: Decodable, Hashable {
+  static func == (lhs: Character, rhs: Character) -> Bool {
+    lhs.id == rhs.id
+  }
+
   var id: Int
   var name: String
   var description: String?
