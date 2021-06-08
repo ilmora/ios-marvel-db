@@ -40,26 +40,11 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
 
     navigationItem.title = controllers.first?.navigationItem.title
 
-    for view in pageController.view.subviews {
-      if let scrollView = view as? UIScrollView {
-        defaultContentOffsetValue = scrollView.contentOffset
-        scrollView.delegate = self
-      }
-    }
-
     sectionComicView.selectedIndex = controllers
       .map { $0 as? ComicHomeListViewController }
       .filter { $0 != nil }
       .first??.dataSource.comicsTypeDisplayed ?? .New
     navigationItem.titleView = sectionComicView
-  }
-
-  private var defaultContentOffsetValue: CGPoint?
-
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    guard defaultContentOffsetValue == scrollView.contentOffset else {
-      return
-    }
   }
 
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

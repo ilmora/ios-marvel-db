@@ -35,7 +35,9 @@ class SectionComicView: UIView {
       } else {
         leadingHighlight.constant = 0
       }
-      layoutIfNeeded()
+      UIView.animate(withDuration: 0.15) {
+        self.layoutIfNeeded()
+      }
     }
   }
 
