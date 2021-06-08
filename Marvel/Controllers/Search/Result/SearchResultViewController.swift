@@ -48,7 +48,6 @@ class SearchResultViewController: UIViewController, UISearchResultsUpdating, UIC
       }
       Cache.userSearchHistory = userSearchHistory
     }
-    searchResultView.collectionView.delegate = self
   }
 
   override func loadView() {
@@ -57,6 +56,7 @@ class SearchResultViewController: UIViewController, UISearchResultsUpdating, UIC
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    searchResultView.collectionView.delegate = self
     searchHandle = searchBarResultDataSource.$comics
       .combineLatest(searchBarResultDataSource.$characters)
       .receive(on: DispatchQueue.main)

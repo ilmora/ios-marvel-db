@@ -22,13 +22,15 @@ struct MarvelAPI {
     marvelApiKeys["Private"]!
   }
 
-  private func getApiParametersAsQueryItems() -> [URLQueryItem] {
+  private func getApiParametersAsQueryItems(limit: Int = 20, offset: Int = 0) -> [URLQueryItem] {
     let timeStamp = String(Date().timeIntervalSince1970)
     let hash = "\(timeStamp)\(privateKey)\(publicKey)".md5
     var queryItems = [URLQueryItem]()
     queryItems.append(URLQueryItem(name: "ts", value: timeStamp))
     queryItems.append(URLQueryItem(name: "apikey", value: publicKey))
     queryItems.append(URLQueryItem(name: "hash", value: hash))
+    queryItems.append(URLQueryItem(name: "limit", value: String(limit)))
+    queryItems.append(URLQueryItem(name: "offset", value: String(offset)))
     return queryItems
   }
 
@@ -39,9 +41,9 @@ struct MarvelAPI {
   }
 
   // MARK: Search
-  private func fetchComics(containing: String) -> AnyPublisher<[Comic], Error> {
+  func fetchComics(containing: String, limit: Int = 20, offset: Int = 0) -> AnyPublisher<ComicDataContainer, Error> {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/comics?")!
-    var queryParams = getApiParametersAsQueryItems()
+    var queryParams = getApiParametersAsQueryItems(limit: limit, offset: offset)
     queryParams.append(URLQueryItem(name: "titleStartsWith", value: containing))
 
     urlComponents.queryItems = queryParams
@@ -49,13 +51,13 @@ struct MarvelAPI {
     return URLSession.shared.dataTaskPublisher(for: request)
       .map { $0.data }
       .decode(type: ComicDataWrapper.self, decoder: jsonDecoder)
-      .map { $0.data.results }
+      .map { $0.data }
       .eraseToAnyPublisher()
   }
 
-  private func fetchCharacters(containing: String) -> AnyPublisher<[Character], Error> {
+  func fetchCharacters(containing: String, limit: Int = 20, offset: Int = 0) -> AnyPublisher<CharacterDataContainer, Error> {
     var urlComponents = URLComponents(string: "https://gateway.marvel.com/v1/public/characters?")!
-    var queryParams = getApiParametersAsQueryItems()
+    var queryParams = getApiParametersAsQueryItems(limit: limit, offset: offset)
     queryParams.append(URLQueryItem(name: "nameStartsWith", value: containing))
 
     urlComponents.queryItems = queryParams
@@ -63,15 +65,8 @@ struct MarvelAPI {
     return URLSession.shared.dataTaskPublisher(for: request)
       .map { $0.data }
       .decode(type: CharacterDataWrapper.self, decoder: jsonDecoder)
-      .map { $0.data.results }
+      .map { $0.data }
       .eraseToAnyPublisher()
-  }
-
-  func fetchEntities(containing text: String) -> (AnyPublisher<[Comic], Error>, AnyPublisher<[Character], Error>) {
-    let comicsPublisher = fetchComics(containing: text)
-    let charactersPublisher = fetchCharacters(containing: text)
-
-    return (comicsPublisher, charactersPublisher)
   }
 
   // MARK: Comic

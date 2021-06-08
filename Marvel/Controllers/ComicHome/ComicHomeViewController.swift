@@ -9,9 +9,11 @@
 import UIKit
 import Combine
 
-class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIScrollViewDelegate {
   private var selectedComicHandle: AnyCancellable?
   private var fetchComicsHandle: AnyCancellable?
+
+  private let sectionComicView: SectionComicView
 
   private var pageController: UIPageViewController
   private var controllers: [UIViewController]
@@ -37,6 +39,27 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
     pageController.delegate = self
 
     navigationItem.title = controllers.first?.navigationItem.title
+
+    for view in pageController.view.subviews {
+      if let scrollView = view as? UIScrollView {
+        defaultContentOffsetValue = scrollView.contentOffset
+        scrollView.delegate = self
+      }
+    }
+
+    sectionComicView.selectedIndex = controllers
+      .map { $0 as? ComicHomeListViewController }
+      .filter { $0 != nil }
+      .first??.dataSource.comicsTypeDisplayed ?? .New
+    navigationItem.titleView = sectionComicView
+  }
+
+  private var defaultContentOffsetValue: CGPoint?
+
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard defaultContentOffsetValue == scrollView.contentOffset else {
+      return
+    }
   }
 
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -66,12 +89,17 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
                           previousViewControllers: [UIViewController],
                           transitionCompleted completed: Bool) {
     guard completed else { return }
-    navigationItem.title = controllers.first { $0 != previousViewControllers.first }?.navigationItem.title
+    //navigationItem.title = controllers.first { $0 != previousViewControllers.first }?.navigationItem.title
+    guard let vc = controllers.first(where: { $0 != previousViewControllers.first }) as? ComicHomeListViewController else {
+      return
+    }
+    sectionComicView.selectedIndex = vc.dataSource.comicsTypeDisplayed
   }
 
   init() {
     pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     controllers = [UIViewController]()
+    sectionComicView = SectionComicView()
     super.init(nibName: nil, bundle: nil)
   }
 

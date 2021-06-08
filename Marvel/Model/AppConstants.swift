@@ -23,9 +23,18 @@ struct AppConstants {
   static let headerSearchResultFont = UIFont(name: "Raleway-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
 }
 
-enum ComicFilterCase: String, CaseIterable {
-  case New = "comics_new"
-  case Future = "comics_to_come"
+enum ComicFilterCase: Int, CaseIterable {
+  case New = 0
+  case Future = 1
+
+  func localized() -> String {
+    switch self {
+    case .New:
+      return "comics_new".localized
+    case .Future:
+      return "comics_to_come".localized
+    }
+  }
 }
 
 enum SearchEntitiesSectionWrapper: Hashable {

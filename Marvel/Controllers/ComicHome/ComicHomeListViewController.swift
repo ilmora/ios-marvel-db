@@ -12,7 +12,7 @@ import Combine
 class ComicHomeListViewController: UIViewController {
 
   private let comicHomeView: ComicHomeView
-  private let dataSource: ComicDataSourceController
+  private(set) var dataSource: ComicDataSourceController
   private var fetchComicsHandle: AnyCancellable?
   private var selectedComicHandle: AnyCancellable?
 

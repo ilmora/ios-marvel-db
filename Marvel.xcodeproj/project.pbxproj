@@ -41,6 +41,7 @@
 		D53F141126602D940001DBB0 /* ComicHomeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F141026602D940001DBB0 /* ComicHomeListViewController.swift */; };
 		D55293AC25056EBD00C5E47A /* SearchHomeDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55293AB25056EBD00C5E47A /* SearchHomeDataSourceController.swift */; };
 		D55293AF25056F6F00C5E47A /* SearchUserInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55293AE25056F6F00C5E47A /* SearchUserInputCell.swift */; };
+		D558D9BF266D69200092CE29 /* SectionComicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D558D9BE266D69200092CE29 /* SectionComicView.swift */; };
 		D584602E2441CC8900F01D5D /* MarvelResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D584602D2441CC8900F01D5D /* MarvelResultType.swift */; };
 		D59A6404247DA9FA0031C2B2 /* SearchHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59A6403247DA9FA0031C2B2 /* SearchHomeViewController.swift */; };
 		D59ACD452486BA9E005E951A /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59ACD442486BA9E005E951A /* SearchResultView.swift */; };
@@ -104,6 +105,7 @@
 		D53F141026602D940001DBB0 /* ComicHomeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicHomeListViewController.swift; sourceTree = "<group>"; };
 		D55293AB25056EBD00C5E47A /* SearchHomeDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeDataSourceController.swift; sourceTree = "<group>"; };
 		D55293AE25056F6F00C5E47A /* SearchUserInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserInputCell.swift; sourceTree = "<group>"; };
+		D558D9BE266D69200092CE29 /* SectionComicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionComicView.swift; sourceTree = "<group>"; };
 		D584602D2441CC8900F01D5D /* MarvelResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelResultType.swift; sourceTree = "<group>"; };
 		D59A6403247DA9FA0031C2B2 /* SearchHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeViewController.swift; sourceTree = "<group>"; };
 		D59ACD442486BA9E005E951A /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				D503480B2440DAC300925C08 /* ComicHomeViewController.swift */,
 				D5B87E322495807400D6AEFB /* ComicDataSourceController.swift */,
 				D53F141026602D940001DBB0 /* ComicHomeListViewController.swift */,
+				D558D9BE266D69200092CE29 /* SectionComicView.swift */,
 			);
 			path = ComicHome;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				D53F141126602D940001DBB0 /* ComicHomeListViewController.swift in Sources */,
 				D52A023A2505612B00B7BE8C /* SearchHomeView.swift in Sources */,
 				D503481E2440EBA400925C08 /* MD5.swift in Sources */,
+				D558D9BF266D69200092CE29 /* SectionComicView.swift in Sources */,
 				D50348082440DAC300925C08 /* AppDelegate.swift in Sources */,
 				D5A6DEA824791F2400CCC05E /* ComicDetailViewController.swift in Sources */,
 				D528296F248D162700CDFB62 /* Image.swift in Sources */,

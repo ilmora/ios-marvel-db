@@ -12,48 +12,72 @@ import Combine
 import Kingfisher
 
 class SearchResultDataSourceController: NSObject {
-  // MARK: Data
+  // MARK: Fetch from api
   private let api = MarvelAPI()
 
   private let collectionView: UICollectionView
 
-  @Published private var inputSearchText: String?
-  private var textInputHandle: AnyCancellable?
+  private var inputSearchText: String
 
   @Published private(set) var comics = [Comic]()
+  private var offsetComics = 0
   private var comicsHandle: AnyCancellable?
 
   @Published private(set) var characters = [Character]()
+  private var offsetCharacters = 0
   private var charactersHandle: AnyCancellable?
 
-  var didPressSeeMoreButtonHandler: (() -> Void)?
-
   func fetchResultFromApi(_ newSearchValue: String?) {
+    offsetCharacters = 0
+    offsetComics = 0
+    comics = [Comic]()
+    characters = [Character]()
     guard let newSearchValue = newSearchValue, newSearchValue != "" else {
-      comics = [Comic]()
-      characters = [Character]()
       return
     }
 
-    let (comicPublisher, characterPublisher) = api.fetchEntities(containing: newSearchValue)
-    comicsHandle = comicPublisher.sink(receiveCompletion: { _ in
-      self.comicsHandle = nil
-    }, receiveValue: { comics in
-      self.comics = comics
-    })
-    charactersHandle = characterPublisher.sink(receiveCompletion: { _ in
-      self.charactersHandle = nil
-    }, receiveValue: { characters in
-      self.characters = characters
-    })
+    inputSearchText = newSearchValue
+    comicsHandle = api.fetchComics(containing: newSearchValue, offset: offsetComics)
+      .sink(receiveCompletion: { _ in
+
+      }, receiveValue: { comicDataContainer in
+        self.comics = comicDataContainer.results
+        self.offsetComics += comicDataContainer.count + 1
+      })
+    charactersHandle = api.fetchCharacters(containing: newSearchValue, offset: offsetCharacters)
+      .sink(receiveCompletion: { _ in
+
+      }, receiveValue: { characterDataContainer in
+        self.characters = characterDataContainer.results
+        self.offsetCharacters += characterDataContainer.count + 1
+      })
   }
 
   @objc private func didPressSeeMoreButton(_ sender: UIButton) {
-    if let handler = didPressSeeMoreButtonHandler {
-      handler()
+    guard let sender = sender as? SeeMoreButton, let targetEntity = sender.targetEntity else {
+      return
+    }
+    switch targetEntity {
+    case .Characters:
+      charactersHandle = api.fetchCharacters(containing: inputSearchText, offset: offsetCharacters)
+        .sink(receiveCompletion: { _ in
+
+        }, receiveValue: { characterDataContainer in
+          self.characters.append(contentsOf: characterDataContainer.results)
+          self.offsetCharacters += characterDataContainer.count + 1
+        })
+    case .Comics:
+      comicsHandle = api.fetchComics(containing: inputSearchText, offset: offsetComics)
+        .sink(receiveCompletion: { _ in
+
+        }, receiveValue: { comicDataContainer in
+          self.comics.append(contentsOf: comicDataContainer.results)
+          self.offsetComics += comicDataContainer.count + 1
+        })
     }
   }
 
+  // MARK: Diffable data source
   func makeSnapshot() -> NSDiffableDataSourceSnapshot<SearchEntitiesSection, SearchEntitiesSectionWrapper> {
     var snapshot = NSDiffableDataSourceSnapshot<SearchEntitiesSection, SearchEntitiesSectionWrapper>()
     snapshot.appendSections(SearchEntitiesSection.allCases)
@@ -114,7 +138,7 @@ class SearchResultDataSourceController: NSObject {
         case .Comics:
           footerCell.seeMoreButton.targetEntity = .Comics
         }
-        //footerCell.seeMoreButton.addTarget(self, action: #selector(didPressSeeMoreButton), for: .touchDown)
+        footerCell.seeMoreButton.addTarget(self, action: #selector(self.didPressSeeMoreButton), for: .touchDown)
         return footerCell
       default:
         fatalError()
@@ -123,7 +147,9 @@ class SearchResultDataSourceController: NSObject {
     return dataSource
   }
 
+  // MARK: Init
   init(_ collectionView: UICollectionView) {
+    inputSearchText = ""
     self.collectionView = collectionView
   }
 }
