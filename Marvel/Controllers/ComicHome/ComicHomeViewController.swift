@@ -17,11 +17,6 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
 
   private var pageController: UIPageViewController
   private var controllers: [UIViewController]
-  private var presentingVCIndex = 0 {
-    didSet {
-      title = controllers[presentingVCIndex].title
-    }
-  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -45,6 +40,18 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
       .filter { $0 != nil }
       .first??.dataSource.comicsTypeDisplayed ?? .New
     navigationItem.titleView = sectionComicView
+    sectionComicView.sectionButtonTapped = { newValue in
+      let newVc: ComicHomeListViewController = self.controllers.map { $0 as? ComicHomeListViewController }.filter { $0 != nil }.first { $0?.dataSource.comicsTypeDisplayed == newValue }!!
+      let direction: UIPageViewController.NavigationDirection
+      switch newValue {
+      case .New:
+        direction = .reverse
+      case .Future:
+        direction = .forward
+      }
+      self.pageController.setViewControllers([newVc], direction: direction, animated: true, completion: nil)
+      self.sectionComicView.selectedIndex = newValue
+    }
   }
 
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -74,7 +81,6 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
                           previousViewControllers: [UIViewController],
                           transitionCompleted completed: Bool) {
     guard completed else { return }
-    //navigationItem.title = controllers.first { $0 != previousViewControllers.first }?.navigationItem.title
     guard let vc = controllers.first(where: { $0 != previousViewControllers.first }) as? ComicHomeListViewController else {
       return
     }

@@ -15,7 +15,7 @@ class SectionComicView: UIView {
   private let highlightView: UIView
   private let sectionsContainer: UIStackView
   private let mainContainer: UIStackView
-  private var sections: [ComicFilterCase: UILabel]
+  private var sections: [ComicFilterCase: UIButton]
   private var leadingHighlight: NSLayoutConstraint
 
   override var intrinsicContentSize: CGSize {
@@ -24,11 +24,10 @@ class SectionComicView: UIView {
 
   var selectedIndex: ComicFilterCase {
     didSet {
-      for label in sections.filter({ $0.key != selectedIndex }).values {
-        label.textColor = .label
+      for otherButton in sections.filter({ $0.key != selectedIndex }).map({ $0.value }) {
+        otherButton.setTitleColor(.label, for: .normal)
       }
-      sections[selectedIndex]?.textColor = AppConstants.marvelColor
-
+      sections[selectedIndex]?.setTitleColor(AppConstants.marvelColor, for: .normal)
       let index: Int = ComicFilterCase.allCases.distance(from: ComicFilterCase.allCases.startIndex, to: ComicFilterCase.allCases.firstIndex(of: selectedIndex)!)
       if index > 0 {
         leadingHighlight.constant = CGFloat(highlightContainer.frame.width) / CGFloat(index + 1)
@@ -60,8 +59,9 @@ class SectionComicView: UIView {
     mainContainer.addArrangedSubview(sectionsContainer)
     mainContainer.addArrangedSubview(highlightContainer)
 
-    for label in sections.sorted(by: { $0.key.rawValue < $1.key.rawValue }).map({ $0.value }) {
-      sectionsContainer.addArrangedSubview(label)
+    for button in sections.sorted(by: { $0.key.rawValue < $1.key.rawValue }).map({ $0.value }) {
+      button.addTarget(self, action: #selector(sectionButtonTapped(_:)), for: .touchDown)
+      sectionsContainer.addArrangedSubview(button)
     }
 
     highlightContainer.addSubview(highlightView)
@@ -80,17 +80,28 @@ class SectionComicView: UIView {
     ])
   }
 
+  var sectionButtonTapped: ((ComicFilterCase) -> Void)?
+
+  @objc
+  private func sectionButtonTapped(_ sender: UIButton) {
+    guard let filter = ComicFilterCase(rawValue: sender.tag), let completion = sectionButtonTapped else {
+      return
+    }
+    completion(filter)
+  }
+
   init() {
     highlightContainer = UIView()
     highlightView = UIView()
     sectionsContainer = UIStackView()
     mainContainer = UIStackView()
-    sections = [ComicFilterCase: UILabel]()
+    sections = [ComicFilterCase: UIButton]()
     for filterCase in ComicFilterCase.allCases {
-      let label = UILabel()
-      label.text = filterCase.localized()
-      label.textAlignment = .center
-      sections.updateValue(label, forKey: filterCase)
+      let button = UIButton(type: .custom)
+      button.setTitle(filterCase.localized(), for: .normal)
+      button.setTitleColor(.label, for: .normal)
+      button.tag = filterCase.rawValue
+      sections.updateValue(button, forKey: filterCase)
     }
     leadingHighlight = highlightView.leadingAnchor.constraint(equalTo: highlightContainer.leadingAnchor, constant: 0)
     selectedIndex = .New
