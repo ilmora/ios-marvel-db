@@ -29,7 +29,7 @@ class CharacterDetailViewController: UIViewController, UICollectionViewDelegate 
     characterDetailView.collectionView.delegate = self
     let translateClient = GoogleTranslateAPI()
     if let description = character.description {
-      translateHandle = translateClient.translate(characterDetailDescription: description)
+      translateHandle = translateClient.translate(text: description)
       .sink(receiveCompletion: { completion in
       }, receiveValue: { translatedText in
         DispatchQueue.main.async {

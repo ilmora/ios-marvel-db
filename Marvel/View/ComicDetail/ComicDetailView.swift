@@ -34,6 +34,9 @@ class ComicDetailView: UIView {
     container.spacing = 40
 
     if traitCollection.userInterfaceStyle == .light {
+      coverImage.layer.shouldRasterize = true
+      coverImage.layer.rasterizationScale = UIScreen.main.scale
+      
       coverImage.layer.shadowColor = UIColor.label.cgColor
       coverImage.layer.shadowOffset = CGSize(width: 0, height: 0)
       coverImage.layer.shadowRadius = 3
@@ -52,6 +55,7 @@ class ComicDetailView: UIView {
     container.addArrangedSubview(titleLabel)
     container.addArrangedSubview(coverImage)
     container.addArrangedSubview(publishedDateLabel)
+    container.addArrangedSubview(summaryLabel)
     container.addArrangedSubview(creatorsLabel)
     scrollView.addSubview(container)
     addSubview(scrollView)

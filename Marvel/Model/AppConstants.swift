@@ -60,3 +60,7 @@ enum SearchEntitiesSection: Int, CaseIterable {
     }
   }
 }
+
+enum SearchUserHistorySection: Int {
+  case main = 0
+}

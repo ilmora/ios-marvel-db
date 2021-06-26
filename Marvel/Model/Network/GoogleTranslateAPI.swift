@@ -11,10 +11,10 @@ struct GoogleTranslateAPI {
     Bundle.main.object(forInfoDictionaryKey: "GoogleTranslateApiKey") as! String
   }
 
-  func translate(characterDetailDescription: String) -> AnyPublisher<String, Error> {
+  func translate(text: String) -> AnyPublisher<String, Error> {
     var url = URLComponents(string: "https://translation.googleapis.com/language/translate/v2")!
     var queryParams = [URLQueryItem]()
-    queryParams.append(URLQueryItem(name: "q", value: characterDetailDescription))
+    queryParams.append(URLQueryItem(name: "q", value: text))
     queryParams.append(URLQueryItem(name: "target", value: Locale.current.languageCode))
     queryParams.append(URLQueryItem(name: "key", value: apiKey))
 

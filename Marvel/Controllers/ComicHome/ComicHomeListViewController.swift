@@ -12,41 +12,49 @@ import Combine
 class ComicHomeListViewController: UIViewController {
 
   private let comicHomeView: ComicHomeView
-  private(set) var dataSource: ComicDataSourceController
+  private(set) var dataSourceController: ComicDataSourceController
   private var fetchComicsHandle: AnyCancellable?
   private var selectedComicHandle: AnyCancellable?
+
+  private lazy var dataSource = dataSourceController.makeDataSource()
 
   override func loadView() {
     view = comicHomeView
   }
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    comicHomeView.collectionView.dataSource = dataSource
-    fetchComicsHandle = dataSource.$newComics
-      .merge(with: dataSource.$futureComics)
+  @objc private func reloadComicList() {
+    fetchComicsHandle = dataSourceController.$newComics
+      .merge(with: dataSourceController.$futureComics)
       .sink(receiveValue: { _ in
         DispatchQueue.main.async {
-          self.comicHomeView.collectionView.reloadData()
+          self.dataSource.apply(self.dataSourceController.makeSnapshot(), animatingDifferences: true)
+          self.comicHomeView.collectionView.refreshControl?.endRefreshing()
         }
       })
-    dataSource.fetchData()
+    dataSourceController.fetchData()
+  }
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    comicHomeView.collectionView.refreshControl = UIRefreshControl()
+    comicHomeView.collectionView.refreshControl?.attributedTitle = NSAttributedString(string: "Reloading".localized)
+    comicHomeView.collectionView.refreshControl?.addTarget(self, action: #selector(reloadComicList), for: .valueChanged)
+    reloadComicList()
     selectedComicHandle = comicHomeView.$selectedCellIndex.sink(receiveValue: { indexPath in
       guard let indexPath = indexPath else {
         return
       }
-      let comic = self.dataSource.getComicsFromFilter()[indexPath.row]
+      let comic = self.dataSourceController.getComicsFromFilter()[indexPath.row]
       self.navigationController?.pushViewController(ComicDetailViewController(comic), animated: true)
     })
   }
 
   init(comicType: ComicFilterCase) {
     comicHomeView = ComicHomeView()
-    dataSource = ComicDataSourceController()
-    dataSource.comicsTypeDisplayed = comicType
+    dataSourceController = ComicDataSourceController(comicHomeView.collectionView)
+    dataSourceController.comicsTypeDisplayed = comicType
     super.init(nibName: nil, bundle: nil)
-    switch dataSource.comicsTypeDisplayed {
+    switch dataSourceController.comicsTypeDisplayed {
     case .New:
       navigationItem.title = "comics_new".localized
     case .Future:

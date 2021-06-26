@@ -12,20 +12,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
 
   private func buildAppView() -> UITabBarController {
+    let factory = UIComponentFactory()
     let homeVC = ComicHomeViewController()
-    let marvelTabBarItem = UITabBarItem(title: "Comic".localized, image: UIImage(systemName: "book"), tag: 0)
+    let marvelTabBarItem = UITabBarItem(title: "Comic".localized, image: UIImage(systemName: "book.fill"), tag: 0)
     homeVC.tabBarItem = marvelTabBarItem
 
     let searchVC = SearchHomeViewController()
-    let searchTabBarItem = UITabBarItem(title: "search".localized , image: UIImage(systemName: "magnifyingglass"), tag: 1)
+    let searchTabBarItem = UITabBarItem(title: "search".localized , image: UIImage(systemName: "magnifyingglass.circle.fill"), tag: 1)
     searchVC.tabBarItem = searchTabBarItem
 
     let rootVC = UITabBarController()
     rootVC.tabBar.tintColor = AppConstants.marvelColor
     rootVC.tabBar.barTintColor = .systemBackground
     var viewControllers = [UIViewController]()
-    viewControllers.append(UINavigationController(rootViewController: homeVC))
-    viewControllers.append(UINavigationController(rootViewController: searchVC))
+    viewControllers.append(factory.marvelNavigationController(rootVC: homeVC))
+    viewControllers.append(factory.marvelNavigationController(rootVC: searchVC))
     rootVC.viewControllers = viewControllers
     rootVC.selectedViewController = viewControllers.first!
     return rootVC

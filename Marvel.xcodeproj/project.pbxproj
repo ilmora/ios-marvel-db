@@ -64,6 +64,7 @@
 		D5E38F0B24CA159800AFBA3F /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E38F0824CA159800AFBA3F /* Raleway-Regular.ttf */; };
 		D5E38F0D24CA1C6A00AFBA3F /* SearchResultFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */; };
 		D5FB018525F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FB018425F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift */; };
+		D5FCB97326852F260014BC74 /* UIComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCB97226852F250014BC74 /* UIComponentFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +129,7 @@
 		D5E38F0824CA159800AFBA3F /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		D5E38F0C24CA1C6A00AFBA3F /* SearchResultFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultFooterView.swift; sourceTree = "<group>"; };
 		D5FB018425F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailCharacterListDataSourceController.swift; sourceTree = "<group>"; };
+		D5FCB97226852F250014BC74 /* UIComponentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentFactory.swift; sourceTree = "<group>"; };
 		F9F8D26C812548D0F8F46E83 /* Pods-Marvel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marvel.debug.xcconfig"; path = "Target Support Files/Pods-Marvel/Pods-Marvel.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -432,6 +434,7 @@
 			children = (
 				D50348092440DAC300925C08 /* SceneDelegate.swift */,
 				D50348072440DAC300925C08 /* AppDelegate.swift */,
+				D5FCB97226852F250014BC74 /* UIComponentFactory.swift */,
 			);
 			path = Startup;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 				D5CE5A4824B0AB7800E8AF36 /* Series.swift in Sources */,
 				D5FB018525F4BD7F000F6504 /* SeriesDetailCharacterListDataSourceController.swift in Sources */,
 				D503480A2440DAC300925C08 /* SceneDelegate.swift in Sources */,
+				D5FCB97326852F260014BC74 /* UIComponentFactory.swift in Sources */,
 				D55293AF25056F6F00C5E47A /* SearchUserInputCell.swift in Sources */,
 				D5C3366124E84E8C00C37E09 /* SeeMoreButton.swift in Sources */,
 				D52A02362505604200B7BE8C /* SearchResultViewController.swift in Sources */,

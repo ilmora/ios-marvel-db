@@ -9,18 +9,28 @@
 import Foundation
 import UIKit
 
-class SearchHomeDataSourceController: NSObject, UICollectionViewDataSource {
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    Cache.userSearchHistory.count
+class SearchHomeDataSourceController: NSObject {
+
+  var collectionView: UICollectionView?
+
+  func makeDataSource() -> UICollectionViewDiffableDataSource<SearchUserHistorySection, String> {
+    let dataSource = UICollectionViewDiffableDataSource<SearchUserHistorySection, String>(
+      collectionView: collectionView!,
+      cellProvider: { collectionView, indexPath, userSearchHistory in
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchUserInputCell.reusableIdentifier, for: indexPath)
+        as? SearchUserInputCell else {
+          fatalError()
+        }
+        cell.userInputLabel.text = userSearchHistory
+        return cell
+    })
+    return dataSource
   }
 
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchUserInputCell.reusableIdentifier, for: indexPath)
-      as? SearchUserInputCell else {
-        fatalError()
-    }
-
-    cell.userInputLabel.text = Cache.userSearchHistory[indexPath.row]
-    return cell
+  func makeSnapshot() -> NSDiffableDataSourceSnapshot<SearchUserHistorySection, String> {
+    var snapshot = NSDiffableDataSourceSnapshot<SearchUserHistorySection, String>()
+    snapshot.appendSections([SearchUserHistorySection.main])
+    snapshot.appendItems(Cache.userSearchHistory, toSection: .main)
+    return snapshot
   }
 }

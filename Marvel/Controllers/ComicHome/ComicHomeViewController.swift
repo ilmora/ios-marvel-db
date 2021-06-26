@@ -23,11 +23,6 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
 
     addChild(pageController)
     view.addSubview(pageController.view)
-
-    let views = ["pageController": pageController.view] as [String: AnyObject]
-    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[pageController]|", options: [], metrics: nil, views: views))
-    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[pageController]|", options: [], metrics: nil, views: views))
-
     controllers = [ComicHomeListViewController(comicType: .New), ComicHomeListViewController(comicType: .Future)]
     pageController.setViewControllers([controllers[0]], direction: .forward, animated: false, completion: nil)
     pageController.dataSource = self
@@ -38,10 +33,10 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
     sectionComicView.selectedIndex = controllers
       .map { $0 as? ComicHomeListViewController }
       .filter { $0 != nil }
-      .first??.dataSource.comicsTypeDisplayed ?? .New
+      .first??.dataSourceController.comicsTypeDisplayed ?? .New
     navigationItem.titleView = sectionComicView
     sectionComicView.sectionButtonTapped = { newValue in
-      let newVc: ComicHomeListViewController = self.controllers.map { $0 as? ComicHomeListViewController }.filter { $0 != nil }.first { $0?.dataSource.comicsTypeDisplayed == newValue }!!
+      let newVc: ComicHomeListViewController = self.controllers.map { $0 as? ComicHomeListViewController }.filter { $0 != nil }.first { $0?.dataSourceController.comicsTypeDisplayed == newValue }!!
       let direction: UIPageViewController.NavigationDirection
       switch newValue {
       case .New:
@@ -50,6 +45,7 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
         direction = .forward
       }
       self.pageController.setViewControllers([newVc], direction: direction, animated: true, completion: nil)
+      self.navigationItem.title = newVc.navigationItem.title
       self.sectionComicView.selectedIndex = newValue
     }
   }
@@ -84,7 +80,8 @@ class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource,
     guard let vc = controllers.first(where: { $0 != previousViewControllers.first }) as? ComicHomeListViewController else {
       return
     }
-    sectionComicView.selectedIndex = vc.dataSource.comicsTypeDisplayed
+    navigationItem.title = vc.navigationItem.title
+    sectionComicView.selectedIndex = vc.dataSourceController.comicsTypeDisplayed
   }
 
   init() {

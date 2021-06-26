@@ -24,6 +24,14 @@ class SearchResultViewController: UIViewController, UISearchResultsUpdating, UIC
     guard let item = dataSource.itemIdentifier(for: indexPath) else {
       return
     }
+    var userSearchHistory = Cache.userSearchHistory
+    if !Cache.userSearchHistory.contains(userInput!) {
+      userSearchHistory.insert(userInput!, at: 0)
+    } else {
+      let index = userSearchHistory.firstIndex(of: userInput!).unsafelyUnwrapped
+      userSearchHistory.swapAt(0, index)
+    }
+    Cache.userSearchHistory = userSearchHistory
     switch item {
     case .Characters(let character):
       self.previousViewController?.navigationController?.pushViewController(CharacterDetailViewController(character: character), animated: true)
@@ -32,21 +40,15 @@ class SearchResultViewController: UIViewController, UISearchResultsUpdating, UIC
     }
   }
 
+  private var userInput: String?
   func updateSearchResults(for searchController: UISearchController) {
     guard let userInput = searchController.searchBar.text, userInput != "" else {
       return
     }
+    self.userInput = userInput
     userInputTimer?.invalidate()
     userInputTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
       self.searchBarResultDataSource.fetchResultFromApi(userInput)
-      var userSearchHistory = Cache.userSearchHistory
-      if !Cache.userSearchHistory.contains(userInput) {
-        userSearchHistory.insert(userInput, at: 0)
-      } else {
-        let index = userSearchHistory.firstIndex(of: userInput).unsafelyUnwrapped
-        userSearchHistory.swapAt(0, index)
-      }
-      Cache.userSearchHistory = userSearchHistory
     }
   }
 

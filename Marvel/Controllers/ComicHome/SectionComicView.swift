@@ -49,7 +49,7 @@ class SectionComicView: UIView {
 
     mainContainer.axis = .vertical
     mainContainer.alignment = .fill
-    mainContainer.distribution = .fillProportionally
+    mainContainer.distribution = .fill
 
     sectionsContainer.axis = .horizontal
     sectionsContainer.alignment = .fill
@@ -72,7 +72,7 @@ class SectionComicView: UIView {
       mainContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
       mainContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-      highlightContainer.heightAnchor.constraint(equalToConstant: 3),
+      highlightContainer.heightAnchor.constraint(lessThanOrEqualToConstant: 3),
       highlightView.widthAnchor.constraint(equalTo: highlightContainer.widthAnchor, multiplier: CGFloat(1.0 / CGFloat(ComicFilterCase.allCases.count))),
       highlightView.topAnchor.constraint(equalTo: highlightContainer.topAnchor),
       highlightView.bottomAnchor.constraint(equalTo: highlightContainer.bottomAnchor),

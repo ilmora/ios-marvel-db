@@ -16,6 +16,9 @@ class SearchHomeViewController: UIViewController {
   private let searchResultViewController: SearchResultViewController
   private let searchUserInputDataSource: SearchHomeDataSourceController
 
+  private lazy var dataSource = searchUserInputDataSource.makeDataSource()
+  private lazy var snapshot = searchUserInputDataSource.makeSnapshot()
+
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationItem.hidesSearchBarWhenScrolling = false
@@ -23,11 +26,10 @@ class SearchHomeViewController: UIViewController {
     searchBarController.obscuresBackgroundDuringPresentation = false
     navigationItem.searchController = searchBarController
     navigationItem.title = "search".localized
-    searchHomeView.historicUserInputCollectionView.dataSource = searchUserInputDataSource
+    searchUserInputDataSource.collectionView = searchHomeView.historicUserInputCollectionView
+    searchHomeView.historicUserInputCollectionView.dataSource = dataSource
     searchHomeView.historicUserInputCollectionView.register(SearchUserInputCell.self, forCellWithReuseIdentifier: SearchUserInputCell.reusableIdentifier)
-    DispatchQueue.main.async {
-      self.searchHomeView.historicUserInputCollectionView.reloadData()
-    }
+    dataSource.apply(snapshot, animatingDifferences: true)
   }
 
   override func loadView() {

@@ -10,11 +10,37 @@ import Foundation
 import UIKit
 import Combine
 
-class ComicDataSourceController: NSObject, UICollectionViewDataSource {
+class ComicDataSourceController: NSObject {
   @Published private(set) var newComics: [Comic]
   @Published private(set) var futureComics: [Comic]
   private let marvelApi = MarvelAPI()
   private var fetchComicsHandle: AnyCancellable?
+
+  private let collectionView: UICollectionView
+
+  func makeSnapshot() -> NSDiffableDataSourceSnapshot<ComicFilterCase, Comic> {
+    var snapshot = NSDiffableDataSourceSnapshot<ComicFilterCase, Comic>()
+    snapshot.appendSections([comicsTypeDisplayed])
+    snapshot.appendItems(getComicsFromFilter(), toSection: comicsTypeDisplayed)
+    return snapshot
+  }
+
+  func makeDataSource() -> UICollectionViewDiffableDataSource<ComicFilterCase, Comic> {
+    let dataSource = UICollectionViewDiffableDataSource<ComicFilterCase, Comic>(collectionView: collectionView, cellProvider: { collectionView, indexPath, comic in
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ComicCollectionCell.reusableIdentifier, for: indexPath)
+              as? ComicCollectionCell else {
+        fatalError("Cell ComicCell was not registered")
+      }
+      let comic = self.getComicsFromFilter()[indexPath.row]
+      cell.titleLabel.text = comic.title
+      if let comicImage = comic.thumbnail {
+        let imageURL = URL(string: "\(comicImage.path!).\(comicImage.extension!)")!
+        cell.coverImage.kf.setImage(with: imageURL)
+      }
+      return cell
+    })
+    return dataSource
+  }
 
   var comicsTypeDisplayed: ComicFilterCase = .New
 
@@ -38,31 +64,10 @@ class ComicDataSourceController: NSObject, UICollectionViewDataSource {
     }
   }
 
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    getComicsFromFilter().count
-  }
-
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    1
-  }
-
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ComicCollectionCell.reusableIdentifier, for: indexPath)
-      as? ComicCollectionCell else {
-        fatalError("Cell ComicCell was not registered")
-    }
-    let comic = getComicsFromFilter()[indexPath.row]
-    cell.titleLabel.text = comic.title
-    if let comicImage = comic.thumbnail {
-      let imageURL = URL(string: "\(comicImage.path!).\(comicImage.extension!)")!
-      cell.coverImage.kf.setImage(with: imageURL)
-    }
-    return cell
-  }
-
-  override init() {
+  init(_ collectionView: UICollectionView) {
     newComics = [Comic]()
     futureComics = [Comic]()
+    self.collectionView = collectionView
     super.init()
   }
 }

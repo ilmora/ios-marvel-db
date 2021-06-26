@@ -8,10 +8,12 @@
 
 import Foundation
 import UIKit
+import Combine
 
 class ComicDetailViewController: UIViewController {
   private let comicDetailView: ComicDetailView
   private let comic: Comic
+  private var translateHandle: AnyCancellable?
 
   private let keyInfoFont = UIFont(name: "Roboto-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
 
@@ -38,11 +40,13 @@ class ComicDetailViewController: UIViewController {
 
     if let creators = comic.creators?.items {
       let text = NSMutableAttributedString()
-      for creator in creators.sorted(by: { $0.role ?? "" < $1.role ?? "" }) {
-        guard let name = creator.name, let role = creator.role?.localized else {
+      let groupedCreators = Dictionary(grouping: creators, by: { $0.role })
+      for (role, creator) in groupedCreators {
+        guard let role = role else {
           continue
         }
-        let creatorText = NSMutableAttributedString(string: "\(role.localizedCapitalized) : \(name)\n")
+       let creatorsName = creator.compactMap { $0.name }.joined(separator: ", ")
+        let creatorText = NSMutableAttributedString(string: "\(role.localizedCapitalized) : \(creatorsName)\n")
         creatorText.setAttributes([NSAttributedString.Key.font: keyInfoFont], range: NSRange(location: 0, length: role.count))
         text.append(creatorText)
       }
@@ -50,13 +54,18 @@ class ComicDetailViewController: UIViewController {
     }
 
     if let summary = comic.description {
-      comicDetailView.container.addArrangedSubview(comicDetailView.summaryLabel)
-      let summaryText = NSMutableAttributedString()
-      let summaryTextTitle = NSMutableAttributedString(string: "\("summary".localized.capitalized)\n", attributes: [NSAttributedString.Key.font: keyInfoFont])
-      let summaryTextContent = NSMutableAttributedString(string: summary)
-      summaryText.append(summaryTextTitle)
-      summaryText.append(summaryTextContent)
-      comicDetailView.summaryLabel.attributedText = summaryText
+      translateHandle = GoogleTranslateAPI().translate(text: summary).sink(
+        receiveCompletion: { _ in},
+        receiveValue: { translatedText in
+          let summaryText = NSMutableAttributedString()
+          let summaryTextTitle = NSMutableAttributedString(string: "\("summary".localized.capitalized)\n", attributes: [NSAttributedString.Key.font: self.keyInfoFont])
+          let summaryTextContent = NSMutableAttributedString(string: translatedText)
+          summaryText.append(summaryTextTitle)
+          summaryText.append(summaryTextContent)
+          DispatchQueue.main.async {
+            self.comicDetailView.summaryLabel.attributedText = summaryText
+          }
+        })
     } else {
       comicDetailView.container.removeArrangedSubview(comicDetailView.summaryLabel)
     }

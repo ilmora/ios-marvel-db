@@ -35,6 +35,8 @@ class ComicCollectionCell: UICollectionViewCell {
     contentView.addSubview(container)
 
     if traitCollection.userInterfaceStyle == .light {
+      coverImage.layer.shouldRasterize = true
+      coverImage.layer.rasterizationScale = UIScreen.main.scale
       coverImage.layer.shadowColor = UIColor.label.cgColor
       coverImage.layer.shadowOffset = CGSize(width: 0, height: 0)
       coverImage.layer.shadowRadius = 3

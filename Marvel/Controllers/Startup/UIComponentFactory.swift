@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import UIKit
+
+struct UIComponentFactory {
+
+  func marvelNavigationController(rootVC: UIViewController) -> UINavigationController {
+    let navigationController = UINavigationController(rootViewController: rootVC)
+    return navigationController
+  }
+}
