@@ -27,8 +27,8 @@ class SearchHomeViewController: UIViewController {
     navigationItem.searchController = searchBarController
     navigationItem.title = "search".localized
     searchUserInputDataSource.collectionView = searchHomeView.historicUserInputCollectionView
-    searchHomeView.historicUserInputCollectionView.dataSource = dataSource
     searchHomeView.historicUserInputCollectionView.register(SearchUserInputCell.self, forCellWithReuseIdentifier: SearchUserInputCell.reusableIdentifier)
+    searchHomeView.historicUserInputCollectionView.register(SearchHomeHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchHomeHeaderView.reusableIdentifier)
     dataSource.apply(snapshot, animatingDifferences: true)
   }
 

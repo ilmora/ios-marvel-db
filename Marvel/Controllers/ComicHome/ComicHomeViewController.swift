@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class ComicHomeViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIScrollViewDelegate {
+class ComicHomeViewController: MarvelBaseViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIScrollViewDelegate {
   private var selectedComicHandle: AnyCancellable?
   private var fetchComicsHandle: AnyCancellable?
 

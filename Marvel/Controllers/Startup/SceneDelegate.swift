@@ -14,11 +14,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   private func buildAppView() -> UITabBarController {
     let factory = UIComponentFactory()
     let homeVC = ComicHomeViewController()
-    let marvelTabBarItem = UITabBarItem(title: "Comic".localized, image: UIImage(systemName: "book.fill"), tag: 0)
+    let marvelTabBarItem = UITabBarItem(title: "Comic".localized, image: UIImage(systemName: "book"), tag: 0)
     homeVC.tabBarItem = marvelTabBarItem
 
     let searchVC = SearchHomeViewController()
-    let searchTabBarItem = UITabBarItem(title: "search".localized , image: UIImage(systemName: "magnifyingglass.circle.fill"), tag: 1)
+    let searchTabBarItem = UITabBarItem(title: "search".localized , image: UIImage(systemName: "magnifyingglass"), tag: 1)
     searchVC.tabBarItem = searchTabBarItem
 
     let rootVC = UITabBarController()

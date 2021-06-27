@@ -24,6 +24,19 @@ class SearchHomeDataSourceController: NSObject {
         cell.userInputLabel.text = userSearchHistory
         return cell
     })
+
+    dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+      switch kind {
+      case UICollectionView.elementKindSectionHeader:
+        guard let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchHomeHeaderView.reusableIdentifier, for: indexPath) as? SearchHomeHeaderView else {
+          fatalError()
+        }
+        headerCell.sectionTitle.text = "LastResearch".localized
+        return headerCell
+      default:
+        fatalError()
+      }
+    }
     return dataSource
   }
 

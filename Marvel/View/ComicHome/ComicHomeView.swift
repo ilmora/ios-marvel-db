@@ -42,7 +42,7 @@ class ComicHomeView: UIView, UICollectionViewDelegate {
     group.interItemSpacing = .fixed(10)
     let section = NSCollectionLayoutSection(group: group)
     section.interGroupSpacing = 40
-    section.contentInsets = .init(top: 20, leading: 10, bottom: 0, trailing: 10)
+    section.contentInsets = .init(top: 20, leading: 10, bottom: 10, trailing: 10)
     let layout = UICollectionViewCompositionalLayout(section: section)
     collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     super.init(frame: .zero)

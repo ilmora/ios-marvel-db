@@ -16,7 +16,7 @@ struct AppConstants {
   }
 
   static let marvelColor = UIColor(named: "Marvel")!
-  static let backgroundColor = UIColor.secondarySystemBackground
+  static let backgroundColor = UIColor.systemBackground
   static let title = UIFont(name: "Roboto-Regular", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
   static let largeTitle = UIFont(name: "Roboto-Bold", size: AppConstants.getFontSizeForScreen(baseFontSize: 30))!
   static let body = UIFont(name: "Roboto-Light", size: AppConstants.getFontSizeForScreen(baseFontSize: 14))!
